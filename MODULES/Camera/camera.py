@@ -132,6 +132,39 @@ class Cam:
             flag_detected = True
             return flag_detected, flag_center
         return flag_detected, None
+    
+    def detect_holecup(frame):
+        # HSV 색공간으로 변환
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        
+        # 노란색 범위 설정 (HSV)
+        lower_yellow = (30-10, 100, 100)
+        upper_yellow = (30+10, 255, 255)
+        
+        # 노란색 마스크 생성
+        mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+        
+        # 노이즈 제거를 위한 모폴로지 연산
+        kernel = np.ones((5,5), np.uint8)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+        
+        # 컨투어 찾기
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # 가장 큰 컨투어 찾기
+        if len(contours) > 0:
+            largest_contour = max(contours, key=cv2.contourArea)
+            
+            # 새로운 마스크 생성 (가장 큰 영역만 포함)
+            result_mask = np.zeros(mask.shape, np.uint8)
+            cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
+            
+            # 결과 이미지 생성
+            result = cv2.bitwise_and(frame, frame, mask=result_mask)
+            return result, result_mask
+        
+        return frame, mask
 
     def flag_is_center(self, fc):
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
