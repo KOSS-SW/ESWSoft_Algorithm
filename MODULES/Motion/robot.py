@@ -177,9 +177,17 @@ class Bot:
     def right_(self):
         self.__TX_data()
 
+    def head_left(self):
+        self.__TX_data(36)
+
+    def head_right(self):
+        self.__TX_data(35)
 
     def go(self):
-        self.__TX_data(10)
+        self.__TX_data(11)
+    
+    def back(self):
+        self.__TX_data()
     
     def stop(self):
         self.__TX_data(26)

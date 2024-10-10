@@ -96,7 +96,7 @@ class Cam:
         return False, None
     
     def ball_is_center(self, bc):
-        print(bc[0], Cam.CENTER, abs(bc[0]-Cam.CENTER) < Cam.ERROR)
+        self.logger.info(bc[0], Cam.CENTER, abs(bc[0]-Cam.CENTER) < Cam.ERROR)
         return abs(bc[0]-Cam.CENTER) < Cam.ERROR
     
     def ball_is_center_far(self, bc):
@@ -106,7 +106,7 @@ class Cam:
         return bc[1] > Cam.CENTERH - Cam.ERROR * 5
     
     def ball_left(self, bc):
-        return bc[0] < Cam.CENTER
+        return bc[0] < Cam.CENTER - 100
     
     def ball_hitable(self, bc):
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
@@ -136,3 +136,5 @@ class Cam:
     def flag_is_center(self, fc):
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
     
+    def flag_left(self, fc):
+        return fc[0] < Cam.CENTER - 100
