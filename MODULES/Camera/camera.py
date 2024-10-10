@@ -31,7 +31,7 @@ class Cam:
         self.logger.addHandler(stream_handler)
 
         #log를 파일에 출력
-        file_handler = logging.FileHandler("cam.log")
+        file_handler = logging.FileHandler("./logs/cam.log")
         file_handler.setFormatter(formatter)
         self.logger.addHandler(file_handler)
         self.last_read = 0

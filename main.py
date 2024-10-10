@@ -19,7 +19,7 @@ logger.addHandler(stream_handler)
 
 
 #log를 파일에 출력
-file_handler = logging.FileHandler("my.log")
+file_handler = logging.FileHandler("./logs/my.log")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 

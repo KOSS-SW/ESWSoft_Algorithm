@@ -23,7 +23,7 @@ class Bot:
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
     #log를 파일에 출력
-    file_handler = logging.FileHandler("myRobot.log")
+    file_handler = logging.FileHandler("./logs/myRobot.log")
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 

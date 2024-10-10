@@ -3,16 +3,6 @@
 *.avi
 *.mov
 videoLogs/
-yolov5/
 legacy/
 __pycache__/
 testTool/
-1.py
-*.log
-*.weights
-*.cfg
-*.whl
-*.prototxt
-*.caffemodel
-*.names
-*.txt
