@@ -111,88 +111,117 @@ class Bot:
         self.task = "hit"
         Bot.logger.info(f"now task is {self.task}")
         
-    def head_angle(self):
+    def head_angle(self): # 현재 머리 각도 가져오기
+        '''
+        현재 머리 각도 가져오기
+        '''
         self.__TX_data(38)
         time.sleep(0.0001)
         return Bot.recived.get()
 
-    def left_10(self):
-        self.__TX_data(4)
-
-    def head_left_max(self):
+    def head_left_max(self): # 머리 왼쪽 끝까지 회전
+        '''
+        머리 왼쪽 끝까지 회전
+        '''
         self.__TX_data(17)
 
-    def head_right_max(self):
+    def head_right_max(self): # 머리 오른쪽 끝까지 회전
+        '''머리 오른쪽 끝까지 회전'''
         self.__TX_data(27)
 
-    def head_up(self):
+    def head_up(self): # 머리 위로
+        '''머리 위로'''
         self.__TX_data(31)
 
-    def head_down(self):
+    def head_down(self): # 머리 아래로
+        '''머리 아래로'''
         self.__TX_data(34)
     
     def head_down_35(self):
+        '''머리 아주 아래로'''
         self.__TX_data(29)
     
     def head_down_65(self):
+        '''머리 약간 아래로'''
         time.sleep(1)
         self.__TX_data(8)
 
     def head_center(self):
+        '''머리 중앙으로'''
         self.__TX_data(21)
     
     def body_left_45(self):
+        '''로봇 왼쪽으로 45도 회전 '''
         self.__TX_data(22)
     
     def body_right_45(self):
+        '''로봇 오른쪽으로 45도 회전 '''
         self.__TX_data(24)
 
     def body_left_10(self):
+        '''로봇 왼쪽으로 10도 회전 '''
         self.__TX_data(4)
 
     def body_right_10(self):
+        '''로봇 오른쪽으로 10도 회전 '''
         self.__TX_data(6)
 
     def body_left_5(self):
+        '''로봇 왼쪽으로 5도 회전 '''
         self.__TX_data(1)
 
     def body_right_5(self):
+        '''로봇 오른쪽으로 5도 회전 '''
         self.__TX_data(3)
 
-    def move_left(self):
+    def left_20(self):
+        '''로봇 왼쪽 옆걸음 20'''
         self.__TX_data(15)
 
-    def move_right(self):
+    def right_20(self):
+        '''로봇 오른쪽 옆걸음 20'''
         self.__TX_data(20)
 
     def left_10(self):
+        '''로봇 왼쪽 옆걸음 10'''
         self.__TX_data(40)
 
     def right_10(self):
+        '''로봇 오른쪽 옆걸음 10'''
         self.__TX_data(39)
 
     def left_(self):
+        '''로봇 왼쪽 옆걸음 미정'''
         self.__TX_data()
     
     def right_(self):
+        '''로봇 오른쪽 옆걸음 미정'''
         self.__TX_data()
 
     def head_left(self):
+        '''로봇 머리 왼쪽 회전'''
         self.__TX_data(36)
 
     def head_right(self):
+        '''로봇 머리 오른쪽 회전'''
         self.__TX_data(35)
 
     def go(self):
+        '''로봇 앞으로 전진'''
         self.__TX_data(11)
     
     def back(self):
+        '''로봇 뒤로 후진'''
         self.__TX_data()
     
     def stop(self):
+        '''로봇 정지'''
         self.__TX_data(26)
 
-    def hit(self):
-        self.__TX_data(2)
-    
+    def hit(self, right=True):
+        '''퍼팅 중'''
+        if right:
+            self.__TX_data(2)
+        else:
+            self.__TX_data() # 왼쪽 샷
     
