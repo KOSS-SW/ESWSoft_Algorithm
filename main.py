@@ -37,6 +37,7 @@ head_left = 0
 head_right = 0
 flag_pass = False
 hit = False
+hit_right = True
 
 while True:
     if bot.task == "ball":
@@ -68,7 +69,7 @@ while True:
                 else:
                     bot.head_left_max()
                 head_lefted = not head_lefted
-                is_turning = time.time()
+                is_turning = time.time() # 도리도리 방지 코드
                 searched = True
             else:
                 pass
@@ -104,21 +105,21 @@ while True:
             bot.head_center()
             if searched:
                 if head_lefted:
-                    bot.left_10()
+                    bot.left_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.left_10()
                     bot.body_left_45()
                 else:
-                    bot.right_10()
+                    bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_10()
                     bot.body_right_45()
                 searched = False
             is_flag_center = cam.flag_is_center(bc)
             if not is_flag_center:
                 if cam.flag_left(bc):
-                    bot.left_10()
+                    bot.left_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.body_left_10()
                 else:
-                    bot.right_10()
+                    bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.body_right_10()
             else:
                 bot.task2ready()
@@ -147,16 +148,25 @@ while True:
             if hit:
                 bot.task2hit()
             else:
-                bot.move_left() # 11cm
-                bot.body_left_45() # 90도
-                bot.move_left() # 11cm
+                if hit_right:
+                    bot.right_10() # 11cm
+                    bot.body_right_45() # 90도
+                    bot.body_right_45() # 90도
+                    bot.body_right_45() # 90도
+                    bot.right_10() # 11cm
+                else:
+                    bot.left_10()
+                    bot.body_left_45()
+                    bot.body_left_45()
+                    bot.body_left_45()
+                    bot.left_10()
                 hit = True
         else:
             # x좌표 조정
             if x < 0:
-                bot.move_left()
+                bot.left_10()
             else:
-                bot.move_right()
+                bot.right_10()
             # y좌표 조정
             if y < 0:
                 bot.go()
