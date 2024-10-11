@@ -98,7 +98,7 @@ class Cam:
         return False, None
     
     def ball_is_center(self, bc):
-        self.logger.info(bc[0], Cam.CENTER, abs(bc[0]-Cam.CENTER) < Cam.ERROR)
+        self.logger.debug(f"{bc[0]}, {Cam.CENTER}")
         return abs(bc[0]-Cam.CENTER) < Cam.ERROR
     
     def ball_is_center_far(self, bc):
