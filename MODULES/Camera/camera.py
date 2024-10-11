@@ -136,7 +136,8 @@ class Cam:
             largest_contour = max(contours, key=cv2.contourArea)
             
             # 새로운 마스크 생성 (가장 큰 영역만 포함)
-            result_mask = np.zeros(largest_contour.shape, np.uint8)
+            result_mask = np.zeros(self.mask_flag.shape, np.uint8)
+            cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
             y_indices, x_indices = np.where(result_mask == 255)
             bottom_y = np.max(y_indices)
             flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
