@@ -28,16 +28,15 @@ cam = Cam(True)
 bot = Bot()
 logger.info("bot True")
 
-head_lefted = False
-is_turning = 0
-searched = False
-walk_count = 3
-turning_time = 0
-head_left = 0
-head_right = 0
-flag_pass = False
-hit = False
-hit_right = True
+head_lefted = False # 탐지 과정에서 머리가 왼쪽으로
+is_turning = 0 # 가장 최근 머리 회전 시간
+searched = False # 화면에 탐지 대상이 없어 회전한 적이 있는가
+walk_count = 3 # 걷기 횟수
+head_left = 0 # 탐지 과정에서 머리를 왼쪽으로 돌린 횟수
+head_right = 0 # 탐지 과정에서 머리를 오른쪽으로 돌린 횟수
+flag_pass = False # 깃발 탐지 과정을 건너 뛸 것인가
+hit = False # 치기 과정으로 넘어갈 것인가
+hit_right = True # 오른쪽으로 치는가
 
 while True:
     if bot.task == "ball":
