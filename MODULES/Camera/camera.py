@@ -16,8 +16,8 @@ class Cam:
 
     hsv_Lower_boll = (0, 108, 163)
     hsv_Upper_boll = (255, 176, 255) 
-    hsv_Lower_flag = (164, 60, 60)
-    hsv_Upper_flag = (255, 105, 151)
+    hsv_Lower_flag = (30-10, 100, 100)
+    hsv_Upper_flag = (30+10, 255, 255)
 
     def __init__(self, debug=False):
         self.logger = logging.getLogger("[Camera]")
@@ -81,7 +81,10 @@ class Cam:
     def __process(self):
         hsv = cv2.cvtColor(cv2.medianBlur(self.frame,3), cv2.COLOR_BGR2YUV)  # HSV => YUV
         self.mask_boll = cv2.inRange(hsv, Cam.hsv_Lower_boll, Cam.hsv_Upper_boll)
-        self.mask_flag = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
+        kernel = np.ones((5,5), np.uint8)
+        mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)    
+        self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         return hsv, self.mask_boll, self.mask_flag
     
     def detect_ball(self, mask_boll=0):
@@ -125,21 +128,24 @@ class Cam:
         return 11 * (1/tan(angle))
 
 
-    # def detect_flag(self):
-    #     y_indices, x_indices = np.where(self.mask_flag == 255)
-    #     flag_detected = False
-    #     # 흰색 픽셀의 y좌표 중에서 가장 큰 값(최하단의 y좌표)을 찾습니다.
-    #     if len(y_indices) > 0: # 마스크에 흰색 픽셀이 있는 경우
-    #         # 최 하단점을 찾습니다
-    #         bottom_y = np.max(y_indices)
-    #         flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
-    #         flag_detected = True
-    #         return flag_detected, flag_center
-    #     return flag_detected, None
+    def detect_flag(self):
+        contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # 가장 큰 컨투어 찾기
+        if len(contours) > 0:
+            largest_contour = max(contours, key=cv2.contourArea)
+            
+            # 새로운 마스크 생성 (가장 큰 영역만 포함)
+            result_mask = np.zeros(largest_contour.shape, np.uint8)
+            y_indices, x_indices = np.where(result_mask == 255)
+            bottom_y = np.max(y_indices)
+            flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
+            return True, flag_center
+        return False, None
     
-    def detect_flag(frame):
+    def detect_holcup(self):
         # HSV 색공간으로 변환
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         
         # 노란색 범위 설정 (HSV)
         lower_yellow = (30-10, 100, 100)
@@ -165,7 +171,7 @@ class Cam:
             cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
             
             # 결과 이미지 생성
-            result = cv2.bitwise_and(frame, frame, mask=result_mask)
+            result = cv2.bitwise_and(self.frame, self.frame, mask=result_mask)
             return result, result_mask
         
         return frame, mask
