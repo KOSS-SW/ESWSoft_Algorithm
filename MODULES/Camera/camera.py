@@ -125,19 +125,19 @@ class Cam:
         return 11 * (1/tan(angle))
 
 
-    def detect_flag(self):
-        y_indices, x_indices = np.where(self.mask_flag == 255)
-        flag_detected = False
-        # 흰색 픽셀의 y좌표 중에서 가장 큰 값(최하단의 y좌표)을 찾습니다.
-        if len(y_indices) > 0: # 마스크에 흰색 픽셀이 있는 경우
-            # 최 하단점을 찾습니다
-            bottom_y = np.max(y_indices)
-            flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
-            flag_detected = True
-            return flag_detected, flag_center
-        return flag_detected, None
+    # def detect_flag(self):
+    #     y_indices, x_indices = np.where(self.mask_flag == 255)
+    #     flag_detected = False
+    #     # 흰색 픽셀의 y좌표 중에서 가장 큰 값(최하단의 y좌표)을 찾습니다.
+    #     if len(y_indices) > 0: # 마스크에 흰색 픽셀이 있는 경우
+    #         # 최 하단점을 찾습니다
+    #         bottom_y = np.max(y_indices)
+    #         flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
+    #         flag_detected = True
+    #         return flag_detected, flag_center
+    #     return flag_detected, None
     
-    def detect_holecup(frame):
+    def detect_flag(frame):
         # HSV 색공간으로 변환
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
