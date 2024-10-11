@@ -109,13 +109,13 @@ class Bot:
         self.head_down_65()
         Bot.logger.info(f"now task is {self.task}")
         
-    # def head_angle(self): # 현재 머리 각도 가져오기
-    #     '''
-    #     현재 머리 각도 가져오기
-    #     '''
-    #     self.__TX_data(38)
-    #     time.sleep(0.0001)
-    #     return Bot.recived.get()
+    def head_angle(self): # 현재 머리 각도 가져오기
+        '''
+        현재 머리 각도 가져오기
+        '''
+        self.__TX_data(38)
+        time.sleep(0.0001)
+        return Bot.recived.get()
 
     def head_left_max(self): # 머리 왼쪽 끝까지 회전
         '''
