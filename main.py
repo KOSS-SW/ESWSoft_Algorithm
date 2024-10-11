@@ -80,7 +80,6 @@ while True:
         is_ball, bc = cam.detect_ball()
         if is_ball:
             if cam.ball_is_center_h(bc):
-                bot.stop()
                 bot.task2flag()
             elif walk_count == 0:
                 bot.task2ball()
