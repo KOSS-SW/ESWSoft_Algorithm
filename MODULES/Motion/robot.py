@@ -22,8 +22,10 @@ class Bot:
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
+    stream_handler.setLevel(logging.INFO)
     #log를 파일에 출력
     file_handler = logging.FileHandler("./logs/myRobot.log")
+    file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
@@ -55,10 +57,8 @@ class Bot:
         Bot.waiting.append(one_byte)
         Bot.logger.debug(one_byte)
         Bot.serial_.write(serial.to_bytes([one_byte]))  #python3
-        Bot.logger.debug('waiting')
         while len(Bot.waiting) != 0:
             time.sleep(0.3)
-        Bot.logger.debug('end')
 
     # 시리얼 읽기 함수
     def __RX_Receiving(self,ser):
@@ -70,9 +70,9 @@ class Bot:
             while ser.in_waiting > 0:
                 result = ser.read(1)
                 RX = int(ord(result))
+                Bot.logger.debug(f"recived {RX} {Bot.waiting}")
                 if RX in Bot.waiting:
                     Bot.waiting.remove(RX)
-                    Bot.logger.debug(f"recived {RX} {Bot.waiting}")
                 else:
                     # Bot.logger.info("unexpected key", RX, Bot.waiting)
                     Bot.recived.put(RX)
