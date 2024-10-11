@@ -44,8 +44,8 @@ class Cam:
         time.sleep(0.5)
         tes, frame = self.camera.read()
         # 녹화 설정
-        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
+        # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
         ("cam is initialized")
 
     def read(self):
