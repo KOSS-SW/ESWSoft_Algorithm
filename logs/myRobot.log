@@ -289,3 +289,15 @@
 2024-10-11 13:46:58,767 - [Robot] - DEBUG - end
 2024-10-11 13:46:58,775 - [Robot] - DEBUG - 39
 2024-10-11 13:46:58,777 - [Robot] - DEBUG - waiting
+2024-10-11 14:17:19,461 - [Robot] - INFO - now task is ball
+2024-10-11 14:17:28,201 - [Robot] - INFO - now task is walk
+2024-10-11 14:17:31,609 - [Robot] - INFO - now task is ball
+2024-10-11 14:26:26,243 - [Robot] - INFO - now task is ball
+2024-10-11 14:26:32,975 - [Robot] - INFO - now task is walk
+2024-10-11 14:26:45,216 - [Robot] - INFO - now task is ball
+2024-10-11 14:27:00,991 - [Robot] - INFO - now task is walk
+2024-10-11 14:30:39,770 - [Robot] - INFO - now task is ball
+2024-10-11 14:30:48,621 - [Robot] - INFO - now task is walk
+2024-10-11 15:20:24,203 - [Robot] - INFO - now task is ball
+2024-10-11 15:20:30,908 - [Robot] - INFO - now task is walk
+2024-10-11 15:20:40,212 - [Robot] - INFO - now task is flag
