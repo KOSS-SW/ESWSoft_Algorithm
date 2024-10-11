@@ -40,6 +40,8 @@ class Cam:
         self.camera.set(3, Cam.W_View_size)
         self.camera.set(4, Cam.H_View_size)
         self.camera.set(5, Cam.FPS)
+        self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
         Cam.DEBUG = debug
         time.sleep(0.5)
         tes, frame = self.camera.read()
@@ -113,9 +115,9 @@ class Cam:
     def ball_hitable(self, bc):
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
         if all(filter(lambda x: x < Cam.ERROR, dis)):
-           return True, 0, 0
+           return True, (0, 0)
         else:
-            return False, dis
+            return False, set(dis)
 
     def flag_distance(self, angle):
         # 현재 목 각도
