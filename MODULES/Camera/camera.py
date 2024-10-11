@@ -16,8 +16,9 @@ class Cam:
 
     hsv_Lower_boll = (0, 108, 163)
     hsv_Upper_boll = (255, 176, 255) 
-    hsv_Lower_flag = (30-10, 100, 100)
-    hsv_Upper_flag = (30+10, 255, 255)
+    hsv_Lower_flag = (164, 60, 60)
+    hsv_Upper_flag = (255, 105, 151)
+
 
     def __init__(self, debug=False):
         self.logger = logging.getLogger("[Camera]")
