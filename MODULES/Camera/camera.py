@@ -145,6 +145,7 @@ class Cam:
             bottom_y = np.max(y_indices)
             flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
             if self.DEBUG:
+                self.logger.debug(f"flag center: {flag_center}")
                 cv2.circle(self.frame, flag_center, 5, (255,255,0))
             return True, flag_center
         return False, None
