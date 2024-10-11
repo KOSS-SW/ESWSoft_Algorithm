@@ -34,9 +34,6 @@ class Bot:
         serial_t = Thread(target=self.__RX_Receiving, args=(Bot.serial_,))
         serial_t.daemon = True
         serial_t.start()
-        
-
-        
         self.head_center()
         self.head_down_65()
         """
@@ -208,7 +205,7 @@ class Bot:
 
     def go(self):
         '''로봇 앞으로 전진'''
-        self.__TX_data(11)
+        self.__TX_data(41)
     
     def back(self):
         '''로봇 뒤로 후진'''
