@@ -63,7 +63,7 @@ class Cam:
                 cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
                 cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
                 cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
-                cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 5), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 5), 5)
+                cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
                 
     
                 cv2.imshow('mini CTS5 - Video', self.frame )
