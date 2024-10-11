@@ -187,4 +187,4 @@ class Cam:
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
     
     def flag_left(self, fc):
-        return fc[0] < Cam.CENTER - 100
+        return fc[0] < Cam.CENTER
