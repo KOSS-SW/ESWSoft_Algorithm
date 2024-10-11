@@ -40,7 +40,7 @@ hit_right = True # 오른쪽으로 치는가
 
 while True:
     if bot.task == "ball":
-        logging.info("ball is start")
+        logger.info("ball is start")
         h,b,f = cam.read()
         is_ball, bc = cam.detect_ball()
         if is_ball:
@@ -73,7 +73,7 @@ while True:
             else:
                 pass
     elif bot.task == "walk": # 공이 중앙에 왔다는 가정 하
-        logging.info("walk is start")
+        logger.info("walk is start")
         bot.go()
         # time.sleep(3)
         h,b,f = cam.read()
@@ -95,7 +95,7 @@ while True:
             # print(walk_count)
         continue
     elif bot.task == "flag":
-        logging.info("flag is start")
+        logger.info("flag is start")
         h,b,f = cam.read()
         is_flag, fc = cam.detect_flag()
         # 깃발 찾기
@@ -135,7 +135,7 @@ while True:
             else:
                 pass
     elif bot.task == "ready":
-        logging.info("ready is start")
+        logger.info("ready is start")
         h,b,f = cam.read()
         is_ball, bc = cam.detect_ball()
         if not is_ball:
@@ -174,7 +174,7 @@ while True:
             
         pass
     elif bot.task == "hit":
-        logging.info("hit is start")
+        logger.info("hit is start")
         h,b,f = cam.read()
         is_flag, fc = cam.detect_flag()
         if is_flag:
