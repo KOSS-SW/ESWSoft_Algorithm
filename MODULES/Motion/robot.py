@@ -55,7 +55,7 @@ class Bot:
     # 시리얼 쓰기 함수
     def __TX_data(self,one_byte):  # one_byte= 0~255
         Bot.waiting.append(one_byte)
-        Bot.logger.debug(one_byte)
+        Bot.logger.debug(f"send serial: {one_byte}")
         Bot.serial_.write(serial.to_bytes([one_byte]))  #python3
         while len(Bot.waiting) != 0:
             time.sleep(0.3)
