@@ -148,7 +148,7 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
-        is_hitable, [x, y] = cam.ball_hitable(bc)
+        is_hitable, (x, y) = cam.ball_hitable(bc)
         if is_hitable:
             if hit:
                 bot.task2hit()
