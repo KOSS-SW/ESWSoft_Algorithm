@@ -154,13 +154,13 @@ while True:
                 bot.task2hit()
             else:
                 if hit_right:
-                    bot.right_70() # 11cm
-                    bot.right_70() # 11cm
+                    bot.left_70() # 11cm
+                    bot.left_70() # 11cm
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
-                    bot.right_70() # 11cm
-                    bot.right_70() # 11cm
+                    bot.left_70() # 11cm
+                    bot.left_70() # 11cm
                 else:
                     bot.left_70()
                     bot.left_70()
