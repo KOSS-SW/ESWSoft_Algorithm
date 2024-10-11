@@ -70,8 +70,8 @@ class Cam:
                 
     
                 cv2.imshow('mini CTS5 - Video', self.frame )
-                cv2.imshow('mini CTS5 - Mask_boll', b)
-                cv2.imshow('mini CTS5 - Mask_flag', f)
+                cv2.imshow('mini CTS5 - Mask_boll', self.mask_boll)
+                cv2.imshow('mini CTS5 - Mask_flag', self.mask_flag)
                 cv2.waitKey(33)
                 return h,b,f
             return self.__process()
@@ -100,6 +100,8 @@ class Cam:
         if Area > 255:
             Area = 255
         if Area > Cam.MIN_AREA[0]:
+            if self.DEBUG:
+                cv2.circle(self.frame, (int(X), int(Y)), 5, (255,255,0))
             return True, (int(X), int(Y))
         return False, None
     
@@ -142,6 +144,8 @@ class Cam:
             y_indices, x_indices = np.where(result_mask == 255)
             bottom_y = np.max(y_indices)
             flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
+            if self.DEBUG:
+                cv2.circle(self.frame, flag_center, 5, (255,255,0))
             return True, flag_center
         return False, None
     
