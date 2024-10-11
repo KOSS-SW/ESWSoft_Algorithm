@@ -154,17 +154,21 @@ while True:
                 bot.task2hit()
             else:
                 if hit_right:
-                    bot.right_10() # 11cm
+                    bot.right_70() # 11cm
+                    bot.right_70() # 11cm
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
-                    bot.right_10() # 11cm
+                    bot.right_70() # 11cm
+                    bot.right_70() # 11cm
                 else:
-                    bot.left_10()
+                    bot.left_70()
+                    bot.left_70()
                     bot.body_left_45()
                     bot.body_left_45()
                     bot.body_left_45()
-                    bot.left_10()
+                    bot.left_70()
+                    bot.left_70()
                 hit = True
         else:
             # x좌표 조정

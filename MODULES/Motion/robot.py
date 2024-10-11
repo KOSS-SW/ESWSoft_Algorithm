@@ -187,13 +187,13 @@ class Bot:
         '''로봇 오른쪽 옆걸음 10'''
         self.__TX_data(39)
 
-    def left_(self):
+    def left_70(self):
         '''로봇 왼쪽 옆걸음 미정'''
-        self.__TX_data()
+        self.__TX_data(14)
     
-    def right_(self):
+    def right_70(self):
         '''로봇 오른쪽 옆걸음 미정'''
-        self.__TX_data()
+        self.__TX_data(13)
 
     def head_left(self):
         '''로봇 머리 왼쪽 회전'''
