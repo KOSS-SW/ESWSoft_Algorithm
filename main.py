@@ -116,7 +116,7 @@ while True:
                     bot.body_left_45()
                 searched = False
                 head_left = False
-            is_flag_center = cam.flag_is_center(bc)
+            is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
                 if cam.flag_left(bc):
                     bot.left_10() # 공 안차도록 옆으로 간 뒤 회전
