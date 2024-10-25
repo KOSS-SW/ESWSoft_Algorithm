@@ -47,9 +47,9 @@ while True:
             bot.head_center()
             if searched:
                 if head_lefted:
-                    bot.body_left_45()
+                    bot.body_left_30()
                 else:
-                    bot.body_right_45()
+                    bot.body_right_30()
                 searched = False
             is_ball_center = cam.ball_is_center(bc)
             if not is_ball_center:
@@ -159,7 +159,6 @@ while True:
                     bot.left_10() # 11cm
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
-                    bot.body_right_45() # 90도
                     bot.left_20() # 11cm
                     bot.left_10() # 11cm
                     bot.left_10() # 11cm
@@ -167,7 +166,6 @@ while True:
                     bot.right_20()
                     bot.right_10()
                     bot.right_10()
-                    bot.body_left_45()
                     bot.body_left_45()
                     bot.body_left_45()
                     bot.right_20()

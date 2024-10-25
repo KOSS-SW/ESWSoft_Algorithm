@@ -151,11 +151,19 @@ class Bot:
     
     def body_left_45(self):
         '''로봇 왼쪽으로 45도 회전 '''
+        self.__TX_data(41)
+        
+    def body_left_30(self):
+        '''로봇 왼쪽으로 45도 회전 '''
         self.__TX_data(22)
     
-    def body_right_45(self):
+    def body_right_30(self):
         '''로봇 오른쪽으로 45도 회전 '''
         self.__TX_data(24)
+
+    def body_right_45(self):
+        '''로봇 오른쪽으로 45도 회전 '''
+        self.__TX_data(42)
 
     def body_left_10(self):
         '''로봇 왼쪽으로 10도 회전 '''
