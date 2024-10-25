@@ -46,7 +46,7 @@ class Bot:
         hit - 퍼팅
         """
         self.task = ""
-        self.task2flag()
+        self.task2ball()
         time.sleep(2)
 
 
