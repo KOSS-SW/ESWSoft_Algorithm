@@ -25,7 +25,7 @@ logger.addHandler(file_handler)
 
 logger.info("main intializing")
 cam = Cam(True)
-bot = Bot()
+bot = Bot(isPar4=True)
 logger.info("bot True")
 
 head_lefted = False # 탐지 과정에서 머리가 왼쪽으로
