@@ -116,16 +116,16 @@ while True:
                     bot.body_left_45()
                 searched = False
                 head_left = False
-            is_flag_center = cam.flag_is_center(bc)
+            is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
-                if cam.flag_left(bc):
+                if not cam.flag_left(fc):
                     bot.left_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.body_right_10()
-                    bot.body_right_10()
+                    # bot.body_right_10()
                 else:
                     bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     bot.body_left_10()
-                    bot.body_left_10()
+                    # bot.body_left_10()
             else:
                 bot.task2ready()
                 pass
@@ -148,23 +148,27 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
-        is_hitable, [x, y] = cam.ball_hitable(bc)
+        is_hitable, (x, y) = cam.ball_hitable(bc)
         if is_hitable:
             if hit:
                 bot.task2hit()
             else:
                 if hit_right:
-                    bot.right_10() # 11cm
+                    bot.left_70() # 11cm
+                    bot.left_70() # 11cm
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
                     bot.body_right_45() # 90도
-                    bot.right_10() # 11cm
+                    bot.left_70() # 11cm
+                    bot.left_70() # 11cm
                 else:
-                    bot.left_10()
+                    bot.left_70()
+                    bot.left_70()
                     bot.body_left_45()
                     bot.body_left_45()
                     bot.body_left_45()
-                    bot.left_10()
+                    bot.left_70()
+                    bot.left_70()
                 hit = True
         else:
             # x좌표 조정

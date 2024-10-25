@@ -19,6 +19,7 @@ class Cam:
     hsv_Lower_flag = (164, 60, 60)
     hsv_Upper_flag = (255, 105, 151)
 
+
     def __init__(self, debug=False):
         self.logger = logging.getLogger("[Camera]")
         self.logger.setLevel(logging.DEBUG)
@@ -40,6 +41,8 @@ class Cam:
         self.camera.set(3, Cam.W_View_size)
         self.camera.set(4, Cam.H_View_size)
         self.camera.set(5, Cam.FPS)
+        self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
         Cam.DEBUG = debug
         time.sleep(0.5)
         tes, frame = self.camera.read()
@@ -63,12 +66,12 @@ class Cam:
                 cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
                 cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
                 cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
-                cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 5), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 5), 5)
+                cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
                 
     
                 cv2.imshow('mini CTS5 - Video', self.frame )
-                cv2.imshow('mini CTS5 - Mask_boll', b)
-                cv2.imshow('mini CTS5 - Mask_flag', f)
+                cv2.imshow('mini CTS5 - Mask_boll', self.mask_boll)
+                cv2.imshow('mini CTS5 - Mask_flag', self.mask_flag)
                 cv2.waitKey(33)
                 return h,b,f
             return self.__process()
@@ -79,7 +82,10 @@ class Cam:
     def __process(self):
         hsv = cv2.cvtColor(cv2.medianBlur(self.frame,3), cv2.COLOR_BGR2YUV)  # HSV => YUV
         self.mask_boll = cv2.inRange(hsv, Cam.hsv_Lower_boll, Cam.hsv_Upper_boll)
-        self.mask_flag = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
+        kernel = np.ones((5,5), np.uint8)
+        mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)    
+        self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         return hsv, self.mask_boll, self.mask_flag
     
     def detect_ball(self, mask_boll=0):
@@ -94,6 +100,8 @@ class Cam:
         if Area > 255:
             Area = 255
         if Area > Cam.MIN_AREA[0]:
+            if self.DEBUG:
+                cv2.circle(self.frame, (int(X), int(Y)), 5, (255,255,0))
             return True, (int(X), int(Y))
         return False, None
     
@@ -112,10 +120,11 @@ class Cam:
     
     def ball_hitable(self, bc):
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
+        self.logger.debug(dis)
         if all(filter(lambda x: x < Cam.ERROR, dis)):
-           return True, 0, 0
+           return True, (0, 0)
         else:
-            return False, dis
+            return False, set(dis)
 
     def flag_distance(self, angle):
         # 현재 목 각도
@@ -124,20 +133,27 @@ class Cam:
 
 
     def detect_flag(self):
-        y_indices, x_indices = np.where(self.mask_flag == 255)
-        flag_detected = False
-        # 흰색 픽셀의 y좌표 중에서 가장 큰 값(최하단의 y좌표)을 찾습니다.
-        if len(y_indices) > 0: # 마스크에 흰색 픽셀이 있는 경우
-            # 최 하단점을 찾습니다
+        contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # 가장 큰 컨투어 찾기
+        if len(contours) > 0:
+            largest_contour = max(contours, key=cv2.contourArea)
+            
+            # 새로운 마스크 생성 (가장 큰 영역만 포함)
+            result_mask = np.zeros(self.mask_flag.shape, np.uint8)
+            cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
+            y_indices, x_indices = np.where(result_mask == 255)
             bottom_y = np.max(y_indices)
             flag_center = (x_indices[y_indices == bottom_y][0],bottom_y)
-            flag_detected = True
-            return flag_detected, flag_center
-        return flag_detected, None
+            if self.DEBUG:
+                self.logger.debug(f"flag center: {flag_center}")
+                cv2.circle(self.frame, flag_center, 5, (255,255,0))
+            return True, flag_center
+        return False, None
     
-    def detect_holecup(frame):
+    def detect_holcup(self):
         # HSV 색공간으로 변환
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         
         # 노란색 범위 설정 (HSV)
         lower_yellow = (30-10, 100, 100)
@@ -163,7 +179,7 @@ class Cam:
             cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
             
             # 결과 이미지 생성
-            result = cv2.bitwise_and(frame, frame, mask=result_mask)
+            result = cv2.bitwise_and(self.frame, self.frame, mask=result_mask)
             return result, result_mask
         
         return frame, mask
@@ -172,4 +188,4 @@ class Cam:
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
     
     def flag_left(self, fc):
-        return fc[0] < Cam.CENTER - 100
+        return fc[0] < Cam.CENTER

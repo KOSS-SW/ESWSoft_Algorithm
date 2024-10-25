@@ -45,7 +45,7 @@ class Bot:
         hit - 퍼팅
         """
         self.task = ""
-        self.task2ball()
+        self.task2flag()
         time.sleep(2)
 
 
@@ -106,6 +106,7 @@ class Bot:
     
     def task2hit(self):
         self.task = "hit"
+        self.head_down_65()
         Bot.logger.info(f"now task is {self.task}")
         
     def head_angle(self): # 현재 머리 각도 가져오기
@@ -187,13 +188,13 @@ class Bot:
         '''로봇 오른쪽 옆걸음 10'''
         self.__TX_data(39)
 
-    def left_(self):
+    def left_70(self):
         '''로봇 왼쪽 옆걸음 미정'''
-        self.__TX_data()
+        self.__TX_data(14)
     
-    def right_(self):
+    def right_70(self):
         '''로봇 오른쪽 옆걸음 미정'''
-        self.__TX_data()
+        self.__TX_data(13)
 
     def head_left(self):
         '''로봇 머리 왼쪽 회전'''
