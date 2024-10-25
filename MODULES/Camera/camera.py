@@ -49,7 +49,7 @@ class Cam:
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
-        ("cam is initialized")
+        self.logger.info("cam is initialized")
 
     def read(self):
         # try:
@@ -182,7 +182,7 @@ class Cam:
             result = cv2.bitwise_and(self.frame, self.frame, mask=result_mask)
             return result, result_mask
         
-        return frame, mask
+        return self.frame, mask
 
     def flag_is_center(self, fc):
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR

@@ -29,7 +29,8 @@ class Bot:
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
-    def __init__(self):
+    def __init__(self, isPar4=False):
+        self.isPar4 = isPar4
         # 시리얼 읽기 스레드 시작
         serial_t = Thread(target=self.__RX_Receiving, args=(Bot.serial_,))
         serial_t.daemon = True
