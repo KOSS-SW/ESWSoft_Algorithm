@@ -106,14 +106,20 @@ while True:
                     bot.left_70() # 공 안차도록 옆으로 간 뒤 회전
                     bot.left_70()
                     bot.left_70()
+                    bot.left_70()
                     bot.body_right_45()
                     bot.body_right_45()
+                    bot.left_70()
+                    bot.left_70()
                 else:
                     bot.right_70() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_70()
                     bot.right_70()
+                    bot.right_70()
                     bot.body_left_45()
                     bot.body_left_45()
+                    bot.right_70()
+                    bot.right_70()
                 searched = False
                 head_left = False
             is_flag_center = cam.flag_is_center(fc)
