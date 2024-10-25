@@ -215,7 +215,7 @@ class Bot:
 
     def go(self):
         '''로봇 앞으로 전진'''
-        self.__TX_data(41)
+        self.__TX_data(19)
     
     def back(self):
         '''로봇 뒤로 후진'''
