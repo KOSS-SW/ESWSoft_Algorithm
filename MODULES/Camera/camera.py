@@ -2,6 +2,7 @@ import cv2, time
 import numpy as np
 from math import tan
 import logging
+from threading import Thread
 
 class Cam:
     W_View_size =  640  #320  #640
@@ -49,32 +50,31 @@ class Cam:
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
+        self.t = Thread(target=self.read_thread)
         self.logger.info("cam is initialized")
 
+    def read_thread(self):
+        while True:
+            self.camera.grab()
+            ret, self.frame =  self.camera.read()
+
+
     def read(self):
-        # try:
-            for i in range(3):
-                self.camera.grab()
-                ret, self.frame =  self.camera.read()
-                #self.video.write(self.frame)
-            t = time.time()
-            # print(t - self.last_read)
-            self.last_read = t
+        if Cam.DEBUG:
             cv2.waitKey(100//Cam.FPS)
-            if Cam.DEBUG:
-                h,b,f = self.__process()
-                cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
-                cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
-                cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
-                cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
-                
-    
-                cv2.imshow('mini CTS5 - Video', self.frame )
-                cv2.imshow('mini CTS5 - Mask_boll', self.mask_boll)
-                cv2.imshow('mini CTS5 - Mask_flag', self.mask_flag)
-                cv2.waitKey(33)
-                return h,b,f
-            return self.__process()
+            h,b,f = self.__process()
+            cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
+            cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
+            cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
+            cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
+            
+
+            cv2.imshow('mini CTS5 - Video', self.frame )
+            cv2.imshow('mini CTS5 - Mask_boll', self.mask_boll)
+            cv2.imshow('mini CTS5 - Mask_flag', self.mask_flag)
+            cv2.waitKey(33)
+            return h,b,f
+        return self.__process()
         # except Exception as e:
         #     print(e)
         #     return (np.zeros((self.W_View_size, self.H_View_size, 3))) * 3
