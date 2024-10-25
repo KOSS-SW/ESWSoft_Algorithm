@@ -219,7 +219,7 @@ class Bot:
     
     def back(self):
         '''로봇 뒤로 후진'''
-        self.__TX_data()
+        self.__TX_data(10)
     
     def stop(self):
         '''로봇 정지'''
