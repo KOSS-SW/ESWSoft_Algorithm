@@ -206,7 +206,7 @@ while True:
                 # 강
                 bot.hit()
                 power = 30
-
+            bot.task2ball()
         else:
             if is_turning == 0 or abs(time.time()-is_turning) > 1:
                 if head_lefted:
