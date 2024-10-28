@@ -50,16 +50,12 @@ class Cam:
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
-        self.t = Thread(target=self.read_thread)
-        self.logger.info("cam is initialized")
-
-    def read_thread(self):
-        while True:
-            self.camera.grab()
-            ret, self.frame =  self.camera.read()
+        self.logger.info("cam is initialized")    
 
 
     def read(self):
+        self.camera.grab()
+        ret, self.frame =  self.camera.read()
         if Cam.DEBUG:
             cv2.waitKey(100//Cam.FPS)
             h,b,f = self.__process()
