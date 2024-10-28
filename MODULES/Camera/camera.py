@@ -54,10 +54,15 @@ class Cam:
 
 
     def read(self):
-        self.camera.grab()
-        ret, self.frame =  self.camera.read()
+        for i in range(3):
+            self.camera.grab()
+            ret, self.frame =  self.camera.read()
+            #self.video.write(self.frame)
+        t = time.time()
+        # print(t - self.last_read)
+        self.last_read = t
+        cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
-            cv2.waitKey(33)
             h,b,f = self.__process()
             cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
