@@ -1,0 +1,235 @@
+2024-10-25 17:30:02,112 - [Camera] - INFO - cam is initialized
+2024-10-25 17:30:09,318 - [Camera] - DEBUG - flag center: (138, 88)
+2024-10-25 17:30:35,796 - [Camera] - INFO - cam is initialized
+2024-10-25 17:30:42,980 - [Camera] - DEBUG - flag center: (147, 77)
+2024-10-25 17:34:34,340 - [Camera] - INFO - cam is initialized
+2024-10-25 17:34:40,342 - [Camera] - DEBUG - 330, 420
+2024-10-25 17:34:41,387 - [Camera] - DEBUG - 356, 420
+2024-10-25 17:34:42,493 - [Camera] - DEBUG - 377, 420
+2024-10-25 17:34:43,577 - [Camera] - DEBUG - 401, 420
+2024-10-25 17:34:44,682 - [Camera] - DEBUG - 425, 420
+2024-10-25 17:35:58,185 - [Camera] - INFO - cam is initialized
+2024-10-25 17:36:04,106 - [Camera] - DEBUG - 340, 420
+2024-10-25 17:36:05,175 - [Camera] - DEBUG - 364, 420
+2024-10-25 17:36:06,288 - [Camera] - DEBUG - 386, 420
+2024-10-25 17:36:07,377 - [Camera] - DEBUG - 404, 420
+2024-10-25 17:36:08,477 - [Camera] - DEBUG - 426, 420
+2024-10-25 17:36:21,260 - [Camera] - DEBUG - flag center: (77, 91)
+2024-10-25 17:36:32,472 - [Camera] - DEBUG - flag center: (0, 351)
+2024-10-25 17:40:26,867 - [Camera] - INFO - cam is initialized
+2024-10-25 17:40:32,870 - [Camera] - DEBUG - 347, 420
+2024-10-25 17:40:33,920 - [Camera] - DEBUG - 365, 420
+2024-10-25 17:40:35,065 - [Camera] - DEBUG - 383, 420
+2024-10-25 17:40:36,189 - [Camera] - DEBUG - 405, 420
+2024-10-25 17:40:37,254 - [Camera] - DEBUG - 426, 420
+2024-10-25 17:40:50,061 - [Camera] - DEBUG - flag center: (135, 61)
+2024-10-25 17:40:54,788 - [Camera] - DEBUG - flag center: (176, 91)
+2024-10-25 17:40:56,512 - [Camera] - DEBUG - flag center: (197, 75)
+2024-10-25 17:40:58,203 - [Camera] - DEBUG - flag center: (232, 76)
+2024-10-25 17:40:59,908 - [Camera] - DEBUG - flag center: (271, 74)
+2024-10-25 17:41:01,622 - [Camera] - DEBUG - flag center: (304, 74)
+2024-10-25 17:41:03,278 - [Camera] - DEBUG - flag center: (346, 66)
+2024-10-25 17:41:04,972 - [Camera] - DEBUG - flag center: (374, 78)
+2024-10-25 17:41:06,676 - [Camera] - DEBUG - flag center: (405, 87)
+2024-10-25 17:41:08,379 - [Camera] - DEBUG - flag center: (439, 95)
+2024-10-25 17:41:10,105 - [Camera] - DEBUG - flag center: (434, 99)
+2024-10-25 17:41:11,822 - [Camera] - DEBUG - flag center: (410, 89)
+2024-10-25 17:41:13,506 - [Camera] - DEBUG - flag center: (451, 85)
+2024-10-25 17:41:15,214 - [Camera] - DEBUG - flag center: (441, 96)
+2024-10-25 17:41:16,919 - [Camera] - DEBUG - flag center: (432, 81)
+2024-10-25 17:41:18,627 - [Camera] - DEBUG - flag center: (419, 81)
+2024-10-25 17:41:20,715 - [Camera] - DEBUG - [210, 39]
+2024-10-25 17:41:30,894 - [Camera] - DEBUG - 220, 420
+2024-10-25 17:41:31,992 - [Camera] - DEBUG - 119, 420
+2024-10-25 17:41:33,092 - [Camera] - DEBUG - 140, 420
+2024-10-25 17:41:34,194 - [Camera] - DEBUG - 160, 420
+2024-10-25 17:41:35,267 - [Camera] - DEBUG - 182, 420
+2024-10-25 17:41:36,362 - [Camera] - DEBUG - 205, 420
+2024-10-25 17:41:37,464 - [Camera] - DEBUG - 232, 420
+2024-10-25 17:41:38,553 - [Camera] - DEBUG - 254, 420
+2024-10-25 17:41:39,666 - [Camera] - DEBUG - 277, 420
+2024-10-25 17:41:40,764 - [Camera] - DEBUG - 302, 420
+2024-10-25 17:41:41,839 - [Camera] - DEBUG - 332, 420
+2024-10-25 17:41:42,939 - [Camera] - DEBUG - 351, 420
+2024-10-25 17:41:44,032 - [Camera] - DEBUG - 377, 420
+2024-10-25 17:41:45,130 - [Camera] - DEBUG - 402, 420
+2024-10-25 17:41:46,208 - [Camera] - DEBUG - 431, 420
+2024-10-25 17:41:47,291 - [Camera] - DEBUG - 399, 420
+2024-10-25 17:41:48,384 - [Camera] - DEBUG - 432, 420
+2024-10-25 17:41:49,478 - [Camera] - DEBUG - 399, 420
+2024-10-25 17:41:50,579 - [Camera] - DEBUG - 429, 420
+2024-10-25 17:41:59,901 - [Camera] - DEBUG - flag center: (164, 51)
+2024-10-25 17:42:01,629 - [Camera] - DEBUG - flag center: (183, 258)
+2024-10-25 17:42:03,338 - [Camera] - DEBUG - flag center: (182, 253)
+2024-10-25 17:42:05,048 - [Camera] - DEBUG - flag center: (175, 246)
+2024-10-25 17:42:06,755 - [Camera] - DEBUG - flag center: (169, 239)
+2024-10-25 17:42:08,479 - [Camera] - DEBUG - flag center: (161, 236)
+2024-10-25 17:42:10,196 - [Camera] - DEBUG - flag center: (158, 231)
+2024-10-25 17:42:11,870 - [Camera] - DEBUG - flag center: (176, 221)
+2024-10-25 17:42:13,575 - [Camera] - DEBUG - flag center: (161, 218)
+2024-10-25 17:42:15,279 - [Camera] - DEBUG - flag center: (174, 209)
+2024-10-25 17:42:16,986 - [Camera] - DEBUG - flag center: (168, 203)
+2024-10-25 17:42:18,701 - [Camera] - DEBUG - flag center: (184, 198)
+2024-10-25 17:42:20,434 - [Camera] - DEBUG - flag center: (195, 184)
+2024-10-25 17:42:22,154 - [Camera] - DEBUG - flag center: (208, 183)
+2024-10-25 17:42:23,869 - [Camera] - DEBUG - flag center: (232, 169)
+2024-10-25 17:42:25,584 - [Camera] - DEBUG - flag center: (249, 171)
+2024-10-25 17:42:27,299 - [Camera] - DEBUG - flag center: (264, 163)
+2024-10-25 17:42:28,992 - [Camera] - DEBUG - flag center: (290, 162)
+2024-10-25 17:42:30,696 - [Camera] - DEBUG - flag center: (324, 156)
+2024-10-25 17:42:32,411 - [Camera] - DEBUG - flag center: (392, 179)
+2024-10-25 17:42:34,117 - [Camera] - DEBUG - flag center: (422, 193)
+2024-10-25 17:42:36,219 - [Camera] - DEBUG - [319, 329]
+2024-10-25 17:42:38,139 - [Camera] - DEBUG - flag center: (110, 23)
+2024-10-25 17:42:45,417 - [Camera] - DEBUG - flag center: (0, 253)
+2024-10-25 17:42:53,148 - [Camera] - DEBUG - flag center: (605, 230)
+2024-10-25 17:43:00,733 - [Camera] - DEBUG - flag center: (0, 252)
+2024-10-25 17:43:08,453 - [Camera] - DEBUG - flag center: (636, 242)
+2024-10-25 17:47:24,999 - [Camera] - INFO - cam is initialized
+2024-10-25 17:47:30,968 - [Camera] - DEBUG - 345, 420
+2024-10-25 17:47:32,117 - [Camera] - DEBUG - 360, 420
+2024-10-25 17:47:33,195 - [Camera] - DEBUG - 375, 420
+2024-10-25 17:47:34,274 - [Camera] - DEBUG - 394, 420
+2024-10-25 17:47:35,372 - [Camera] - DEBUG - 419, 420
+2024-10-25 17:47:48,175 - [Camera] - DEBUG - flag center: (125, 75)
+2024-10-25 17:47:52,901 - [Camera] - DEBUG - flag center: (139, 100)
+2024-10-25 17:47:54,612 - [Camera] - DEBUG - flag center: (169, 93)
+2024-10-25 17:47:56,320 - [Camera] - DEBUG - flag center: (211, 90)
+2024-10-25 17:47:58,031 - [Camera] - DEBUG - flag center: (230, 106)
+2024-10-25 17:47:59,713 - [Camera] - DEBUG - flag center: (234, 89)
+2024-10-25 17:48:01,425 - [Camera] - DEBUG - flag center: (244, 90)
+2024-10-25 17:48:03,132 - [Camera] - DEBUG - flag center: (264, 85)
+2024-10-25 17:48:04,840 - [Camera] - DEBUG - flag center: (294, 98)
+2024-10-25 17:48:06,560 - [Camera] - DEBUG - flag center: (303, 100)
+2024-10-25 17:48:08,281 - [Camera] - DEBUG - flag center: (329, 104)
+2024-10-25 17:48:09,956 - [Camera] - DEBUG - flag center: (343, 106)
+2024-10-25 17:48:11,658 - [Camera] - DEBUG - flag center: (359, 101)
+2024-10-25 17:48:13,371 - [Camera] - DEBUG - flag center: (382, 118)
+2024-10-25 17:48:15,085 - [Camera] - DEBUG - flag center: (398, 119)
+2024-10-25 17:48:16,799 - [Camera] - DEBUG - flag center: (408, 117)
+2024-10-25 17:48:18,515 - [Camera] - DEBUG - flag center: (442, 117)
+2024-10-25 17:48:20,242 - [Camera] - DEBUG - flag center: (436, 130)
+2024-10-25 17:48:21,955 - [Camera] - DEBUG - flag center: (421, 125)
+2024-10-25 17:48:24,072 - [Camera] - DEBUG - [356, 124]
+2024-10-25 17:53:46,337 - [Camera] - INFO - cam is initialized
+2024-10-25 19:02:07,537 - [Camera] - INFO - cam is initialized
+2024-10-25 19:02:13,628 - [Camera] - DEBUG - 368, 420
+2024-10-25 19:02:14,742 - [Camera] - DEBUG - 397, 420
+2024-10-25 19:02:15,917 - [Camera] - DEBUG - 423, 420
+2024-10-25 19:02:28,722 - [Camera] - DEBUG - flag center: (103, 90)
+2024-10-25 19:02:33,425 - [Camera] - DEBUG - flag center: (265, 83)
+2024-10-25 19:02:35,130 - [Camera] - DEBUG - flag center: (307, 87)
+2024-10-25 19:02:36,830 - [Camera] - DEBUG - flag center: (330, 81)
+2024-10-25 19:02:38,535 - [Camera] - DEBUG - flag center: (364, 81)
+2024-10-25 19:02:40,227 - [Camera] - DEBUG - flag center: (393, 96)
+2024-10-25 19:02:41,939 - [Camera] - DEBUG - flag center: (424, 103)
+2024-10-25 19:02:44,045 - [Camera] - DEBUG - [143, 38]
+2024-10-25 19:09:31,444 - [Camera] - INFO - cam is initialized
+2024-10-25 19:09:37,440 - [Camera] - DEBUG - 332, 420
+2024-10-25 19:09:38,619 - [Camera] - DEBUG - 353, 420
+2024-10-25 19:09:39,689 - [Camera] - DEBUG - 370, 420
+2024-10-25 19:09:40,766 - [Camera] - DEBUG - 396, 420
+2024-10-25 19:09:41,862 - [Camera] - DEBUG - 416, 420
+2024-10-25 19:09:54,630 - [Camera] - DEBUG - flag center: (40, 94)
+2024-10-25 19:09:59,356 - [Camera] - DEBUG - flag center: (184, 93)
+2024-10-25 19:10:01,048 - [Camera] - DEBUG - flag center: (228, 85)
+2024-10-25 19:10:02,755 - [Camera] - DEBUG - flag center: (263, 69)
+2024-10-25 19:10:04,464 - [Camera] - DEBUG - flag center: (303, 63)
+2024-10-25 19:10:06,184 - [Camera] - DEBUG - flag center: (354, 62)
+2024-10-25 19:10:07,897 - [Camera] - DEBUG - flag center: (376, 64)
+2024-10-25 19:10:09,606 - [Camera] - DEBUG - flag center: (419, 68)
+2024-10-25 19:10:11,727 - [Camera] - DEBUG - [144, 30]
+2024-10-25 19:13:24,451 - [Camera] - INFO - cam is initialized
+2024-10-25 19:13:30,494 - [Camera] - DEBUG - 345, 420
+2024-10-25 19:13:31,616 - [Camera] - DEBUG - 366, 420
+2024-10-25 19:13:32,789 - [Camera] - DEBUG - 390, 420
+2024-10-25 19:13:33,872 - [Camera] - DEBUG - 416, 420
+2024-10-25 19:13:46,666 - [Camera] - DEBUG - flag center: (70, 79)
+2024-10-25 19:13:51,387 - [Camera] - DEBUG - flag center: (592, 85)
+2024-10-25 19:13:53,091 - [Camera] - DEBUG - flag center: (577, 93)
+2024-10-25 19:13:54,799 - [Camera] - DEBUG - flag center: (556, 80)
+2024-10-25 19:13:56,474 - [Camera] - DEBUG - flag center: (529, 65)
+2024-10-25 19:13:58,185 - [Camera] - DEBUG - flag center: (503, 63)
+2024-10-25 19:13:59,888 - [Camera] - DEBUG - flag center: (473, 48)
+2024-10-25 19:14:01,598 - [Camera] - DEBUG - flag center: (462, 46)
+2024-10-25 19:14:03,314 - [Camera] - DEBUG - flag center: (424, 37)
+2024-10-25 19:14:08,586 - [Camera] - DEBUG - 488, 420
+2024-10-25 19:14:09,683 - [Camera] - DEBUG - 492, 420
+2024-10-25 19:14:10,794 - [Camera] - DEBUG - 451, 420
+2024-10-25 19:14:11,904 - [Camera] - DEBUG - 411, 420
+2024-10-25 19:14:23,046 - [Camera] - DEBUG - flag center: (505, 80)
+2024-10-25 19:14:28,570 - [Camera] - DEBUG - flag center: (64, 201)
+2024-10-25 19:14:33,301 - [Camera] - DEBUG - flag center: (145, 65)
+2024-10-25 19:14:35,011 - [Camera] - DEBUG - flag center: (199, 54)
+2024-10-25 19:14:36,726 - [Camera] - DEBUG - flag center: (239, 45)
+2024-10-25 19:14:38,440 - [Camera] - DEBUG - flag center: (289, 43)
+2024-10-25 19:14:40,157 - [Camera] - DEBUG - flag center: (320, 49)
+2024-10-25 19:14:41,871 - [Camera] - DEBUG - flag center: (359, 45)
+2024-10-25 19:14:43,548 - [Camera] - DEBUG - flag center: (393, 51)
+2024-10-25 19:14:45,259 - [Camera] - DEBUG - flag center: (429, 45)
+2024-10-25 19:14:47,366 - [Camera] - DEBUG - [161, 21]
+2024-10-25 19:14:49,078 - [Camera] - DEBUG - [106, 269]
+2024-10-25 19:14:50,791 - [Camera] - DEBUG - [104, 316]
+2024-10-25 19:14:52,467 - [Camera] - DEBUG - [59, 364]
+2024-10-25 19:14:54,176 - [Camera] - DEBUG - [173, 363]
+2024-10-25 19:14:59,368 - [Camera] - DEBUG - 363, 420
+2024-10-25 19:15:13,390 - [Camera] - DEBUG - 477, 420
+2024-10-25 19:15:40,087 - [Camera] - INFO - cam is initialized
+2024-10-25 19:15:46,092 - [Camera] - DEBUG - 365, 420
+2024-10-25 19:15:47,159 - [Camera] - DEBUG - 394, 420
+2024-10-25 19:15:48,316 - [Camera] - DEBUG - 429, 420
+2024-10-25 19:16:25,302 - [Camera] - INFO - cam is initialized
+2024-10-25 19:16:31,272 - [Camera] - DEBUG - 398, 420
+2024-10-25 19:16:32,466 - [Camera] - DEBUG - 433, 420
+2024-10-25 19:16:33,594 - [Camera] - DEBUG - 389, 420
+2024-10-25 19:16:34,692 - [Camera] - DEBUG - 435, 420
+2024-10-25 19:16:35,758 - [Camera] - DEBUG - 384, 420
+2024-10-25 19:16:36,849 - [Camera] - DEBUG - 425, 420
+2024-10-25 19:16:45,271 - [Camera] - DEBUG - flag center: (563, 66)
+2024-10-25 19:16:52,419 - [Camera] - DEBUG - flag center: (183, 136)
+2024-10-25 19:16:58,965 - [Camera] - DEBUG - flag center: (543, 76)
+2024-10-25 19:17:00,681 - [Camera] - DEBUG - flag center: (544, 74)
+2024-10-25 19:17:02,366 - [Camera] - DEBUG - flag center: (531, 57)
+2024-10-25 19:17:04,077 - [Camera] - DEBUG - flag center: (505, 47)
+2024-10-25 19:17:05,781 - [Camera] - DEBUG - flag center: (494, 39)
+2024-10-25 19:17:07,503 - [Camera] - DEBUG - flag center: (490, 30)
+2024-10-25 19:17:09,211 - [Camera] - DEBUG - flag center: (479, 37)
+2024-10-25 19:17:10,942 - [Camera] - DEBUG - flag center: (450, 38)
+2024-10-25 19:20:28,805 - [Camera] - INFO - cam is initialized
+2024-10-25 19:20:34,831 - [Camera] - DEBUG - 329, 420
+2024-10-25 19:20:35,900 - [Camera] - DEBUG - 347, 420
+2024-10-25 19:20:37,048 - [Camera] - DEBUG - 367, 420
+2024-10-25 19:20:38,129 - [Camera] - DEBUG - 383, 420
+2024-10-25 19:20:39,225 - [Camera] - DEBUG - 405, 420
+2024-10-25 19:20:40,317 - [Camera] - DEBUG - 432, 420
+2024-10-25 19:20:41,435 - [Camera] - DEBUG - 402, 420
+2024-10-25 19:20:42,547 - [Camera] - DEBUG - 424, 420
+2024-10-25 19:21:10,391 - [Camera] - INFO - cam is initialized
+2024-10-25 19:21:16,365 - [Camera] - DEBUG - 349, 420
+2024-10-25 19:21:17,459 - [Camera] - DEBUG - 370, 420
+2024-10-25 19:21:18,619 - [Camera] - DEBUG - 389, 420
+2024-10-25 19:21:19,712 - [Camera] - DEBUG - 409, 420
+2024-10-25 19:21:20,800 - [Camera] - DEBUG - 429, 420
+2024-10-25 19:21:33,636 - [Camera] - DEBUG - flag center: (127, 66)
+2024-10-25 19:21:41,824 - [Camera] - DEBUG - flag center: (462, 105)
+2024-10-25 19:21:50,028 - [Camera] - DEBUG - flag center: (227, 26)
+2024-10-25 19:22:01,520 - [Camera] - DEBUG - flag center: (15, 2)
+2024-10-25 19:22:09,270 - [Camera] - DEBUG - flag center: (181, 135)
+2024-10-25 19:22:10,978 - [Camera] - DEBUG - flag center: (503, 119)
+2024-10-25 19:22:12,687 - [Camera] - DEBUG - flag center: (226, 88)
+2024-10-25 19:22:14,358 - [Camera] - DEBUG - flag center: (579, 141)
+2024-10-25 19:22:16,060 - [Camera] - DEBUG - flag center: (333, 60)
+2024-10-25 19:22:20,126 - [Camera] - DEBUG - flag center: (524, 89)
+2024-10-28 20:02:47,724 - [Camera] - INFO - cam is initialized
+2024-10-28 20:17:32,556 - [Camera] - INFO - cam is initialized
+2024-10-28 20:20:11,097 - [Camera] - INFO - cam is initialized
+2024-10-28 20:20:17,206 - [Camera] - DEBUG - 310, 420
+2024-10-28 20:20:18,317 - [Camera] - DEBUG - 310, 420
+2024-10-28 20:20:19,397 - [Camera] - DEBUG - 310, 420
+2024-10-28 20:20:20,489 - [Camera] - DEBUG - 332, 420
+2024-10-28 20:20:21,577 - [Camera] - DEBUG - 354, 420
+2024-10-28 20:20:22,636 - [Camera] - DEBUG - 377, 420
+2024-10-28 20:20:23,737 - [Camera] - DEBUG - 392, 420
+2024-10-28 20:20:24,827 - [Camera] - DEBUG - 420, 420
+2024-10-28 20:20:28,670 - [Camera] - DEBUG - [11, 163]
+2024-10-28 20:20:33,031 - [Camera] - DEBUG - [29, 156]
