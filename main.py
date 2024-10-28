@@ -74,7 +74,6 @@ while True:
                 pass
     elif bot.task == "walk":  # 공이 중앙에 왔다는 가정 하
         logger.info("walk is start")
-        bot.go()
         # time.sleep(3)
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -88,12 +87,8 @@ while True:
                 else:
                     bot.ready_x(bc[0])
                     bot.ready_y(bc[1])
-
-            elif walk_count == 0:
-                bot.task2ball()
-                walk_count = 3
             else:
-                walk_count -= 1
+                bot.go()
         else:
             if walk_count == 0:
                 bot.task2ball()
