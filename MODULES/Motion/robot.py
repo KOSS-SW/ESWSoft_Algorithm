@@ -36,7 +36,7 @@ class Bot:
         serial_t.daemon = True
         serial_t.start()
         self.head_center()
-        self.head_down_65()
+        self.head_down_75()
         """
         다음 행동에서 할 일 목록
         ball - 공 찾기
@@ -81,7 +81,7 @@ class Bot:
     def task2ball(self):
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_65()
+        self.head_down_75()
         time.sleep(0.3)
     
     def task2walk(self):
@@ -95,7 +95,7 @@ class Bot:
         self.task = "flag"
         Bot.logger.info(f"now task is {self.task}")
         time.sleep(1)
-        self.head_down_65()
+        self.head_down_75()
         time.sleep(0.3)
     
     def task2ready(self):
@@ -107,7 +107,7 @@ class Bot:
     
     def task2hit(self):
         self.task = "hit"
-        self.head_down_65()
+        self.head_down_75()
         Bot.logger.info(f"now task is {self.task}")
         
     def head_angle(self): # 현재 머리 각도 가져오기
@@ -144,6 +144,11 @@ class Bot:
         '''머리 약간 아래로'''
         time.sleep(1)
         self.__TX_data(8)
+
+    def head_down_75(self):
+        '''머리 약간 아래로'''
+        time.sleep(1)
+        self.__TX_data(44)
 
     def head_center(self):
         '''머리 중앙으로'''
