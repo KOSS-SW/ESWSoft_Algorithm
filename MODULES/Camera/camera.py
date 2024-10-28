@@ -47,7 +47,6 @@ class Cam:
 
         Cam.DEBUG = debug
         time.sleep(0.5)
-        tes, frame = self.camera.read()
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
@@ -60,7 +59,7 @@ class Cam:
 
     def _reader(self):
         while not self.stop_thread:
-            ret, frame = self.cap.read()
+            ret, frame = self.camera.read()
             if not ret:
                 break
                 
