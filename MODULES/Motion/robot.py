@@ -249,9 +249,9 @@ class Bot:
         # x좌표 조정
         self.logger.info(f"{x}, {type(x)}")
         if x < 0:
-            self.left_10()
-        else:
             self.right_10()
+        else:
+            self.left_10()
 
     def ready_y(self, y):
         # y좌표 조정
