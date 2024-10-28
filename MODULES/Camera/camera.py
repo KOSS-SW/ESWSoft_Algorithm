@@ -3,6 +3,7 @@ import numpy as np
 from math import tan
 import logging
 from threading import Thread
+import queue
 
 class Cam:
     W_View_size =  640  #320  #640
@@ -50,17 +51,29 @@ class Cam:
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
+        self.q = queue.Queue(maxsize=1)
+        self.stop_thread = False
+        self.thread = Thread(target=self._reader)
+        self.thread.daemon = True
+        self.thread.start()
         self.logger.info("cam is initialized")    
 
+    def _reader(self):
+        while not self.stop_thread:
+            ret, frame = self.cap.read()
+            if not ret:
+                break
+                
+            # 이전 프레임을 버리고 새 프레임만 유지
+            if not self.q.empty():
+                try:
+                    self.q.get_nowait()
+                except queue.Empty:
+                    pass
+            self.q.put(frame)
 
     def read(self):
-        for i in range(10):
-            self.camera.grab()
-            ret, self.frame =  self.camera.read()
-            #self.video.write(self.frame)
-        t = time.time()
-        # print(t - self.last_read)
-        self.last_read = t
+        self.frame = self.q.get()
         cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
             h,b,f = self.__process()

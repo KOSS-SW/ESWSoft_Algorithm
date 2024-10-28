@@ -84,7 +84,7 @@ while True:
             if cam.ball_is_center_h(bc):
                 # 세부 조정
                 if is_hitable:
-                    bot.task2flag
+                    bot.task2flag()
                 else:
                     bot.ready_x(bc[0])
                     bot.ready_y(bc[1])
