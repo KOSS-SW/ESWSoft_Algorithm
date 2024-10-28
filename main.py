@@ -132,11 +132,11 @@ while True:
             if not is_flag_center:
                 if not cam.flag_left(fc):
                     bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
-                    bot.body_right_30()
+                    bot.body_right_20()
                     # bot.body_right_10()
                 else:
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
-                    bot.body_left_30()
+                    bot.body_left_20()
                     # bot.body_left_10()
             else:
                 bot.task2ready()

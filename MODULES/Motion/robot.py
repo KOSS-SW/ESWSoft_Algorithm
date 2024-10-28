@@ -169,6 +169,14 @@ class Bot:
         '''로봇 왼쪽으로 10도 회전 '''
         self.__TX_data(4)
 
+    def body_left_20(self):
+        '''로봇 왼쪽으로 22.5도 회전 '''
+        self.__TX_data(7)
+    
+    def body_right_20(self):
+        '''로봇 오른쪽으로 22.5도 회전 '''
+        self.__TX_data(9)
+
     def body_right_10(self):
         '''로봇 오른쪽으로 10도 회전 '''
         self.__TX_data(6)
