@@ -86,8 +86,8 @@ while True:
                 if is_hitable:
                     bot.task2flag()
                 else:
-                    bot.ready_x(bc[0])
-                    bot.ready_y(bc[1])
+                    bot.ready_x(x)
+                    bot.ready_y(y)
                     time.sleep(0.1)
                     continue
             else:
