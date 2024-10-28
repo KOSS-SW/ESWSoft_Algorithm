@@ -54,7 +54,7 @@ class Cam:
 
 
     def read(self):
-        for i in range(3):
+        for i in range(10):
             self.camera.grab()
             ret, self.frame =  self.camera.read()
             #self.video.write(self.frame)
