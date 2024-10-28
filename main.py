@@ -78,9 +78,9 @@ while True:
         # time.sleep(3)
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
-        is_hitable, (x, y) = cam.ball_hitable(bc)
         
         if is_ball:
+            is_hitable, (x, y) = cam.ball_hitable(bc)
             if cam.ball_is_center_h(bc):
                 # 세부 조정
                 if is_hitable:
