@@ -14,7 +14,7 @@ class Cam:
     ERROR = 10
     DEBUG = False
     MIN_AREA = [30,50]
-    HIT_SPOT = (54,439)
+    HIT_SPOT = (426,439)
 
     hsv_Lower_boll = (0, 108, 163)
     hsv_Upper_boll = (255, 176, 255) 
