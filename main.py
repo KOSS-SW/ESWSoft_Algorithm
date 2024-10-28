@@ -76,6 +76,7 @@ while True:
         logger.info("walk is start")
         # time.sleep(3)
         h, b, f = cam.read()
+        h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
         
         if is_ball:
