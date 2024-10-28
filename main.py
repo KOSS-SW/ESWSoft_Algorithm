@@ -87,15 +87,8 @@ while True:
                 else:
                     bot.ready_x(bc[0])
                     bot.ready_y(bc[1])
-            else:
-                bot.go()
         else:
-            if walk_count == 0:
-                bot.task2ball()
-                walk_count = 3
-            else:
-                walk_count -= 1
-            # print(walk_count)
+            bot.go()
         continue
     elif bot.task == "flag":
         logger.info("flag is start")
