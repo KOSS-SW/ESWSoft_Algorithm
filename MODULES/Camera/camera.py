@@ -57,7 +57,7 @@ class Cam:
         self.camera.grab()
         ret, self.frame =  self.camera.read()
         if Cam.DEBUG:
-            cv2.waitKey(100//Cam.FPS)
+            cv2.waitKey(33)
             h,b,f = self.__process()
             cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
