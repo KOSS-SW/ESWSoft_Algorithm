@@ -25,7 +25,7 @@ class Bot:
     stream_handler.setLevel(logging.INFO)
     #log를 파일에 출력
     file_handler = logging.FileHandler("./logs/myRobot.log")
-    file_handler.setLevel(logging.INFO)
+    file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
