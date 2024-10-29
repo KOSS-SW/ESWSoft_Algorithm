@@ -86,6 +86,7 @@ while True:
                 if is_hitable:
                     bot.task2flag()
                 else:
+                    logger.debug(f"x,y = [{x}, {y}]")
                     bot.ready_x(x)
                     bot.ready_y(y)
                     time.sleep(0.1)
