@@ -143,7 +143,7 @@ class Cam:
         self.logger.debug(dis)
         z = set(map(lambda x: x < Cam.ERROR, dis))
         self.logger.debug(z)
-        return z, set(dis)
+        return z[0], z[1], dis[0], dis[1]
         
     def flag_distance(self, angle):
         # 현재 목 각도
