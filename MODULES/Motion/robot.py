@@ -255,7 +255,7 @@ class Bot:
 
     def ready_y(self, y):
         # y좌표 조정
-        if y < 0:
+        if y > 0:
             self.go()
         else:
             self.back()
