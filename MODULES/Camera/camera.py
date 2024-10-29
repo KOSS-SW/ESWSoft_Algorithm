@@ -141,10 +141,11 @@ class Cam:
     def ball_hitable(self, bc):
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
-        if all(filter(lambda x: x < Cam.ERROR, dis)):
-           return False, (0, 0)
+        z = map(lambda x: x < Cam.ERROR, dis)
+        if z[0] == z[1] == True:
+           return True, (0, 0)
         else:
-            return True, set(dis)
+            return False, set(dis)
         
     def flag_distance(self, angle):
         # 현재 목 각도
