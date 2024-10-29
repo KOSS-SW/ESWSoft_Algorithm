@@ -251,7 +251,7 @@ class Bot:
         if x < 0:
             self.right_10()
         else:
-            self.left_10()
+            self.left_20()
 
     def ready_y(self, y):
         # y좌표 조정
