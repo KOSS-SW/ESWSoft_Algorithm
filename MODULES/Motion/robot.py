@@ -248,14 +248,14 @@ class Bot:
     def ready_x(self, x):
         # x좌표 조정
         self.logger.info(f"{x}, {type(x)}")
-        if x > 0:
+        if x < 0:
             self.left_20()
         else:
             self.right_10()
 
     def ready_y(self, y):
         # y좌표 조정
-        if y < 0:
+        if y > 0:
             self.go()
         else:
             self.back()
