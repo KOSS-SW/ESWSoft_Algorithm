@@ -102,7 +102,7 @@ class Bot:
         self.task = "ready"
         time.sleep(1)
         self.head_down_35()
-        time.sleep(0.3)
+        time.sleep(2)
         Bot.logger.info(f"now task is {self.task}")
     
     def task2hit(self):
