@@ -123,8 +123,6 @@ while True:
                     bot.right_70()
                     time.sleep(0.5)
                     bot.body_left_45()
-                    time.sleep(0.5)
-                    bot.body_left_45()
                     bot.right_70()
                     bot.right_70()
                     bot.right_70()
