@@ -139,13 +139,12 @@ class Cam:
         return bc[0] < Cam.CENTER
     
     def ball_hitable(self, bc):
-        dis = [(bc[0] - Cam.HIT_SPOT[0]), (bc[1] - Cam.HIT_SPOT[1])]
+        dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
-        # 절대값 사용하여 거리 체크
-        if all(map(lambda x: abs(x) < Cam.ERROR, dis)):
-            return False, (0, 0)  # 공이 이미 타격 지점에 충분히 가까움
+        if all(filter(lambda x: x < Cam.ERROR, dis)):
+           return False, (0, 0)
         else:
-            return True, tuple(dis)  # 타격 가능한 상태, 거리 차이를 튜플로 반환
+            return True, set(dis)
         
     def flag_distance(self, angle):
         # 현재 목 각도
