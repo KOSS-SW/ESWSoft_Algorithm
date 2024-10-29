@@ -80,7 +80,7 @@ while True:
         is_ball, bc = cam.detect_ball()
         
         if is_ball:
-            is_hitable_X, is_hitable_Y, (x, y) = cam.ball_hitable(bc)
+            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
             if cam.ball_is_center_h(bc):
                 # 세부 조정
                 if is_hitable_X == is_hitable_Y == True:
