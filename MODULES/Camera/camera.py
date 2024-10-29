@@ -142,9 +142,9 @@ class Cam:
         dis = [(bc[0] - Cam.HIT_SPOT[0]), (bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
         if all(map(lambda x: x < Cam.ERROR, dis)):
-           return True, (0, 0)
+           return False, (0, 0)
         else:
-            return False, set(dis)
+            return True, set(dis)
 
     def flag_distance(self, angle):
         # 현재 목 각도
