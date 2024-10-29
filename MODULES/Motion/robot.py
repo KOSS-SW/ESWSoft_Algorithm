@@ -89,7 +89,7 @@ class Bot:
         Bot.logger.info(f"now task is {self.task}")
         time.sleep(0.2)
         self.head_down_35()
-        time.sleep(0.2)
+        time.sleep(1)
     
     def task2flag(self):
         self.task = "flag"
