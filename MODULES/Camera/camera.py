@@ -141,7 +141,7 @@ class Cam:
     def ball_hitable(self, bc):
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
-        z = map(lambda x: x < Cam.ERROR, dis)
+        z = list(map(lambda x: x < Cam.ERROR, dis))
         if z[0] == z[1] == True:
            return True, (0, 0)
         else:
