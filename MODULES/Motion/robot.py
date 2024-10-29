@@ -202,6 +202,10 @@ class Bot:
         '''로봇 오른쪽 옆걸음 20'''
         self.__TX_data(20)
 
+    def left_5(self):
+        '''로봇 왼쪽 옆걸음 5'''
+        self.__TX_data(15)
+
     def left_10(self):
         '''로봇 왼쪽 옆걸음 10'''
         self.__TX_data(40)
@@ -230,6 +234,10 @@ class Bot:
         '''로봇 앞으로 전진'''
         self.__TX_data(19)
     
+    def go_little(self):
+        '''로봇 앞으로 전진'''
+        self.__TX_data(44)
+    
     def back(self):
         '''로봇 뒤로 후진'''
         self.__TX_data(10)
@@ -249,13 +257,13 @@ class Bot:
         # x좌표 조정
         self.logger.info(f"{x}, {type(x)}")
         if x < 0:
-            self.left_20()
+            self.left_5()
         else:
             self.right_10()
 
     def ready_y(self, y):
         # y좌표 조정
         if y < 0:
-            self.go()
+            self.go_little()
         else:
             self.back()
