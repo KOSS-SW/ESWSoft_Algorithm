@@ -199,7 +199,7 @@ while True:
                 bot.ready_x(x)
             # y좌표 조정
             if not is_hitable_Y:
-            bot.ready_y(y)
+                bot.ready_y(y)
             # 90도 회전
 
         pass
