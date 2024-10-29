@@ -142,6 +142,7 @@ class Cam:
         dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
         z = list(map(lambda x: x < Cam.ERROR, dis))
+        self.logger.debug(z)
         if z[0] == z[1] == True:
            return True, (0, 0)
         else:
