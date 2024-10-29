@@ -108,8 +108,9 @@ while True:
                     bot.left_70()
                     bot.left_70()
                     bot.left_70()
-                    time.sleep(0.1)
+                    time.sleep(0.5)
                     bot.body_right_45()
+                    time.sleep(0.5)
                     bot.body_right_45()
                     bot.left_70()
                     bot.left_70()
@@ -120,8 +121,9 @@ while True:
                     bot.right_70()
                     bot.right_70()
                     bot.right_70()
-                    time.sleep(0.1)
+                    time.sleep(0.5)
                     bot.body_left_45()
+                    time.sleep(0.5)
                     bot.body_left_45()
                     bot.right_70()
                     bot.right_70()
@@ -167,7 +169,7 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
-        is_hitable_X, is_hitable_Y, (x, y) = cam.ball_hitable(bc)
+        is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         if is_hitable_X == is_hitable_Y == True:
             if hit:
                 bot.task2hit()
