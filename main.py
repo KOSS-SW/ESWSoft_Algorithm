@@ -80,15 +80,17 @@ while True:
         is_ball, bc = cam.detect_ball()
         
         if is_ball:
-            is_hitable, (x, y) = cam.ball_hitable(bc)
+            is_hitable_X, is_hitable_Y, (x, y) = cam.ball_hitable(bc)
             if cam.ball_is_center_h(bc):
                 # 세부 조정
-                if is_hitable:
+                if is_hitable_X == is_hitable_Y == True:
                     bot.task2flag()
                 else:
                     logger.info(f"x,y = [{x}, {y}]")
-                    bot.ready_x(x)
-                    bot.ready_y(y)
+                    if not is_hitable_X:
+                        bot.ready_x(x)
+                    if not is_hitable_Y:
+                        bot.ready_y(y)
                     time.sleep(0.1)
                     continue
             else:
@@ -168,8 +170,8 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
-        is_hitable, (x, y) = cam.ball_hitable(bc)
-        if is_hitable:
+        is_hitable_X, is_hitable_Y, (x, y) = cam.ball_hitable(bc)
+        if is_hitable_X == is_hitable_Y == True:
             if hit:
                 bot.task2hit()
             else:
@@ -193,8 +195,10 @@ while True:
                     bot.right_10()
                 hit = True
         else:
-            bot.ready_x(x)
+            if not is_hitable_X:
+                bot.ready_x(x)
             # y좌표 조정
+            if not is_hitable_Y:
             bot.ready_y(y)
             # 90도 회전
 
