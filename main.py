@@ -81,20 +81,17 @@ while True:
         
         if is_ball:
             is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-            if cam.ball_is_center_h(bc):
-                # 세부 조정
-                if is_hitable_X == is_hitable_Y == True:
-                    bot.task2flag()
-                else:
-                    logger.info(f"x,y = [{x}, {y}]")
-                    if not is_hitable_X:
-                        bot.ready_x(x)
-                    if not is_hitable_Y:
-                        bot.ready_y(y)
-                    time.sleep(0.1)
-                    continue
+            # 세부 조정
+            if is_hitable_X == is_hitable_Y == True:
+                bot.task2flag()
             else:
-                bot.go()
+                logger.info(f"x,y = [{x}, {y}]")
+                if not is_hitable_X:
+                    bot.ready_x(x)
+                if not is_hitable_Y:
+                    bot.ready_y(y)
+                time.sleep(0.1)
+                continue
         else:
             bot.go()
         continue
