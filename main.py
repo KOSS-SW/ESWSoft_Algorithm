@@ -85,7 +85,6 @@ while True:
             if is_hitable_X == is_hitable_Y == True:
                 bot.task2flag()
             else:
-                bot.head_down_65()
                 logger.info(f"x,y = [{x}, {y}]")
                 if not is_hitable_X:
                     bot.ready_x(x)
