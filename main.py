@@ -40,7 +40,7 @@ while True:
     if current_state == SEARCH_BALL:
         logger.info("Searching for ball")
         # 고개를 들어 공을 찾음
-        bot.head_up()
+        bot.head_down_75()
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
