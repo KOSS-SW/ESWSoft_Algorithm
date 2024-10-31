@@ -311,6 +311,7 @@ while True:
 
             bot.head_up()
             while True:  # 무한 루프 시작
+                h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
                 
                 if is_ball:  # 공이 검출되면
