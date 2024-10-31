@@ -38,7 +38,7 @@ head_right = 0
 flag_pass = False  
 hit = False  
 hit_right = True  
-desired_y = 150  # 11cm 거리에 해당하는 y좌표 값 (카메라 픽셀 기준)
+desired_y = -20  # 음수면 전진, 양수면 후진하도록 설정
 
 while True:
     if bot.task == "ball":
@@ -98,22 +98,18 @@ while True:
                 is_ball, bc = cam.detect_ball()
                 if is_ball:
                     # 거리 확인을 위해 머리를 아래로
-                    bot.head_down_20()
+                    bot.head_down_65()  # 거리 확인을 위한 각도
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     is_ball, bc = cam.detect_ball()
                     if is_ball:
-                        # y값이 11cm 거리에 맞는지 확인
-                        if y > desired_y:  # 너무 가까우면
-                            bot.backward()
-                            time.sleep(0.2)
-                        elif y < desired_y:  # 너무 멀면
-                            bot.go()
+                        _, _, _, y = cam.ball_hitable(bc)  # y값만 필요
+                        # y값 조정
+                        if abs(y) > 5:  # 오차 범위
+                            bot.ready_y(y)  # ready_y 함수가 이미 음수/양수에 따라 처리
                             time.sleep(0.2)
                         else:
-                            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                            if is_hitable_X == is_hitable_Y == True:
-                                bot.task2flag()
+                            bot.task2flag()
                     else:
                         continue
             else:
@@ -125,8 +121,6 @@ while True:
                 time.sleep(0.2)
         else:
             bot.go()
-
-
             
     elif bot.task == "flag":
         logger.info("flag is start")
@@ -227,62 +221,21 @@ while True:
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         if is_hitable_X == is_hitable_Y == True:
             # 거리 확인을 위해 머리를 아래로
-            bot.head_down_20()
+            bot.head_down_65()  # 거리 확인을 위한 각도
             time.sleep(0.2)
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
             if is_ball:
-                # y값이 11cm 거리에 맞는지 확인
-                if y > desired_y:  # 너무 가까우면
-                    bot.backward()
-                    time.sleep(0.2)
-                    continue
-                elif y < desired_y:  # 너무 멀면
-                    bot.go()
+                _, _, _, y = cam.ball_hitable(bc)  # y값만 필요
+                # y값 조정
+                if abs(y) > 5:  # 오차 범위
+                    bot.ready_y(y)  # ready_y 함수가 이미 음수/양수에 따라 처리
                     time.sleep(0.2)
                     continue
                     
             if hit:
                 time.sleep(0.3)  # 안정화 대기
                 bot.task2hit()
-            else:
-                if hit_right:
-                    # 더 부드러운 이동을 위한 시간 간격 추가
-                    for _ in range(3):
-                        bot.left_20()
-                        time.sleep(0.1)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    for _ in range(3):
-                        bot.left_70()
-                        time.sleep(0.1)
-                    for _ in range(4):
-                        bot.left_20()
-                        time.sleep(0.1)
-                else:
-                    for _ in range(3):
-                        bot.right_20()
-                        time.sleep(0.1)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    for _ in range(3):
-                        bot.right_70()
-                        time.sleep(0.1)
-                    for _ in range(4):
-                        bot.right_20()
-                        time.sleep(0.1)
-                hit = True
-        else:
-            if not is_hitable_X:
-                bot.ready_x(x)
-                time.sleep(0.1)
-            if not is_hitable_Y:
-                bot.ready_y(y)
-                time.sleep(0.1)
 
 
     elif bot.task == "hit":
