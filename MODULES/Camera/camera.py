@@ -87,6 +87,12 @@ class Cam:
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
+            ib, bc = self.detect_ball()
+            isf, fc = self.detect_flag()
+            if ib:
+                cv2.circle(self.frame, bc, (0,0,0))
+            if isf:
+                cv2.circle(self.frame, fc, (0,0,0))
             
 
             cv2.imshow('mini CTS5 - Video', self.frame )
