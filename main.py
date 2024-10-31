@@ -130,21 +130,26 @@ while True:
                 searched = False
                 head_left = False
             is_flag_center = cam.flag_is_center(fc)
+            cam.flag_is_center(b)
             if not is_flag_center:
                 if not cam.flag_left(fc):
                     bot.body_right_20() 
                 else:
                     bot.body_left_20()
-                # is_hitable_X = is_hitable_Y = False
-                # while not (is_hitable_X == is_hitable_Y == True):
-                #     h, b, f = cam.read()
-                #     is_ball, bc = cam.detect_ball()
-                #     is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                #     if not is_hitable_X:
-                #         bot.ready_x(x)
-                #     # y좌표 조정
-                #     if not is_hitable_Y:
-                #         bot.ready_y(y)
+                    cam.read()
+                    bool_result, coordinate = cam.detect_flag
+                    if cam.flag_is_center(coordinate):
+                        continue
+                is_hitable_X = is_hitable_Y = False
+                while not (is_hitable_X == is_hitable_Y == True):
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+                    if not is_hitable_X:
+                        bot.ready_x(x)
+                    # y좌표 조정
+                    if not is_hitable_Y:
+                        bot.ready_y(y)
                     
             else:
                 bot.task2ready()
