@@ -149,18 +149,6 @@ while True:
                         bot.body_right_20()
                         bot.body_right_20()
                         bot.body_right_10()
-                        
-                is_hitable_X = is_hitable_Y = False
-                while not (is_hitable_X == is_hitable_Y == True):
-                    h, b, f = cam.read()
-                    is_ball, bc = cam.detect_ball()
-                    is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                    if not is_hitable_X:
-                        bot.ready_x(x)
-                    # y좌표 조정
-                    if not is_hitable_Y:
-                        bot.ready_y(y)
-                    
             else:
                 bot.task2ready()
                 pass
