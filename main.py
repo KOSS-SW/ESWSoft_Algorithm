@@ -46,13 +46,13 @@ while True:
         is_ball, bc = cam.detect_ball()
 
         if is_ball:
+            bot.head_up()  # 머리 90도 올리기
             if searched:  # 공을 찾은 직후
-                # 공이 막 쳐진 상태라면 머리를 들어서 공을 추적
-                bot.head_up()  # 머리 90도 올리기
                 time.sleep(0.3)  # 안정화 대기
                 
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
+                bot.head_up()  # 머리 90도 올리기
                 
                 if is_ball:  # 공이 보이면 그쪽으로 이동
                     logger.info("Following the ball")
