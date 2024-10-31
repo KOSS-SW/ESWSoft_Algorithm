@@ -232,16 +232,27 @@ while True:
            is_hitable_X and is_hitable_Y and ball_distance >= 11.0
        ):
            if hit:
-               # hit task로 전환하기 전 마지막 거리 체크
+               # 머리를 아래로 내려서 공 확인
+               bot.head_down()  # 머리를 아래로 내리는 메소드 필요
+               time.sleep(0.3)  # 안정화 대기
+               
+               # 거리 재확인
                h, b, f = cam.read()
                is_ball, bc = cam.detect_ball()
                if is_ball:
                    final_distance = cam.calculate_ball_distance()
-                   if final_distance < 11.0:
-                       logger.info(f"Final distance check: too close ({final_distance}cm), backing up")
+                   logger.info(f"Final distance before hit: {final_distance}cm")
+                   
+                   if final_distance < 11.0:  # 너무 가까우면
+                       logger.info("Too close before hit, stepping back")
                        bot.back()
                        time.sleep(0.2)
+                   elif final_distance > 13.0:  # 너무 멀면
+                       logger.info("Too far before hit, stepping forward")
+                       bot.go()
+                       time.sleep(0.2)
                
+               bot.head_center()  # 머리 다시 중앙으로
                time.sleep(0.3)
                bot.task2hit()
            else:
@@ -362,14 +373,15 @@ while True:
                bot.back()
                time.sleep(0.2)
 
+
     elif bot.task == "hit":
         logger.info("hit is start")
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
-
+        
         if is_flag:
             distance = cam.flag_distance(bot.head_angle())
-            time.sleep(0.3)  # 안정화를 위한 대기
+            time.sleep(0.3)
 
             # 거리 기반 파워 조절
             if 0 <= distance <= 50:
@@ -383,9 +395,9 @@ while True:
             else:
                 power = 30
 
-            bot.hit(power)  # 설정된 파워로 타격
-            time.sleep(0.5)  # 타격 후 안정화 대기
-            bot.task2ball()  # 다음 공 찾기로 전환
+            bot.hit(power)
+            time.sleep(0.5)
+            bot.task2ball()
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
