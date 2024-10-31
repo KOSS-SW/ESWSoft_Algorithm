@@ -43,9 +43,9 @@ while True:
     if bot.task == "ball":
         logger.info("ball is start")
         h, b, f = cam.read()
-        bot.head_up()
         is_ball, bc = cam.detect_ball()
 
+        bot.head_up()
         if is_ball:
             bot.head_center()
             if searched:
