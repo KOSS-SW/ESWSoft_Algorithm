@@ -28,11 +28,6 @@ cam = Cam(True)
 bot = Bot()
 logger.info("bot True")
 
-logger.info("main initializing")
-cam = Cam(True)
-bot = Bot()
-logger.info("bot True")
-
 # 상태 변수 정의
 head_lefted = False  
 is_turning = 0  
