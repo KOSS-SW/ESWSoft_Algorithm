@@ -109,23 +109,23 @@ while True:
             is_ball_center = cam.ball_is_center(ball_coord)
             if not is_ball_center:
                 if not cam.ball_left(ball_coord):
-                    bot.body_right_20()
-                    cam.read()
-                    bool_result, coordinate = cam.detect_ball()
-                    if not cam.ball_is_center(coordinate):
-                        bot.left_20()
-                        bot.left_20()
-                        bot.left_20()
+                    # bot.body_right_20()
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_ball()
+                    # if not cam.ball_is_center(coordinate):
+                    #     bot.left_20()
+                    #     bot.left_20()
+                    #     bot.left_20()
                         bot.left_10()
                 else:
-                    bot.body_left_20()
-                    cam.read()
-                    bool_result, coordinate = cam.detect_ball()
-                    if not cam.ball_is_center(coordinate):
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_10()
+                    # bot.body_left_20()
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_ball()
+                    # if not cam.ball_is_center(coordinate):
+                    #     bot.right_20()
+                    #     bot.right_20()
+                        bot.right_20()
+                        # bot.right_10()
             else:
                 bot.task2ready()
                 pass
@@ -162,23 +162,23 @@ while True:
             is_flag_center = cam.flag_is_center(flag_coord)
             if not is_flag_center:
                 if not cam.flag_left(flag_coord):
-                    bot.body_right_20()
-                    cam.read()
-                    bool_result, coordinate = cam.detect_flag()
-                    if not cam.flag_is_center(coordinate):
-                        bot.left_20()
-                        bot.left_20()
-                        bot.left_20()
+                    # bot.body_right_20()
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_flag()
+                    # if not cam.flag_is_center(coordinate):
+                    #     bot.left_20()
+                    #     bot.left_20()
+                    #     bot.left_20()
                         bot.left_10()
                 else:
-                    bot.body_left_20()
-                    cam.read()
-                    bool_result, coordinate = cam.detect_flag()
-                    if not cam.flag_is_center(coordinate):
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_10()
+                    # bot.body_left_20()
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_flag()
+                    # if not cam.flag_is_center(coordinate):
+                    #     bot.right_20()
+                    #     bot.right_20()
+                        bot.right_20()
+                        # bot.right_10()
             else:
                 bot.task2ready()
                 pass
