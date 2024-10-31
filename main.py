@@ -44,76 +44,35 @@ while True:
         logger.info("ball is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
-
+        
         if is_ball:
-            if searched:  # 공을 찾은 직후
-                time.sleep(0.3)  # 안정화 대기
-                
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()
-                bot.head_up()  # 머리 90도 올리기
-                
-                if is_ball:  # 공이 보이면 그쪽으로 이동
-                    logger.info("Following the ball")
-                    while True:
-                        is_ball_center = cam.ball_is_center(bc)
-                        if not is_ball_center:
-                            if cam.ball_left(bc):
-                                bot.left_10()
-                            else:
-                                bot.right_10()
-                            time.sleep(0.1)
-                        else:
-                            bot.go()  # 공 방향으로 전진
-                            time.sleep(0.2)
-                            
-                        # 위치 재확인
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if not is_ball:  # 공이 안 보이면 일반 탐색 모드로
-                            break
-                            
-                        # 공에 충분히 가까워졌는지 확인
-                        is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                        if is_hitable_X and is_hitable_Y:
-                            bot.head_center()  # 머리 중앙으로
-                            time.sleep(0.2)
-                            bot.task2walk()  # walk 상태로 전환
-                            break
-
-                bot.head_center()  # 공이 안 보이면 머리 중앙으로
-                searched = False
-                
-            else:  # 일반적인 ball 찾기 모드
-                bot.head_center()
-                if searched:
-                    # 더 정확한 회전 각도 조정
-                    if head_lefted:
-                        bot.body_left_30()
-                        time.sleep(0.2)  # 안정화 대기
-                    else:
-                        bot.body_right_30()
-                        time.sleep(0.2)  # 안정화 대기
-                    searched = False
-
-                is_ball_center = cam.ball_is_center(bc)
-                if not is_ball_center:
-                    # 미세 조정을 위한 반복 확인
-                    for _ in range(3):  # 최대 3번 시도
-                        if cam.ball_left(bc):
-                            bot.left_10()
-                        else:
-                            bot.right_10()
-                        time.sleep(0.1)
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if cam.ball_is_center(bc):
-                            break
+            bot.head_center()
+            if searched:
+                # 더 정확한 회전 각도 조정
+                if head_lefted:
+                    bot.body_left_30()
+                    time.sleep(0.2)  # 안정화 대기
                 else:
-                    bot.task2walk()
+                    bot.body_right_30()
+                    time.sleep(0.2)  # 안정화 대기
+                searched = False
+            
+            is_ball_center = cam.ball_is_center(bc)
+            if not is_ball_center:
+                # 미세 조정을 위한 반복 확인
+                for _ in range(3):  # 최대 3번 시도
+                    if cam.ball_left(bc):
+                        bot.left_10()
+                    else:
+                        bot.right_10()
+                    time.sleep(0.1)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    if cam.ball_is_center(bc):
+                        break
+            else:
+                bot.task2walk()
         else:
-            bot.head_up()  # 머리 90도 올리기
-
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
                     bot.head_right_max()
