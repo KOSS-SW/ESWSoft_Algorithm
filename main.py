@@ -143,6 +143,7 @@ while True:
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     
             else:
