@@ -211,3 +211,34 @@ class Cam:
     
     def flag_left(self, fc):
         return fc[0] < Cam.CENTER
+    
+    def calculate_ball_distance(self):
+        """
+        공과 로봇의 발 사이의 거리를 계산합니다.
+        카메라 이미지에서 공의 위치와 픽셀 크기를 기반으로 실제 거리(cm)를 계산합니다.
+        
+        Returns:
+            float: 공과 로봇 발 사이의 거리(cm)
+        """
+        _, bc = self.detect_ball()  # 공의 좌표 얻기
+        if bc is None:
+            return float('inf')  # 공이 감지되지 않으면 무한대 거리 반환
+        
+        # 공의 y좌표 (이미지 상단이 0, 하단이 최대값)
+        ball_y = bc[1]
+        
+        # 이미지의 높이
+        image_height = self.frame.shape[0]
+        
+        CAMERA_HEIGHT = 45  # 카메라가 지면에서 떨어진 높이 (cm)
+        CAMERA_ANGLE = 45   # 카메라의 아래쪽 기울기 각도 (도)
+        
+        # 이미지 y좌표를 실제 거리로 변환 / 이미지의 하단이 로봇의 발 위치
+        relative_y = (image_height - ball_y) / image_height
+        
+        # 거리 계산 (삼각법 사용)
+        import math
+        angle_rad = math.radians(CAMERA_ANGLE * relative_y)
+        distance = CAMERA_HEIGHT * math.tan(angle_rad)
+        
+        return distance
