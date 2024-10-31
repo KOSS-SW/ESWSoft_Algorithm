@@ -46,7 +46,6 @@ while True:
         is_ball, bc = cam.detect_ball()
 
         if is_ball:
-            bot.head_up()  # 머리 90도 올리기
             if searched:  # 공을 찾은 직후
                 time.sleep(0.3)  # 안정화 대기
                 
@@ -113,6 +112,7 @@ while True:
                 else:
                     bot.task2walk()
         else:
+            bot.head_up()  # 머리 90도 올리기
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
                     bot.head_right_max()
