@@ -143,7 +143,7 @@ while True:
                     bot.body_left_20()
                     # 깃발 센터 확인
                     cam.read()
-                    bool_result, coordinate = cam.detect_flag
+                    bool_result, coordinate = cam.detect_flag()
                     if cam.flag_is_center(coordinate):
                         bot.body_right_20()
                         bot.body_right_20()
