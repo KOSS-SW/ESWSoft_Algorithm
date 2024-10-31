@@ -199,64 +199,81 @@ while True:
                 is_flag, fc = cam.detect_flag()
 
     elif bot.task == "ready":
-        logger.info("ready is start")
-        h, b, f = cam.read()
-        is_ball, bc = cam.detect_ball()
-        
-        if not is_ball:
-            bot.task2ball()
-            continue
-            
-        is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-        
-        # 공과 로봇 발 사이의 거리를 계산 
-        ball_distance = cam.calculate_ball_distance()
-        
-        if is_hitable_X and is_hitable_Y and ball_distance >= 11.0:  # 거리가 11cm 이상인지 확인
-            if hit:
-                bot.back()
-                time.sleep(0.3)
-                bot.task2hit()
-            else:
-                if hit_right:
-                    for _ in range(3):
-                        bot.left_20()
-                        time.sleep(0.1)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    for _ in range(3):
-                        bot.left_70()
-                        time.sleep(0.1)
-                    for _ in range(4):
-                        bot.left_20()
-                        time.sleep(0.1)
-                else:
-                    for _ in range(3):
-                        bot.right_20()
-                        time.sleep(0.1)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    for _ in range(3):
-                        bot.right_70()
-                        time.sleep(0.1)
-                    for _ in range(4):
-                        bot.right_20()
-                        time.sleep(0.1)
-                hit = True
-        else:
-            if not is_hitable_X:
-                bot.ready_x(x)
-                time.sleep(0.1)
-            if not is_hitable_Y:
-                bot.ready_y(y)
-                time.sleep(0.1)
-            if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
-                bot.back()  # 한 걸음 후진
-                time.sleep(0.2)  # 안정화 대기
+       logger.info("ready is start")
+       h, b, f = cam.read()
+       is_ball, bc = cam.detect_ball()
+       
+       if not is_ball:
+           bot.task2ball()
+           continue
+           
+       is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+       
+       # 공과 로봇 발 사이의 거리를 계산 
+       ball_distance = cam.calculate_ball_distance()
+       
+       if is_hitable_X and is_hitable_Y and ball_distance >= 11.0:  # 거리가 11cm 이상인지 확인
+           if hit:
+               bot.back()
+               time.sleep(0.3)
+               bot.task2hit()
+           else:
+               # 회전하기 전에 고개 내려서 공과의 거리 확인
+               bot.head_down()  # 고개를 아래로
+               time.sleep(0.2)  # 안정화 대기
+               
+               # 거리 재확인
+               h, b, f = cam.read()
+               is_ball, bc = cam.detect_ball()
+               if is_ball:
+                   check_distance = cam.calculate_ball_distance()
+                   if check_distance < 11.0:  # 너무 가까우면
+                       bot.back()  # 뒤로 한 발
+                       time.sleep(0.2)
+
+               bot.head_center()  # 고개 다시 중앙으로
+               time.sleep(0.2)
+               
+               # 이후 회전 시작
+               if hit_right:
+                   for _ in range(3):
+                       bot.left_20()
+                       time.sleep(0.1)
+                   bot.body_right_45()
+                   time.sleep(0.3)
+                   bot.body_right_45()
+                   time.sleep(0.3)
+                   for _ in range(3):
+                       bot.left_70()
+                       time.sleep(0.1)
+                   for _ in range(4):
+                       bot.left_20()
+                       time.sleep(0.1)
+               else:
+                   for _ in range(3):
+                       bot.right_20()
+                       time.sleep(0.1)
+                   bot.body_left_45()
+                   time.sleep(0.3)
+                   bot.body_left_45()
+                   time.sleep(0.3)
+                   for _ in range(3):
+                       bot.right_70()
+                       time.sleep(0.1)
+                   for _ in range(4):
+                       bot.right_20()
+                       time.sleep(0.1)
+               hit = True
+       else:
+           if not is_hitable_X:
+               bot.ready_x(x)
+               time.sleep(0.1)
+           if not is_hitable_Y:
+               bot.ready_y(y)
+               time.sleep(0.1)
+           if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
+               bot.back()  # 한 걸음 후진
+               time.sleep(0.2)  # 안정화 대기
 
     elif bot.task == "hit":
         logger.info("hit is start")

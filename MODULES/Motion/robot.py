@@ -230,6 +230,10 @@ class Bot:
         '''로봇 머리 오른쪽 회전'''
         self.__TX_data(35)
 
+    def head_up(self):
+        '''로봇 머리 90도 올리기'''
+        self.__TX_data(45)
+
     def go(self):
         '''로봇 앞으로 전진'''
         self.__TX_data(19)
