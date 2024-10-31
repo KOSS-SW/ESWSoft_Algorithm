@@ -90,9 +90,9 @@ class Cam:
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
             if ib:
-                cv2.circle(self.frame, bc, (0,0,0))
+                cv2.circle(self.frame, bc, 5, (0,0,0))
             if isf:
-                cv2.circle(self.frame, fc, (0,0,0))
+                cv2.circle(self.frame, fc, 5, (0,0,0))
             
 
             cv2.imshow('mini CTS5 - Video', self.frame )
@@ -126,8 +126,6 @@ class Cam:
         if Area > 255:
             Area = 255
         if Area > Cam.MIN_AREA[0]:
-            if self.DEBUG:
-                cv2.circle(self.frame, (int(X), int(Y)), 5, (255,255,0))
             return True, (int(X), int(Y))
         return False, None
     
