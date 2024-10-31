@@ -296,3 +296,24 @@ class Bot:
             logging.error(f"Error in step_backward: {str(e)}")
             # 에러 발생 시 안전한 자세로 복귀
             self.ready_position()
+
+    def step_backward(self):
+        """
+        로봇을 뒤로 이동시키는 메소드.
+        한 번에 작은 거리만큼 후진
+        """
+        try:
+            # 기존의 go() 메소드를 사용하여 뒤로 이동
+            # self.go() 메소드에 reverse 파라미터가 있다면:
+            self.go(reverse=True)
+            time.sleep(0.2)  # 안정화를 위한 대기
+            
+            # 또는 다른 대안:
+            # 1. 옆으로 이동
+            # self.left_10() 또는 self.right_10()
+            
+            # 2. 더 멀리 떨어지기 위해 각도 조정
+            # self.head_up()
+            
+        except Exception as e:
+            logging.error(f"Error in step_backward: {str(e)}")
