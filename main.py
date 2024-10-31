@@ -208,20 +208,20 @@ while True:
             logger.info("ball not visible, stepping back")
             bot.back()  # 한 발자국 뒤로
             time.sleep(0.2)  # 안정화 대기
-            
+
             # 뒤로 간 후 다시 공 확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
-            
+
             if not is_ball:  # 여전히 안 보이면 한 번 더 뒤로
                 logger.info("ball still not visible, stepping back again")
                 bot.back()
                 time.sleep(0.2)
-                
+
                 # 마지막으로 공 확인
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
-                
+
                 if not is_ball:  # 그래도 안 보이면 ball 찾기 상태로
                     logger.info("cannot find ball, switching to ball finding mode")
                     bot.task2ball()
@@ -239,6 +239,11 @@ while True:
                 time.sleep(0.3)
                 bot.task2hit()
             else:
+                # 먼저 안전 거리 확보를 위해 뒤로 이동
+                bot.back()  # 한 발자국 뒤로
+                time.sleep(0.2)  # 안정화 대기
+
+                # 안전 거리 확보 후 회전 시작
                 if hit_right:
                     for _ in range(3):
                         bot.left_20()
