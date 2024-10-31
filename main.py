@@ -209,8 +209,8 @@ while True:
             
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         
-        # 공과 로봇 발 사이의 거리를 계산
-        ball_distance = cam.calculate_ball_distance()  # 이 함수는 Camera 클래스에 구현되어 있어야 함
+        # 공과 로봇 발 사이의 거리를 계산 
+        ball_distance = cam.calculate_ball_distance()
         
         if is_hitable_X and is_hitable_Y and ball_distance >= 11.0:  # 거리가 11cm 이상인지 확인
             if hit:
@@ -254,8 +254,8 @@ while True:
                 bot.ready_y(y)
                 time.sleep(0.1)
             if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
-                bot.step_backward()
-                time.sleep(0.2)
+                bot.back()  # 한 걸음 후진
+                time.sleep(0.2)  # 안정화 대기
 
 
     elif bot.task == "hit":

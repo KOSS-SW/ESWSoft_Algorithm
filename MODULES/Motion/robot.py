@@ -271,31 +271,10 @@ class Bot:
     def step_backward(self):
         """
         로봇을 뒤로 이동시키는 메소드.
-        한 번에 작은 거리만큼 후진하여 안정성 확보.
+        back() 메소드를 사용하여 한 걸음 후진
         """
         try:
-            # 1. 머리 중앙 정렬 (안정성을 위해)
-            self.head_center()
-            time.sleep(0.2)
-            
-            # 2. 180도 회전
-            for _ in range(4):  # 45도씩 4번 회전하여 180도 회전
-                self.body_right_45()  # 또는 body_left_45()
-                time.sleep(0.1)
-            
-            # 3. 앞으로 한 걸음
-            self.go()
-            time.sleep(0.2)
-            
-            # 4. 다시 180도 회전하여 원래 방향으로
-            for _ in range(4):
-                self.body_right_45()  # 또는 body_left_45()
-                time.sleep(0.1)
-                
-            # 5. 머리 원위치
-            self.head_center()
-            time.sleep(0.2)
-            
+            self.back()  # 한 걸음 후진
+            time.sleep(0.2)  # 안정화를 위한 대기
         except Exception as e:
             logging.error(f"Error in step_backward: {str(e)}")
-            self.head_center()  # 에러 시 최소한 머리는 중앙으로
