@@ -13,7 +13,7 @@ class Cam:
     FPS = 40
     ERROR = 10
     DEBUG = False
-    MIN_AREA = [30,50]
+    MIN_AREA = [10,50]
     HIT_SPOT = (426,439)
 
     hsv_Lower_boll = (0, 108, 163)
