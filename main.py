@@ -308,6 +308,7 @@ while True:
             bot.left_70()
             time.sleep(0.2)  # 안정화 대기
 
+            bot.head_up()
             while True:  # 무한 루프 시작
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
                 
