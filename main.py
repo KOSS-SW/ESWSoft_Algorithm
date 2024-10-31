@@ -97,6 +97,7 @@ while True:
         continue
     elif bot.task == "flag":
         logger.info("flag is start")
+        time.sleep(2)
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
         # 깃발 찾기
@@ -133,9 +134,14 @@ while True:
             cam.flag_is_center(b)
             if not is_flag_center:
                 if not cam.flag_left(fc):
-                    bot.body_right_20() 
+                    bot.body_right_20()
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_10() # 공 안차도록 옆으로 간 뒤 회전 
                 else:
                     bot.body_left_20()
+                    # 깃발 센터 확인
                     cam.read()
                     bool_result, coordinate = cam.detect_flag
                     if cam.flag_is_center(coordinate):
@@ -185,6 +191,7 @@ while True:
                     bot.body_right_45()  # 90도
                     bot.body_right_45()  # 90도
                     bot.left_20()  # 11cm
+                    bot.left_20()  # 11cm
                     bot.left_10()  # 11cm
                     bot.left_10()  # 11cm
                 else:
@@ -193,6 +200,7 @@ while True:
                     bot.right_10()
                     bot.body_left_45()
                     bot.body_left_45()
+                    bot.right_20()
                     bot.right_20()
                     bot.right_10()
                     bot.right_10()
