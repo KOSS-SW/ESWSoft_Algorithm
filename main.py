@@ -107,10 +107,10 @@ while True:
                     bot.left_70()  # 공 안차도록 옆으로 간 뒤 회전
                     bot.left_70()
                     bot.left_70()
-                    bot.left_70()
                     bot.body_right_45()
                     time.sleep(0.5)
                     bot.body_right_45()
+                    bot.left_70()
                     bot.left_70()
                     bot.left_70()
                     bot.left_70()
@@ -119,10 +119,10 @@ while True:
                     bot.right_70()  # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_70()
                     bot.right_70()
-                    bot.right_70()
                     bot.body_left_45()
                     time.sleep(0.5)
                     bot.body_left_45()
+                    bot.right_70()
                     bot.right_70()
                     bot.right_70()
                     bot.right_70()
