@@ -205,7 +205,7 @@ while True:
                     bot.ready_y(y)
                 time.sleep(0.3)
         else:
-            bot.task2ball()
+            bot.go()
 
     elif bot.task == "flag":
         logger.info("flag is start")
