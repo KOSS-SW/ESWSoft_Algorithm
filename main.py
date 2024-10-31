@@ -247,6 +247,8 @@ while True:
                 if hit_right:
                     for _ in range(3):
                         bot.left_20()
+                        bot.left_20()
+                        bot.left_20()
                         time.sleep(0.1)
                     bot.body_right_45()
                     time.sleep(0.3)
@@ -261,6 +263,8 @@ while True:
                 else:
                     for _ in range(3):
                         bot.right_20()
+                        bot.left_20()
+                        bot.left_20()
                         time.sleep(0.1)
                     bot.body_left_45()
                     time.sleep(0.3)
