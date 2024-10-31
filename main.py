@@ -99,13 +99,42 @@ while True:
         logger.info("flag is start")
         time.sleep(2)
         h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag()
-        # 깃발 찾기
-        if is_flag:
+
+        # 빨간 공과 깃발 모두 검출
+        is_ball, ball_coord = cam.detect_ball()  # 빨간 공 검출
+        is_flag, flag_coord = cam.detect_flag()  # 노란 깃발 검출
+        
+        if is_ball:  # 빨간 공이 보이면 무조건 공 기준으로 움직임
+            bot.head_center()
+            is_ball_center = cam.ball_is_center(ball_coord)
+            if not is_ball_center:
+                if not cam.ball_left(ball_coord):
+                    bot.body_right_20()
+                    cam.read()
+                    bool_result, coordinate = cam.detect_ball()
+                    if not cam.ball_is_center(coordinate):
+                        bot.left_20()
+                        bot.left_20()
+                        bot.left_20()
+                        bot.left_10()
+                else:
+                    bot.body_left_20()
+                    cam.read()
+                    bool_result, coordinate = cam.detect_ball()
+                    if not cam.ball_is_center(coordinate):
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_10()
+            else:
+                bot.task2ready()
+                pass
+
+        elif is_flag:  # 빨간 공이 안 보이고 깃발만 보일 때
             bot.head_center()
             if searched:
                 if not head_lefted:
-                    bot.left_70()  # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_70()
                     bot.left_70()
                     bot.left_70()
                     bot.body_right_45()
@@ -117,7 +146,7 @@ while True:
                     bot.left_70()
                     bot.left_70()
                 else:
-                    bot.right_70()  # 공 안차도록 옆으로 간 뒤 회전
+                    bot.right_70()
                     bot.right_70()
                     bot.right_70()
                     bot.body_left_45()
@@ -130,33 +159,31 @@ while True:
                     bot.right_70()
                 searched = False
                 head_left = False
-            is_flag_center = cam.flag_is_center(fc)
-            cam.flag_is_center(b)
+            is_flag_center = cam.flag_is_center(flag_coord)
             if not is_flag_center:
-                if cam.flag_left(fc):
-                    # bot.body_right_20()
-                    # cam.read()
-                    # bool_result, coordinate = cam.detect_flag()
-                    # if not cam.flag_is_center(coordinate):
-                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
-                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
-                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
-                        bot.left_10() # 공 안차도록 옆으로 간 뒤 회전 
+                if not cam.flag_left(flag_coord):
+                    bot.body_right_20()
+                    cam.read()
+                    bool_result, coordinate = cam.detect_flag()
+                    if not cam.flag_is_center(coordinate):
+                        bot.left_20()
+                        bot.left_20()
+                        bot.left_20()
+                        bot.left_10()
                 else:
-                    # bot.body_left_20()
-                    # # 깃발 센터 확인
-                    # cam.read()
-                    # bool_result, coordinate = cam.detect_flag()
-                    # if not cam.flag_is_center(coordinate):
-                        bot.right_20()
-                        # bot.right_20()
-                        # bot.right_20()
-                        # bot.right_10()
+                    bot.body_left_20()
+                    cam.read()
+                    bool_result, coordinate = cam.detect_flag()
+                    if not cam.flag_is_center(coordinate):
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_10()
             else:
                 bot.task2ready()
                 pass
-        else:  # 공이 시야에 없을 때
-            # print("no ball is on cam")
+
+        else:  # 둘 다 안 보일 때
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
                     bot.head_right_max()
@@ -167,6 +194,7 @@ while True:
                 searched = True
             else:
                 pass
+                
     elif bot.task == "ready":
         logger.info("ready is start")
         h, b, f = cam.read()
