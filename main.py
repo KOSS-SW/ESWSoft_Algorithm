@@ -132,19 +132,17 @@ while True:
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
                 if not cam.flag_left(fc):
-                    bot.body_right_20() 
+                    bot.body_right_20()
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.left_10() # 공 안차도록 옆으로 간 뒤 회전 
                 else:
                     bot.body_left_20()
-                # is_hitable_X = is_hitable_Y = False
-                # while not (is_hitable_X == is_hitable_Y == True):
-                #     h, b, f = cam.read()
-                #     is_ball, bc = cam.detect_ball()
-                #     is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                #     if not is_hitable_X:
-                #         bot.ready_x(x)
-                #     # y좌표 조정
-                #     if not is_hitable_Y:
-                #         bot.ready_y(y)
+                    bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
+                    bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     
             else:
                 bot.task2ready()
