@@ -194,7 +194,6 @@ while True:
                 searched = True
             else:
                 pass
-               
                 
     elif bot.task == "ready":
         logger.info("ready is start")
