@@ -132,10 +132,10 @@ while True:
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
                 if not cam.flag_left(fc):
-                    bot.body_right_20()
+                    bot.body_right_20() 
                 else:
                     bot.body_left_20()
-                is_hitable_X, is_hitable_Y = False
+                is_hitable_X = is_hitable_Y = False
                 while not (is_hitable_X == is_hitable_Y == True):
                     h, b, f = cam.read()
                     is_ball, bc = cam.detect_ball()
