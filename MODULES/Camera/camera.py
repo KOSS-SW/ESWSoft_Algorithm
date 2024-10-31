@@ -242,3 +242,8 @@ class Cam:
         distance = CAMERA_HEIGHT * math.tan(angle_rad)
         
         return distance
+
+if __name__ == "__main__":
+    cam = Cam(True)
+    while 1:
+        cam.read()
