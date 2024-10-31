@@ -149,25 +149,25 @@ while True:
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
                 if not cam.flag_left(fc):
-                    bot.body_right_20()
+                    # bot.body_right_20()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
                     if not cam.flag_is_center(coordinate):
-                        for _ in range(3):
-                            bot.left_20()
-                            time.sleep(0.1)
+                        # for _ in range(3):
+                        #     bot.left_20()
+                        #     time.sleep(0.1)
                         bot.left_10()
                 else:
-                    bot.body_left_20()
+                    # bot.body_left_20()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
                     if not cam.flag_is_center(coordinate):
-                        for _ in range(3):
-                            bot.right_20()
-                            time.sleep(0.1)
-                        bot.right_10()
+                        # for _ in range(3):
+                        #     bot.right_20()
+                        #     time.sleep(0.1)
+                        bot.right_20()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
