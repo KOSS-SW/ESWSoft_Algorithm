@@ -27,17 +27,16 @@ bot = Bot()
 logger.info("bot True")
 
 # 상태 변수 정의
-SEARCH_BALL = "search_ball"      # 공 찾기 상태
-APPROACH_BALL = "approach_ball"  # 공에 접근하는 상태
-SEARCH_FLAG = "search_flag"      # 깃발 찾기 상태
-PUTTING = "putting"              # 퍼팅 상태
+SEARCH_BALL = "ball" # - 공 찾기
+APPROACH_BALL = "walk" # - 걸어가기
+SEARCH_FLAG = "flag" # - 깃발 찾기
+PUTTING = "hit" # - 퍼팅
 
-current_state = SEARCH_BALL
 head_lefted = False
 is_turning = 0
 
 while True:
-    if current_state == SEARCH_BALL:
+    if bot.task == SEARCH_BALL:
         logger.info("Searching for ball")
         # 고개를 들어 공을 찾음
         bot.head_down_75()
@@ -46,7 +45,7 @@ while True:
 
         if is_ball:
             logger.info("Ball found")
-            current_state = APPROACH_BALL
+            bot.task = APPROACH_BALL
             continue
 
         # 공이 보이지 않으면 좌우로 고개를 돌려가며 탐색
@@ -58,13 +57,13 @@ while True:
             head_lefted = not head_lefted
             is_turning = time.time()
 
-    elif current_state == APPROACH_BALL:
+    elif bot.task == APPROACH_BALL:
         logger.info("Approaching ball")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
         if not is_ball:
-            current_state = SEARCH_BALL
+            bot.task2ball()
             continue
 
         # 공이 중앙에 오도록 조정
@@ -80,13 +79,13 @@ while True:
             is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
             if is_hitable_X and is_hitable_Y:
                 # 적절한 거리에 도달하면 깃발 탐색 시작
-                current_state = SEARCH_FLAG
+                bot.task2flag()
             else:
                 # 아직 멀면 전진
                 bot.go()
                 time.sleep(0.2)
 
-    elif current_state == SEARCH_FLAG:
+    elif bot.task == SEARCH_FLAG:
         logger.info("Searching for flag")
         # 고개를 들어 깃발 탐색
         bot.head_up()
@@ -95,7 +94,7 @@ while True:
 
         if is_flag:
             logger.info("Flag found")
-            current_state = PUTTING
+            bot.task2hit()
             continue
 
         # 깃발이 보이지 않으면 좌우로 고개를 돌려가며 탐색
@@ -107,13 +106,13 @@ while True:
             head_lefted = not head_lefted
             is_turning = time.time()
 
-    elif current_state == PUTTING:
+    elif bot.task == PUTTING:
         logger.info("Preparing to putt")
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
         
         if not is_flag:
-            current_state = SEARCH_FLAG
+            bot.task2flag()
             continue
 
         # 깃발까지의 거리 계산
@@ -137,4 +136,4 @@ while True:
         time.sleep(1)
         
         # 퍼팅 후 다시 공 찾기 상태로 전환
-        current_state = SEARCH_BALL
+        bot.task2ball()
