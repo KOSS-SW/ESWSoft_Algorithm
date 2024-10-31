@@ -29,22 +29,22 @@ bot = Bot()
 logger.info("bot True")
 
 # 상태 변수 정의
-head_lefted = False  
-is_turning = 0  
-searched = False  
-walk_count = 3  
-head_left = 0  
-head_right = 0  
-flag_pass = False  
-hit = False  
-hit_right = True 
+head_lefted = False
+is_turning = 0
+searched = False
+walk_count = 3
+head_left = 0
+head_right = 0
+flag_pass = False
+hit = False
+hit_right = True
 
 while True:
     if bot.task == "ball":
         logger.info("ball is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
-        
+
         if is_ball:
             bot.head_center()
             if searched:
@@ -56,7 +56,7 @@ while True:
                     bot.body_right_30()
                     time.sleep(0.2)  # 안정화 대기
                 searched = False
-            
+
             is_ball_center = cam.ball_is_center(bc)
             if not is_ball_center:
                 # 미세 조정을 위한 반복 확인
@@ -81,13 +81,13 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-                
+
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
         h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
         is_ball, bc = cam.detect_ball()
-        
+
         if is_ball:
             is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
             if is_hitable_X == is_hitable_Y == True:
@@ -110,7 +110,7 @@ while True:
                 time.sleep(0.2)
         else:
             bot.go()
-            
+
     elif bot.task == "flag":
         logger.info("flag is start")
         time.sleep(1)  # 안정화 대기 시간
@@ -188,11 +188,11 @@ while True:
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     if not is_flag:
                         bot.head_left_45()  # 중간 각도로 추가 확인
-                
+
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-                
+
                 # 프레임 재획득 및 깃발 재탐지
                 time.sleep(0.2)
                 h, b, f = cam.read()
@@ -202,17 +202,19 @@ while True:
         logger.info("ready is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
-        
+
         if not is_ball:
             bot.task2ball()
             continue
-            
+
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-        
-        # 공과 로봇 발 사이의 거리를 계산 
+
+        # 공과 로봇 발 사이의 거리를 계산
         ball_distance = cam.calculate_ball_distance()
-        
-        if is_hitable_X and is_hitable_Y and ball_distance >= 11.0:  # 거리가 11cm 이상인지 확인
+
+        if (
+            is_hitable_X and is_hitable_Y and ball_distance >= 11.0
+        ):  # 거리가 11cm 이상인지 확인
             if hit:
                 time.sleep(0.3)
                 bot.task2hit()
@@ -257,24 +259,14 @@ while True:
                 bot.back()  # 한 걸음 후진
                 time.sleep(0.2)  # 안정화 대기
 
-
     elif bot.task == "hit":
         logger.info("hit is start")
         h, b, f = cam.read()
-        is_ball, bc = cam.detect_ball()
-        
-        # 타격 전 마지막으로 거리 확인
-        if is_ball:
-            ball_distance = cam.calculate_ball_distance()
-            if ball_distance < 11.0:  # 거리가 너무 가까우면 타격하지 않고 ready 상태로 돌아감
-                bot.task2ready()
-                continue
-                
         is_flag, fc = cam.detect_flag()
-        
+
         if is_flag:
             distance = cam.flag_distance(bot.head_angle())
-            time.sleep(0.3)
+            time.sleep(0.3)  # 안정화를 위한 대기
 
             # 거리 기반 파워 조절
             if 0 <= distance <= 50:
@@ -288,9 +280,9 @@ while True:
             else:
                 power = 30
 
-            bot.hit(power)
-            time.sleep(0.5)
-            bot.task2ball()
+            bot.hit(power)  # 설정된 파워로 타격
+            time.sleep(0.5)  # 타격 후 안정화 대기
+            bot.task2ball()  # 다음 공 찾기로 전환
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
