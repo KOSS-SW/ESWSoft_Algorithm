@@ -70,7 +70,7 @@ while True:
                     h, b, f = cam.read()
                     is_ball, bc = cam.detect_ball()
                     if cam.ball_is_center(bc):
-                        break
+                        bot.head_up()
             else:
                 bot.task2walk()
         else:
