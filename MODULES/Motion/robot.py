@@ -267,3 +267,32 @@ class Bot:
             self.go_little()
         else:
             self.back()
+
+    def step_backward(self):
+        """
+        로봇을 뒤로 이동시키는 메소드.
+        한 번에 작은 거리만큼 후진하여 안정성 확보.
+        """
+        # 안정적인 후진을 위한 순서:
+        # 1. 무게중심 이동
+        # 2. 후진 동작
+        # 3. 자세 안정화
+        
+        try:
+            # 1. 준비 자세
+            self.ready_position()  # 안정된 자세로 전환
+            time.sleep(0.2)  # 자세 안정화를 위한 대기
+            
+            # 2. 후진 동작
+            self.walk_backward()  # 후진 모션 실행
+            
+            # 또는 방법 2: 기존 전진 모션을 응용하는 경우
+            # self.go(direction="backward")  # go 메소드에 방향 파라미터 추가 필요
+            
+            # 3. 자세 안정화
+            time.sleep(0.2)  # 동작 완료 후 안정화 대기
+            
+        except Exception as e:
+            logging.error(f"Error in step_backward: {str(e)}")
+            # 에러 발생 시 안전한 자세로 복귀
+            self.ready_position()
