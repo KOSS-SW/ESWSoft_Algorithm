@@ -148,10 +148,10 @@ while True:
                     # cam.read()
                     # bool_result, coordinate = cam.detect_flag()
                     # if not cam.flag_is_center(coordinate):
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_20()
-                        bot.body_right_10()
+                        bot.right_20()
+                        bot.right_20()
+                        bot.right_20()
+                        bot.right_10()
             else:
                 bot.task2ready()
                 pass
