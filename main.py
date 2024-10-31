@@ -27,6 +27,14 @@ bot = Bot()
 logger.info("bot True")
 
 # 상태 변수 정의
+<<<<<<< HEAD
+=======
+SEARCH_BALL = "ball" # - 공 찾기
+APPROACH_BALL = "walk" # - 걸어가기
+SEARCH_FLAG = "flag" # - 깃발 찾기
+PUTTING = "hit" # - 퍼팅
+
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
 head_lefted = False
 is_turning = 0
 searched = False
@@ -38,12 +46,20 @@ hit = False
 hit_right = True
 
 while True:
+<<<<<<< HEAD
     if bot.task == "ball":
         logger.info("ball is start")
+=======
+    if bot.task == SEARCH_BALL:
+        logger.info("Searching for ball")
+        # 고개를 들어 공을 찾음
+        bot.head_down_75()
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
         if is_ball:
+<<<<<<< HEAD
             if searched:  # 공을 찾은 직후
                 time.sleep(0.3)  # 안정화 대기
                 
@@ -78,6 +94,11 @@ while True:
                             time.sleep(0.2)
                             bot.task2walk()  # walk 상태로 전환
                             break
+=======
+            logger.info("Ball found")
+            bot.task = APPROACH_BALL
+            continue
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
 
                 bot.head_center()  # 공이 안 보이면 머리 중앙으로
                 searched = False
@@ -94,6 +115,7 @@ while True:
                         time.sleep(0.2)  # 안정화 대기
                     searched = False
 
+<<<<<<< HEAD
                 is_ball_center = cam.ball_is_center(bc)
                 if not is_ball_center:
                     # 미세 조정을 위한 반복 확인
@@ -123,10 +145,15 @@ while True:
 
     elif bot.task == "walk":
         logger.info("walk is start")
+=======
+    elif bot.task == APPROACH_BALL:
+        logger.info("Approaching ball")
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
         h, b, f = cam.read()
         h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
         is_ball, bc = cam.detect_ball()
 
+<<<<<<< HEAD
         if is_ball:
             is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
             if is_hitable_X == is_hitable_Y == True:
@@ -140,6 +167,26 @@ while True:
                         bot.task2flag()
                     else:
                         continue
+=======
+        if not is_ball:
+            bot.task2ball()
+            continue
+
+        # 공이 중앙에 오도록 조정
+        is_ball_center = cam.ball_is_center(bc)
+        if not is_ball_center:
+            if cam.ball_left(bc):
+                bot.left_10()
+            else:
+                bot.right_10()
+            time.sleep(0.1)
+        else:
+            # 공과의 거리 확인
+            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+            if is_hitable_X and is_hitable_Y:
+                # 적절한 거리에 도달하면 깃발 탐색 시작
+                bot.task2flag()
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
             else:
                 logger.info(f"x,y = [{x}, {y}]")
                 if not is_hitable_X:
@@ -150,13 +197,21 @@ while True:
         else:
             bot.go()
 
+<<<<<<< HEAD
     elif bot.task == "flag":
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
+=======
+    elif bot.task == SEARCH_FLAG:
+        logger.info("Searching for flag")
+        # 고개를 들어 깃발 탐색
+        bot.head_up()
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
         if is_flag:
+<<<<<<< HEAD
             bot.head_center()
             if searched:
                 # 회전 동작 최적화
@@ -244,10 +299,15 @@ while True:
 
         if not is_ball:
             bot.task2ball()
+=======
+            logger.info("Flag found")
+            bot.task2hit()
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
             continue
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
+<<<<<<< HEAD
         # 공과 로봇 발 사이의 거리를 계산
         ball_distance = cam.calculate_ball_distance()
         logger.info(f"발과 공 사이의 거리 : {ball_distance}")
@@ -325,6 +385,16 @@ while True:
         if is_flag:
             distance = cam.flag_distance(bot.head_angle())
             time.sleep(0.3)
+=======
+    elif bot.task == PUTTING:
+        logger.info("Preparing to putt")
+        h, b, f = cam.read()
+        is_flag, fc = cam.detect_flag()
+        
+        if not is_flag:
+            bot.task2flag()
+            continue
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
 
             # 거리 기반 파워 조절
             if 0 <= distance <= 50:
@@ -342,6 +412,7 @@ while True:
             time.sleep(1)
             bot.task2ball()
         else:
+<<<<<<< HEAD
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
                     bot.head_right_max()
@@ -349,3 +420,13 @@ while True:
                     bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
+=======
+            power = 30
+
+        # 퍼팅 실행
+        bot.hit(power)
+        time.sleep(1)
+        
+        # 퍼팅 후 다시 공 찾기 상태로 전환
+        bot.task2ball()
+>>>>>>> 723769104f2766da6f35643e58c11a4c8cee435c
