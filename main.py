@@ -189,7 +189,7 @@ while True:
                     h, b, f = cam.read()  # 프레임 재획득
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     if not is_flag:
-                        bot.head_right()  # 중간 각도로 추가 확인
+                        bot.head_left()  # 중간 각도로 추가 확인
 
                 head_lefted = not head_lefted
                 is_turning = time.time()
