@@ -143,7 +143,6 @@ while True:
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
-                    bot.right_20() # 공 안차도록 옆으로 간 뒤 회전
                     bot.right_10() # 공 안차도록 옆으로 간 뒤 회전
                     
             else:
@@ -180,6 +179,7 @@ while True:
                     bot.body_right_45()  # 90도
                     bot.body_right_45()  # 90도
                     bot.left_20()  # 11cm
+                    bot.left_20()  # 11cm
                     bot.left_10()  # 11cm
                     bot.left_10()  # 11cm
                 else:
@@ -188,6 +188,7 @@ while True:
                     bot.right_10()
                     bot.body_left_45()
                     bot.body_left_45()
+                    bot.right_20()
                     bot.right_20()
                     bot.right_10()
                     bot.right_10()
