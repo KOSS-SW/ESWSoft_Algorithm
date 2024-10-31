@@ -145,7 +145,11 @@ while True:
                     cam.read()
                     bool_result, coordinate = cam.detect_flag
                     if cam.flag_is_center(coordinate):
-                        continue
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_20()
+                        bot.body_right_10()
+                        
                 is_hitable_X = is_hitable_Y = False
                 while not (is_hitable_X == is_hitable_Y == True):
                     h, b, f = cam.read()
