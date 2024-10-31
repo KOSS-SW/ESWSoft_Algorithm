@@ -37,8 +37,7 @@ head_left = 0
 head_right = 0  
 flag_pass = False  
 hit = False  
-hit_right = True  
-desired_y = -20  # 음수면 전진, 양수면 후진하도록 설정
+hit_right = True 
 
 while True:
     if bot.task == "ball":
@@ -97,19 +96,9 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
                 if is_ball:
-                    # 거리 확인을 위해 머리를 아래로
-                    bot.head_down_65()  # 거리 확인을 위한 각도
-                    time.sleep(0.2)
-                    h, b, f = cam.read()
-                    is_ball, bc = cam.detect_ball()
-                    if is_ball:
-                        _, _, _, y = cam.ball_hitable(bc)  # y값만 필요
-                        # y값 조정
-                        if abs(y) > 5:  # 오차 범위
-                            bot.ready_y(y)  # ready_y 함수가 이미 음수/양수에 따라 처리
-                            time.sleep(0.2)
-                        else:
-                            bot.task2flag()
+                    is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+                    if is_hitable_X == is_hitable_Y == True:
+                        bot.task2flag()
                     else:
                         continue
             else:
@@ -219,35 +208,74 @@ while True:
             continue
             
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-        if is_hitable_X == is_hitable_Y == True:
-            # 거리 확인을 위해 머리를 아래로
-            bot.head_down_65()  # 거리 확인을 위한 각도
-            time.sleep(0.2)
-            h, b, f = cam.read()
-            is_ball, bc = cam.detect_ball()
-            if is_ball:
-                _, _, _, y = cam.ball_hitable(bc)  # y값만 필요
-                # y값 조정
-                if abs(y) > 5:  # 오차 범위
-                    bot.ready_y(y)  # ready_y 함수가 이미 음수/양수에 따라 처리
-                    time.sleep(0.2)
-                    continue
-                    
+        # 공과 로봇 발 사이의 거리를 계산
+        ball_distance = cam.calculate_ball_distance()  # 이 함수는 Camera 클래스에 구현되어 있어야 함
+        
+        if is_hitable_X and is_hitable_Y and ball_distance >= 11.0:  # 거리가 11cm 이상인지 확인
             if hit:
-                time.sleep(0.3)  # 안정화 대기
+                time.sleep(0.3)
                 bot.task2hit()
+            else:
+                if hit_right:
+                    for _ in range(3):
+                        bot.left_20()
+                        time.sleep(0.1)
+                    bot.body_right_45()
+                    time.sleep(0.3)
+                    bot.body_right_45()
+                    time.sleep(0.3)
+                    for _ in range(3):
+                        bot.left_70()
+                        time.sleep(0.1)
+                    for _ in range(4):
+                        bot.left_20()
+                        time.sleep(0.1)
+                else:
+                    for _ in range(3):
+                        bot.right_20()
+                        time.sleep(0.1)
+                    bot.body_left_45()
+                    time.sleep(0.3)
+                    bot.body_left_45()
+                    time.sleep(0.3)
+                    for _ in range(3):
+                        bot.right_70()
+                        time.sleep(0.1)
+                    for _ in range(4):
+                        bot.right_20()
+                        time.sleep(0.1)
+                hit = True
+        else:
+            if not is_hitable_X:
+                bot.ready_x(x)
+                time.sleep(0.1)
+            if not is_hitable_Y:
+                bot.ready_y(y)
+                time.sleep(0.1)
+            if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
+                bot.step_backward()
+                time.sleep(0.2)
 
 
     elif bot.task == "hit":
         logger.info("hit is start")
         h, b, f = cam.read()
+        is_ball, bc = cam.detect_ball()
+        
+        # 타격 전 마지막으로 거리 확인
+        if is_ball:
+            ball_distance = cam.calculate_ball_distance()
+            if ball_distance < 11.0:  # 거리가 너무 가까우면 타격하지 않고 ready 상태로 돌아감
+                bot.task2ready()
+                continue
+                
         is_flag, fc = cam.detect_flag()
         
         if is_flag:
             distance = cam.flag_distance(bot.head_angle())
-            time.sleep(0.3)  # 타격 전 안정화
+            time.sleep(0.3)
 
-            # 더 세밀한 거리 기반 파워 조절
+            # 거리 기반 파워 조절
             if 0 <= distance <= 50:
                 power = 8
             elif 50 < distance <= 100:
@@ -259,8 +287,8 @@ while True:
             else:
                 power = 30
 
-            bot.hit(power)  # 파워 값 전달
-            time.sleep(0.5)  # 타격 후 대기
+            bot.hit(power)
+            time.sleep(0.5)
             bot.task2ball()
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
