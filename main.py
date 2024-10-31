@@ -301,10 +301,14 @@ while True:
             bot.left_70()
             bot.left_70()
             bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+
             bot.body_left_45()
             bot.body_left_45()
             time.sleep(0.5)
-            
+
             bot.task2ball()
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
