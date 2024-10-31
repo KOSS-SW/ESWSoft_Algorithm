@@ -28,28 +28,76 @@ logger.info("bot True")
 head_lefted = False
 is_turning = 0
 searched = False
-scan_count = 0
-head_left = 0
-head_right = 0
-flag_pass = False
+scan_stage = 0  # 탐색 단계 추적
+scan_direction = 1  # 1: 왼쪽으로 탐색, -1: 오른쪽으로 탐색
+last_turn_time = 0
+head_position = 'center'  # 'up', 'center', 'down'
 hit = False
 hit_right = True
-full_scan_completed = False
 
-def perform_360_scan():
-    """Perform a full 360-degree scan for the ball"""
-    for _ in range(12):  # 30도씩 12번 회전 = 360도
-        bot.body_right_30()
-        time.sleep(0.3)
-        h, b, f = cam.read()
-        is_ball, bc = cam.detect_ball()
-        if is_ball:
-            return True, bc
+def safe_scan_sequence():
+    """안전한 탐색 시퀀스 수행"""
+    global scan_stage, head_position, scan_direction, last_turn_time
+    
+    current_time = time.time()
+    if current_time - last_turn_time < 0.5:  # 동작간 안정화 시간
+        return False, None
+        
+    h, b, f = cam.read()
+    is_ball, bc = cam.detect_ball()
+    if is_ball:
+        return True, bc
+        
+    # 머리 위치와 방향에 따른 단계적 탐색
+    if scan_stage == 0:  # 중앙부터 시작
+        bot.head_center()
+        head_position = 'center'
+        scan_stage = 1
+    elif scan_stage == 1:  # 좌우 탐색 (중앙 높이)
+        if scan_direction == 1:
+            bot.head_left_45()
+            scan_direction = -1
+        else:
+            bot.head_right_45()
+            scan_stage = 2
+            scan_direction = 1
+    elif scan_stage == 2:  # 위쪽 탐색
+        bot.head_up()
+        head_position = 'up'
+        scan_stage = 3
+    elif scan_stage == 3:  # 좌우 탐색 (위쪽)
+        if scan_direction == 1:
+            bot.head_left_45()
+            scan_direction = -1
+        else:
+            bot.head_right_45()
+            scan_stage = 4
+            scan_direction = 1
+    elif scan_stage == 4:  # 아래쪽 탐색
+        bot.head_down()
+        head_position = 'down'
+        scan_stage = 5
+    elif scan_stage == 5:  # 좌우 탐색 (아래쪽)
+        if scan_direction == 1:
+            bot.head_left_45()
+            scan_direction = -1
+        else:
+            bot.head_right_45()
+            scan_stage = 6
+    elif scan_stage == 6:  # 몸체 회전 후 재탐색
+        bot.head_center()
+        head_position = 'center'
+        bot.left_20()  # 작은 각도로 안전하게 회전
+        scan_stage = 0  # 탐색 시퀀스 재시작
+        
+    last_turn_time = current_time
+    time.sleep(0.3)  # 안정화 대기
     return False, None
 
 def approach_ball(bc):
-    """Move towards the ball while keeping it centered"""
-    while True:
+    """공에 안전하게 접근"""
+    approach_count = 0
+    while approach_count < 10:  # 최대 시도 횟수 제한
         h, b, f = cam.read()
         is_ball, new_bc = cam.detect_ball()
         if not is_ball:
@@ -61,16 +109,20 @@ def approach_ball(bc):
                 bot.left_10()
             else:
                 bot.right_10()
-            time.sleep(0.2)
+            time.sleep(0.3)  # 안정화 대기 시간 증가
         else:
-            bot.go()
-            time.sleep(0.3)
-            
-        # Check if we're close enough
-        is_hitable_X, is_hitable_Y, _, _ = cam.ball_hitable(new_bc)
-        if is_hitable_X and is_hitable_Y:
-            return True
-    
+            # 거리 확인
+            ball_distance = cam.calculate_ball_distance()
+            if ball_distance > 35.0:
+                bot.go()
+                time.sleep(0.3)
+            elif ball_distance < 25.0:
+                bot.back()
+                time.sleep(0.3)
+            else:
+                return True
+                
+        approach_count += 1
     return False
 
 while True:
@@ -81,70 +133,47 @@ while True:
 
         if is_ball:
             if searched:  # 공을 찾은 직후
-                time.sleep(0.3)
+                time.sleep(0.3)  # 안정화 대기
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
                 
                 if is_ball:
                     logger.info("Ball found - approaching")
-                    bot.head_center()  # 머리 중앙으로
+                    bot.head_center()
                     if approach_ball(bc):
                         bot.task2walk()
                     else:
                         searched = False
-                
+                        
             else:  # 일반적인 ball 찾기 모드
                 is_ball_center = cam.ball_is_center(bc)
                 if not is_ball_center:
-                    for _ in range(3):
+                    for _ in range(3):  # 최대 3번 시도
                         if cam.ball_left(bc):
                             bot.left_10()
                         else:
                             bot.right_10()
-                        time.sleep(0.2)
+                        time.sleep(0.3)
                         h, b, f = cam.read()
                         is_ball, bc = cam.detect_ball()
                         if cam.ball_is_center(bc):
                             break
                 else:
-                    bot.task2walk()
-        else:
-            if not full_scan_completed:
-                logger.info("Starting full 360 scan")
-                bot.head_up()  # 머리 90도 올리기
-                is_ball, bc = perform_360_scan()
-                if is_ball:
-                    searched = True
-                    full_scan_completed = True
-                    continue
-                
-                # Try lower head angle scan
-                bot.head_center()
-                time.sleep(0.3)
-                is_ball, bc = perform_360_scan()
-                if is_ball:
-                    searched = True
-                    full_scan_completed = True
-                    continue
-                    
-                full_scan_completed = True
-            
-            # Regular scanning motion if 360 scan failed
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                scan_count += 1
-                if scan_count % 4 == 0:  # Every 4th scan, change head angle
-                    if bot.head_angle() > 45:
-                        bot.head_center()
+                    # 거리 확인 후 walk로 전환
+                    ball_distance = cam.calculate_ball_distance()
+                    if 25.0 <= ball_distance <= 35.0:
+                        bot.task2walk()
                     else:
-                        bot.head_up()
-                
-                if head_lefted:
-                    bot.head_right_max()
-                else:
-                    bot.head_left_max()
-                head_lefted = not head_lefted
-                is_turning = time.time()
+                        if ball_distance < 25.0:
+                            bot.back()
+                        else:
+                            bot.go()
+                        time.sleep(0.3)
+        else:
+            is_ball, bc = safe_scan_sequence()
+            if is_ball:
                 searched = True
+                scan_stage = 0  # 탐색 단계 초기화
 
     elif bot.task == "walk":
         logger.info("walk is start")
@@ -154,27 +183,27 @@ while True:
         if is_ball:
             is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
             
-            # Double check the position
-            time.sleep(0.2)
+            # 위치 재확인
+            time.sleep(0.3)
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
             
             if is_ball and is_hitable_X and is_hitable_Y:
                 ball_distance = cam.calculate_ball_distance()
-                if 25.0 <= ball_distance <= 35.0:  # Optimal hitting distance
+                if 25.0 <= ball_distance <= 35.0:
                     bot.task2flag()
                 else:
                     if ball_distance < 25.0:
                         bot.back()
                     else:
                         bot.go()
-                    time.sleep(0.2)
+                    time.sleep(0.3)
             else:
                 if not is_hitable_X:
                     bot.ready_x(x)
                 if not is_hitable_Y:
                     bot.ready_y(y)
-                time.sleep(0.2)
+                time.sleep(0.3)
         else:
             bot.task2ball()
 
