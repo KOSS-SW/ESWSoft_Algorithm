@@ -97,6 +97,7 @@ while True:
         continue
     elif bot.task == "flag":
         logger.info("flag is start")
+        time.sleep(2)
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
         # 깃발 찾기
