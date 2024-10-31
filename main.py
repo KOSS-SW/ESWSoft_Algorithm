@@ -154,7 +154,7 @@ while True:
 
     elif bot.task == "flag":
         logger.info("flag is start")
-        time.sleep(1)  # 안정화 대기 시간
+        time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
@@ -341,7 +341,7 @@ while True:
                 power = 30
 
             bot.hit(power)
-            time.sleep(0.5)
+            time.sleep(1)
             bot.task2ball()
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
