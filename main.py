@@ -203,9 +203,29 @@ while True:
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
+        # 공이 안 보이면 뒤로 가면서 찾기 시도
         if not is_ball:
-            bot.task2ball()
-            continue
+            logger.info("ball not visible, stepping back")
+            bot.back()  # 한 발자국 뒤로
+            time.sleep(0.2)  # 안정화 대기
+            
+            # 뒤로 간 후 다시 공 확인
+            h, b, f = cam.read()
+            is_ball, bc = cam.detect_ball()
+            
+            if not is_ball:  # 여전히 안 보이면 한 번 더 뒤로
+                logger.info("ball still not visible, stepping back again")
+                bot.back()
+                time.sleep(0.2)
+                
+                # 마지막으로 공 확인
+                h, b, f = cam.read()
+                is_ball, bc = cam.detect_ball()
+                
+                if not is_ball:  # 그래도 안 보이면 ball 찾기 상태로
+                    logger.info("cannot find ball, switching to ball finding mode")
+                    bot.task2ball()
+                    continue
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
@@ -258,7 +278,6 @@ while True:
             if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
                 bot.back()  # 한 걸음 후진
                 time.sleep(0.2)  # 안정화 대기
-
     elif bot.task == "hit":
         logger.info("hit is start")
         h, b, f = cam.read()
