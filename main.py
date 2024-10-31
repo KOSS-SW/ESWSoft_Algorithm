@@ -122,7 +122,7 @@ while True:
             if searched:
                 # 회전 동작 최적화
                 if not head_lefted:
-                    for _ in range(3):  # 70도 회전을 3번으로 나눔
+                    for _ in range(2):  # 70도 회전을 3번으로 나눔
                         bot.left_70()
                         time.sleep(0.1)
                     bot.body_right_45()
@@ -133,7 +133,7 @@ while True:
                         bot.left_70()
                         time.sleep(0.1)
                 else:
-                    for _ in range(3):
+                    for _ in range(2):
                         bot.right_70()
                         logger.info(f"테스트 돌기 10도 작은 회전 ㅋㅋTV")
                         bot.body_right_10()
