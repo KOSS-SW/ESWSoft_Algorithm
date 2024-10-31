@@ -300,6 +300,7 @@ while True:
 
             bot.hit(power)
             time.sleep(1)
+            
             bot.left_70()
             bot.left_70()
             bot.left_70()
