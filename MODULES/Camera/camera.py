@@ -204,6 +204,9 @@ class Cam:
         return self.frame, mask
 
     def flag_is_center(self, fc):
+        """
+        fc : 깃발의 좌표 (x, y)
+        """
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
     
     def flag_left(self, fc):

@@ -161,6 +161,7 @@ while True:
                 head_left = False
             is_flag_center = cam.flag_is_center(flag_coord)
             if not is_flag_center:
+<<<<<<< HEAD
                 if not cam.flag_left(flag_coord):
                     bot.body_right_20()
                     cam.read()
@@ -179,6 +180,27 @@ while True:
                         bot.body_right_20()
                         bot.body_right_20()
                         bot.body_right_10()
+=======
+                if cam.flag_left(fc):
+                    # bot.body_right_20()
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_flag()
+                    # if not cam.flag_is_center(coordinate):
+                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                        # bot.left_20() # 공 안차도록 옆으로 간 뒤 회전
+                        bot.left_10() # 공 안차도록 옆으로 간 뒤 회전 
+                else:
+                    # bot.body_left_20()
+                    # # 깃발 센터 확인
+                    # cam.read()
+                    # bool_result, coordinate = cam.detect_flag()
+                    # if not cam.flag_is_center(coordinate):
+                        bot.right_20()
+                        # bot.right_20()
+                        # bot.right_20()
+                        # bot.right_10()
+>>>>>>> 76d70b2320ec390bcc7e580bebbea4a3c4bd98a0
             else:
                 bot.task2ready()
                 pass
