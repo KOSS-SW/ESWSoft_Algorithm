@@ -44,7 +44,7 @@ while True:
             # 공이 중앙에 오도록 조정
             is_ball_center = cam.ball_is_center(bc)
             if not is_ball_center:
-                if cam.ball_left(bc):
+                if head_lefted:
                     bot.left_10()
                 else:
                     bot.right_10()
