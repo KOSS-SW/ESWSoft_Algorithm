@@ -116,124 +116,84 @@ while True:
         time.sleep(1)  # 안정화 대기 시간
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
-        is_ball, bc = cam.detect_ball()  # 공의 위치도 확인
 
         if is_flag:
             bot.head_center()
             if searched:
-                ball_distance = cam.calculate_ball_distance() if is_ball else float('inf')
-                logger.info(f"Ball distance before rotation: {ball_distance}")
-                
-                # 공이 너무 가까이 있으면 먼저 뒤로 이동
-                if ball_distance < 15.0:  # 회전을 위한 안전거리 15cm 설정
-                    logger.info("Ball too close, stepping back")
-                    bot.back()
-                    time.sleep(0.2)
-                    # 후진 후 거리 재확인
-                    h, b, f = cam.read()
-                    is_ball, bc = cam.detect_ball()
-                    ball_distance = cam.calculate_ball_distance() if is_ball else float('inf')
-                    
-                    # 여전히 가깝다면 한 번 더 후진
-                    if ball_distance < 15.0:
-                        bot.back()
-                        time.sleep(0.2)
-                
-                # 안전거리 확보 후 회전 시작
-                if not head_lefted:  # 오른쪽으로 회전할 때
-                    logger.info("Rotating right")
+                # 회전 동작 최적화
+                if not head_lefted:
                     for _ in range(3):  # 70도 회전을 3번으로 나눔
                         bot.left_70()
-                        # 각 회전마다 공과의 거리 확인
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if is_ball and cam.calculate_ball_distance() < 15.0:
-                            bot.back()
-                            time.sleep(0.2)
                         time.sleep(0.1)
-                    
                     bot.body_right_45()
                     time.sleep(0.3)
                     bot.body_right_45()
                     time.sleep(0.3)
-                    
                     for _ in range(5):
                         bot.left_70()
-                        # 각 회전마다 공과의 거리 확인
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if is_ball and cam.calculate_ball_distance() < 15.0:
-                            bot.back()
-                            time.sleep(0.2)
                         time.sleep(0.1)
-                else:  # 왼쪽으로 회전할 때
-                    logger.info("Rotating left")
+                else:
                     for _ in range(3):
                         bot.right_70()
-                        # 각 회전마다 공과의 거리 확인
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if is_ball and cam.calculate_ball_distance() < 15.0:
-                            bot.back()
-                            time.sleep(0.2)
                         time.sleep(0.1)
-                    
                     bot.body_left_45()
                     time.sleep(0.3)
                     bot.body_left_45()
                     time.sleep(0.3)
-                    
                     for _ in range(5):
                         bot.right_70()
-                        # 각 회전마다 공과의 거리 확인
-                        h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if is_ball and cam.calculate_ball_distance() < 15.0:
-                            bot.back()
-                            time.sleep(0.2)
                         time.sleep(0.1)
-                
                 searched = False
                 head_left = False
 
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
-                if not cam.flag_left(fc):
+                if cam.flag_left(fc):
+                    # bot.body_right_20()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
                     if not cam.flag_is_center(coordinate):
+                        # for _ in range(3):
+                        #     bot.left_20()
+                        #     time.sleep(0.1)
                         bot.left_10()
                 else:
+                    # bot.body_left_20()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
                     if not cam.flag_is_center(coordinate):
+                        # for _ in range(3):
+                        #     bot.right_20()
+                        #     time.sleep(0.1)
                         bot.right_20()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
+                # 머리 회전 각도를 단계적으로 증가
                 if head_lefted:
                     bot.head_right_max()
-                    time.sleep(0.3)
-                    h, b, f = cam.read()
-                    is_flag, fc = cam.detect_flag()
+                    time.sleep(0.3)  # 회전 후 안정화 대기
+                    h, b, f = cam.read()  # 프레임 재획득
+                    is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     if not is_flag:
-                        bot.head_right_45()
+                        bot.head_right_45()  # 중간 각도로 추가 확인
                 else:
                     bot.head_left_max()
-                    time.sleep(0.3)
-                    h, b, f = cam.read()
-                    is_flag, fc = cam.detect_flag()
+                    time.sleep(0.3)  # 회전 후 안정화 대기
+                    h, b, f = cam.read()  # 프레임 재획득
+                    is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     if not is_flag:
-                        bot.head_left_45()
-                
+                        bot.head_left_45()  # 중간 각도로 추가 확인
+
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-                
+
+                # 프레임 재획득 및 깃발 재탐지
                 time.sleep(0.2)
                 h, b, f = cam.read()
                 is_flag, fc = cam.detect_flag()
@@ -323,6 +283,7 @@ while True:
             if ball_distance < 11.0:  # 거리가 11cm 미만이면 뒤로 이동
                 bot.back()  # 한 걸음 후진
                 time.sleep(0.2)  # 안정화 대기
+
     elif bot.task == "hit":
         logger.info("hit is start")
         h, b, f = cam.read()
