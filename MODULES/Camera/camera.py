@@ -13,7 +13,7 @@ class Cam:
     FPS = 40
     ERROR = 10
     DEBUG = False
-    MIN_AREA = [5,50]
+    MIN_AREA = [5,30]
     HIT_SPOT = (426,439)
 
     hsv_Lower_boll = (0, 108, 163)
@@ -161,7 +161,8 @@ class Cam:
         # 가장 큰 컨투어 찾기
         if len(contours) > 0:
             largest_contour = max(contours, key=cv2.contourArea)
-            
+            if cv2.contourArea(largest_contour) < Cam.MIN_AREA[1]:
+                return False, None
             # 새로운 마스크 생성 (가장 큰 영역만 포함)
             result_mask = np.zeros(self.mask_flag.shape, np.uint8)
             cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
