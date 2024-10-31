@@ -31,14 +31,12 @@ logger.info("bot True")
 head_lefted = False
 is_turning = 0
 walk_count = 3
+head_position = "up"  # 현재 머리 높이 위치 ("up", "center", "down")
+
 
 while True:
     if bot.task == "ball":
         logger.info("ball is start")
-        # 처음부터 고개를 들어 공을 찾음
-        bot.head_up()
-        time.sleep(0.2)
-        
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
@@ -64,14 +62,43 @@ while True:
                     if is_hitable_X and is_hitable_Y:
                         bot.task2flag()  # 공에 충분히 가까워지면 깃발 탐색으로 전환
         else:
-            # 공이 안 보이면 좌우로 고개를 돌려가며 탐색
+            # 체계적인 공 탐색 패턴
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                if head_lefted:
-                    bot.head_right_max()
-                else:
-                    bot.head_left_max()
-                head_lefted = not head_lefted
+                if head_position == "up":
+                    # 위쪽에서 좌우 탐색
+                    if head_lefted:
+                        bot.head_right_max()
+                        head_lefted = False
+                    else:
+                        bot.head_left_max()
+                        head_lefted = True
+                        head_position = "center"  # 다음은 중앙 높이로
+                elif head_position == "center":
+                    # 중앙 높이에서 좌우 탐색
+                    if head_lefted:
+                        bot.head_right_max()
+                        bot.head_center()
+                        head_lefted = False
+                    else:
+                        bot.head_left_max()
+                        bot.head_center()
+                        head_lefted = True
+                        head_position = "down"  # 다음은 아래쪽으로
+                else:  # head_position == "down"
+                    # 아래쪽에서 좌우 탐색
+                    if head_lefted:
+                        bot.head_right_max()
+                        bot.head_down_75()
+                        head_lefted = False
+                    else:
+                        bot.head_left_max()
+                        bot.head_down_75()
+                        head_lefted = True
+                        head_position = "up"  # 다시 위쪽으로
+                        bot.head_up()  # 다음 사이클을 위해 머리를 위로
+                
                 is_turning = time.time()
+                time.sleep(0.3)  # 안정화 대기
 
     elif bot.task == "flag":
         logger.info("flag is start")
@@ -91,7 +118,7 @@ while True:
             # 깃발이 안 보이면 천천히 고개를 움직이며 탐색
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
-                    bot.head_right() 
+                    bot.head_right()
                     time.sleep(0.3)
                 else:
                     bot.head_left()
