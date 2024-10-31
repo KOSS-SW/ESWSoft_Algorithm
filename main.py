@@ -113,14 +113,16 @@ while True:
                     bot.task2walk()
         else:
             bot.head_up()  # 머리 90도 올리기
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                if head_lefted:
-                    bot.head_right_max()
-                else:
-                    bot.head_left_max()
-                head_lefted = not head_lefted
-                is_turning = time.time()
-                searched = True
+            bot.body_left_45()
+
+            # if is_turning == 0 or abs(time.time() - is_turning) > 1:
+            #     if head_lefted:
+            #         bot.head_right_max()
+            #     else:
+            #         bot.head_left_max()
+            #     head_lefted = not head_lefted
+            #     is_turning = time.time()
+            #     searched = True
 
     elif bot.task == "walk":
         logger.info("walk is start")
