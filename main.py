@@ -38,6 +38,7 @@ head_right = 0
 flag_pass = False  
 hit = False  
 hit_right = True  
+desired_y = 150  # 11cm 거리에 해당하는 y좌표 값 (카메라 픽셀 기준)
 
 while True:
     if bot.task == "ball":
@@ -96,9 +97,23 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
                 if is_ball:
-                    is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                    if is_hitable_X == is_hitable_Y == True:
-                        bot.task2flag()
+                    # 거리 확인을 위해 머리를 아래로
+                    bot.head_down_20()
+                    time.sleep(0.2)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    if is_ball:
+                        # y값이 11cm 거리에 맞는지 확인
+                        if y > desired_y:  # 너무 가까우면
+                            bot.backward()
+                            time.sleep(0.2)
+                        elif y < desired_y:  # 너무 멀면
+                            bot.go()
+                            time.sleep(0.2)
+                        else:
+                            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+                            if is_hitable_X == is_hitable_Y == True:
+                                bot.task2flag()
                     else:
                         continue
             else:
@@ -110,6 +125,8 @@ while True:
                 time.sleep(0.2)
         else:
             bot.go()
+
+
             
     elif bot.task == "flag":
         logger.info("flag is start")
@@ -209,6 +226,22 @@ while True:
             
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         if is_hitable_X == is_hitable_Y == True:
+            # 거리 확인을 위해 머리를 아래로
+            bot.head_down_20()
+            time.sleep(0.2)
+            h, b, f = cam.read()
+            is_ball, bc = cam.detect_ball()
+            if is_ball:
+                # y값이 11cm 거리에 맞는지 확인
+                if y > desired_y:  # 너무 가까우면
+                    bot.backward()
+                    time.sleep(0.2)
+                    continue
+                elif y < desired_y:  # 너무 멀면
+                    bot.go()
+                    time.sleep(0.2)
+                    continue
+                    
             if hit:
                 time.sleep(0.3)  # 안정화 대기
                 bot.task2hit()
@@ -250,6 +283,7 @@ while True:
             if not is_hitable_Y:
                 bot.ready_y(y)
                 time.sleep(0.1)
+
 
     elif bot.task == "hit":
         logger.info("hit is start")
