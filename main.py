@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from MODULES.Camera.camera import Cam
 from MODULES.Camera import calculate
 from MODULES.Motion.robot import Bot
@@ -110,7 +112,7 @@ while True:
                 else:
                     bot.task2walk()
         else:
-            # bot.head_up()  # 머리 90도 올리기
+            bot.head_up()  # 머리 90도 올리기
 
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
