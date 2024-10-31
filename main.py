@@ -183,6 +183,7 @@ while True:
                     bot.body_right_45()  # 90도
                     bot.body_right_45()  # 90도
                     bot.left_70()
+                    bot.left_70()
                     bot.left_20()  # 11cm
                     bot.left_20()  # 11cm
                     bot.left_10()  # 11cm
@@ -193,6 +194,7 @@ while True:
                     bot.right_10()
                     bot.body_left_45()
                     bot.body_left_45()
+                    bot.right_70()
                     bot.right_70()
                     bot.right_20()
                     bot.right_20()
