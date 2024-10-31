@@ -45,7 +45,6 @@ while True:
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
-        bot.head_up()
         if is_ball:
             bot.head_center()
             if searched:
