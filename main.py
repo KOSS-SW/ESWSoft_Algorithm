@@ -165,9 +165,9 @@ while True:
                     bool_result, coordinate = cam.detect_flag()
                     if not cam.flag_is_center(coordinate):
                         for _ in range(3):
-                            bot.body_right_20()
+                            bot.right_20()
                             time.sleep(0.1)
-                        bot.body_right_10()
+                        bot.right_10()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
