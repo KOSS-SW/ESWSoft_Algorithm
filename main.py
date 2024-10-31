@@ -161,7 +161,7 @@ while True:
                 head_left = False
             is_flag_center = cam.flag_is_center(flag_coord)
             if not is_flag_center:
-                if not cam.flag_left(flag_coord):
+                if cam.flag_left(flag_coord):
                     # bot.body_right_20()
                     # cam.read()
                     # bool_result, coordinate = cam.detect_flag()
