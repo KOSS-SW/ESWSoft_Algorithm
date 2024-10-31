@@ -248,9 +248,9 @@ while True:
                    for _ in range(3):
                        bot.left_70()
                        time.sleep(0.1)
-                   for _ in range(4):
-                       bot.left_20()
-                       time.sleep(0.1)
+                #    for _ in range(4):
+                #        bot.left_20()
+                #        time.sleep(0.1)
                else:
                    for _ in range(3):
                        bot.right_20()
@@ -262,9 +262,9 @@ while True:
                    for _ in range(3):
                        bot.right_70()
                        time.sleep(0.1)
-                   for _ in range(4):
-                       bot.right_20()
-                       time.sleep(0.1)
+                #    for _ in range(4):
+                #        bot.right_20()
+                #        time.sleep(0.1)
                hit = True
        else:
            if not is_hitable_X:
@@ -308,7 +308,7 @@ while True:
             bot.left_70()
             bot.left_70()
             bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
-            time.sleep(0.2)  # 안정화 대기
+            time.sleep(1)  # 안정화 대기
 
             bot.head_up()
             while True:  # 무한 루프 시작
