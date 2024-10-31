@@ -306,12 +306,16 @@ while True:
             bot.left_70()
             bot.left_70()
             bot.left_70()
+            time.sleep(0.2)  # 안정화 대기
 
-            bot.body_left_45()
-            bot.body_left_45()
-            time.sleep(0.5)
-
-            bot.task2ball()
+            while True:  # 무한 루프 시작
+                is_ball, bc = cam.detect_ball()  # 공 검출 시도
+                
+                if is_ball:  # 공이 검출되면
+                    bot.task2ball()  # task2ball 실행
+                    break  # 루프 종료
+                
+                bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
