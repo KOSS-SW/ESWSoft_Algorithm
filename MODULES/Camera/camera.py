@@ -207,7 +207,7 @@ class Cam:
         area = cv2.contourArea(contour)
         if area > 0:
             circularity = 4 * np.pi * (area / (cv2.arcLength(contour, True) ** 2))
-            if 0.7 < circularity < 1.2:  # 원형에 가까운 모양인지 확인
+            if 0.1 < circularity < 10000:  # 원형에 가까운 모양인지 확인
                 return [center, radius]
         return None
 
