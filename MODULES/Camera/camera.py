@@ -90,6 +90,7 @@ class Cam:
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
             circles = self.detect_holcup()
+            self.logger.debug(f"circles in flag: {circles}")
             if circles is not None:
                 for i in range(circles.shape[1]): # 검출된 원 갯수만큼 반복
                     cx, cy, radius = circles[0][i] # i번째 원에 데이터 저장
