@@ -89,9 +89,9 @@ class Cam:
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
-            circles = self.detect_holcup()
+            cs = self.detect_holcup()
             self.logger.debug(f"circles in flag: {circles}")
-            if circles is not None:
+            for circles in cs :
                 cv2.circle(self.frame, circles[0], circles[1], (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
@@ -199,18 +199,19 @@ class Cam:
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         # 원형을 감지하기 위한 컨투어 필터링
+        circles = []
         for contour in contours:
             # 윤곽선의 외접 원을 구해 반지름 계산
             (x, y), radius = cv2.minEnclosingCircle(contour)
             center = (int(x), int(y))
             radius = int(radius)
-        area = cv2.contourArea(contour)
-        if area > 0:
-            circularity = 4 * np.pi * (area / (cv2.arcLength(contour, True) ** 2))
-            if 0.1 < circularity < 10000:  # 원형에 가까운 모양인지 확인
-                return [center, radius]
-        return None
-
+            area = cv2.contourArea(contour)
+            if area > 0:
+                circularity = 4 * np.pi * (area / (cv2.arcLength(contour, True) ** 2))
+                if 0.1 < circularity < 10000:  # 원형에 가까운 모양인지 확인
+                    circles.append([center, radius])
+        return circles
+        
     def flag_is_center(self, fc):
         """
         fc : 깃발의 좌표 (x, y)
