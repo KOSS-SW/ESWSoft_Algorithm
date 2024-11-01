@@ -315,7 +315,7 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
                 
-                if is_ball and cam.ball_left(bc):  # 공이 검출되면
+                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
                     bot.task2ball()  # task2ball 실행 나중에 홀컵인식으로 바꿀 것
                     break  # 루프 종료
                 
