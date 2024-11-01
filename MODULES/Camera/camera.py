@@ -92,7 +92,7 @@ class Cam:
             cs = self.detect_holcup()
             self.logger.debug(f"circles in flag: {cs}")
             if cs :
-                cv2.line(self.frame, cs[0], cs[1], 5) # 저장된 데이터를 이용해 원 그리기
+                cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
             if isf:
@@ -194,11 +194,10 @@ class Cam:
 
         # x 좌표의 최소값과 최대값 계산
         if coords.size > 0:
-            x_min = coords[:, 1].min()
-            x_max = coords[:, 1].max()
+            x_center = int(np.median(coords[:, 1]))
             y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
 
-            return (x_max, y_center), (x_min, y_center)
+            return (x_center, y_center)
 
         # 가우시안 블러 적용
         return False
