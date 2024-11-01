@@ -150,8 +150,8 @@ while True:
 
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
-                if cam.flag_left(fc):
-                    # bot.body_right_20()
+                if not cam.flag_left(fc):
+                    bot.body_right_10()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
@@ -161,7 +161,7 @@ while True:
                         #     time.sleep(0.1)
                         bot.left_10()
                 else:
-                    # bot.body_left_20()
+                    bot.body_left_10()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
@@ -314,8 +314,8 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
                 
-                if is_ball:  # 공이 검출되면
-                    bot.task2ball()  # task2ball 실행
+                if not cam.ball_left(bc):  # 공이 검출되면
+                    bot.task2ball()  # task2ball 실행 나중에 홀컵인식으로 바꿀 것
                     break  # 루프 종료
                 
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
@@ -328,3 +328,4 @@ while True:
                     bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
+    
