@@ -189,10 +189,9 @@ class Cam:
         
         # 노란색 마스크 생성
         mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-        gray = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
         # 가우시안 블러 적용
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        blurred = cv2.GaussianBlur(mask, (5, 5), 0)
         # 노이즈 제거를 위한 모폴로지 연산
         edges = cv2.Canny(blurred, 50, 150)
         
