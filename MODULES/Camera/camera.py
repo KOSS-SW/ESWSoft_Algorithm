@@ -3,7 +3,7 @@ import numpy as np
 from math import tan
 import logging
 import threading
-import queue
+import calculate
 
 class Cam:
     W_View_size =  640  #320  #640
@@ -97,7 +97,7 @@ class Cam:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
-                    self.logger.info(f"{np.sqrt((bc[0] - cs[0])**2 + (bc[1] - cs[1])**2)}")
+                    self.logger.info(f"{calculate.calculateDistance(bc,cs)}")
             if isf:
                 cv2.circle(self.frame, fc, 5, (0,0,0))
             

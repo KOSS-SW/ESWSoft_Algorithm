@@ -38,6 +38,7 @@ head_right = 0
 flag_pass = False
 hit = False
 hit_right = True
+checkIn = False
 
 while True:
     if bot.task == "ball":
@@ -98,7 +99,10 @@ while True:
                 if is_ball:
                     is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
                     if is_hitable_X == is_hitable_Y == True:
-                        bot.task2flag()
+                        if checkIn:
+                            bot.task2check()
+                        else:
+                            bot.task2flag()
                     else:
                         continue
             else:
@@ -329,4 +333,11 @@ while True:
                     bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
-    
+    elif bot.task == "check":
+        hc = cam.detect_holcup()
+        is_ball, bc = cam.detect_ball()
+        if hc and is_ball:
+            if calculate.calculateDistance(bc, hc) < 100:
+                bot.end()
+                break
+        bot.task2flag()

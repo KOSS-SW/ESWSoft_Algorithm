@@ -98,6 +98,12 @@ class Bot:
         self.head_down_75()
         time.sleep(0.3)
     
+    def task2check(self):
+        self.task = "check"
+        Bot.logger.info(f"now task is {self.task}")
+        self.head_down_35()
+        time.sleep(1)
+    
     def task2ready(self):
         self.task = "ready"
         time.sleep(1)
@@ -282,3 +288,6 @@ class Bot:
             time.sleep(0.2)  # 안정화를 위한 대기
         except Exception as e:
             logging.error(f"Error in step_backward: {str(e)}")
+
+    def end(self):
+        self.__TX_data(33)
