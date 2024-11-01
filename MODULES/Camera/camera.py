@@ -188,13 +188,12 @@ class Cam:
         upper_yellow = (30+10, 255, 255)
         
         # 노란색 마스크 생성
-        mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-        
-        # 노이즈 제거를 위한 모폴로지 연산
-        kernel = np.ones((5,5), np.uint8)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-        
+        gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+
+        # 가우시안 블러 적용
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        mask = cv2.Canny(blurred, 50, 150)
+
         # 컨투어 찾기
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
