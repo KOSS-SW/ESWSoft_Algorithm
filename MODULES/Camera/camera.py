@@ -96,6 +96,7 @@ class Cam:
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
+                    cv2.line(self.frame, cs,bc, 5)
                     self.logger.info(f"{np.sqrt((bc[0] - cs[0])**2 + (bc[1] - cs[1])**2)}")
             if isf:
                 cv2.circle(self.frame, fc, 5, (0,0,0))
