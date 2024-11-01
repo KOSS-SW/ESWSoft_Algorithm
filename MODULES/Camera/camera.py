@@ -204,7 +204,7 @@ class Cam:
         rmax = cv2.getTrackbarPos('maxRadius', 'img')
         th = cv2.getTrackbarPos('threshold', 'img')
         circles = cv2.HoughCircles(mask, cv2.HOUGH_GRADIENT, 1, 50,
-                               param1=120)        
+                           param1=150, param2=40, minRadius=20, maxRadius=80)     
         return circles
 
     def flag_is_center(self, fc):
