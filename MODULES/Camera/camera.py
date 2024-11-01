@@ -201,14 +201,15 @@ class Cam:
         # 원형을 감지하기 위한 컨투어 필터링
         circles = []
         for contour in contours:
-            # 윤곽선의 외접 원을 구해 반지름 계산
-            (x, y), radius = cv2.minEnclosingCircle(contour)
-            center = (int(x), int(y))
-            radius = int(radius)
-            area = cv2.contourArea(contour)
-            if area > 0:
-                circularity = 4 * np.pi * (area / (cv2.arcLength(contour, True) ** 2))
-                if 0.1 < circularity < 10000:  # 원형에 가까운 모양인지 확인
+            if len(contour) >= 5:  # 타원 피팅을 위해 최소 5개의 점 필요
+                # 타원을 근사하여 중심이 뚫린 원에 가까운지 검출
+                ellipse = cv2.fitEllipse(contour)
+                (x, y), (MA, ma), angle = ellipse  # 타원의 중심, 긴반지름, 짧은반지름, 각도
+                
+                # 짧은반지름과 긴반지름의 비율이 특정 범위에 있어 원에 가깝다면 필터링
+                if 0.8 < MA / ma < 1.2:  # 원형에 가까운 타원 비율
+                    center = (int(x), int(y))
+                    radius = int((MA + ma) / 4)  # 근사 반지름 계산
                     circles.append([center, radius])
         return circles
         
