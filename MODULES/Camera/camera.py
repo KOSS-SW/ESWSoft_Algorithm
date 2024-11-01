@@ -3,7 +3,7 @@ import numpy as np
 from math import tan
 import logging
 import threading
-import calculate
+from MODULES.Camera import calculate
 
 class Cam:
     W_View_size =  640  #320  #640
