@@ -90,7 +90,7 @@ class Cam:
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
             cs = self.detect_holcup()
-            self.logger.debug(f"circles in flag: {circles}")
+            self.logger.debug(f"circles in flag: {cs}")
             for circles in cs :
                 cv2.circle(self.frame, circles[0], circles[1], (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
             if ib:
