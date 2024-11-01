@@ -95,6 +95,8 @@ class Cam:
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
+                if cs:
+                    self.logger.info(f"{np.sqrt((bc[0] - cs[0])**2 + (bc[1] - cs[1])**2)}")
             if isf:
                 cv2.circle(self.frame, fc, 5, (0,0,0))
             
