@@ -89,6 +89,11 @@ class Cam:
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
+            circles = self.detect_holcup()
+            if circles is not None:
+                for i in range(circles.shape[1]): # 검출된 원 갯수만큼 반복
+                    cx, cy, radius = circles[0][i] # i번째 원에 데이터 저장
+                    cv2.circle(self.frame, (cx, cy), radius, (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
             if isf:
@@ -192,19 +197,10 @@ class Cam:
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         
         # 컨투어 찾기
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
         # 가장 큰 컨투어 찾기
-        if len(contours) > 0:
-            largest_contour = max(contours, key=cv2.contourArea)
-            
-            # 새로운 마스크 생성 (가장 큰 영역만 포함)
-            result_mask = np.zeros(mask.shape, np.uint8)
-            cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
-            
-            # 결과 이미지 생성
-            result = cv2.bitwise_and(self.frame, self.frame, mask=result_mask)
-            return result, result_mask
+        circles = cv2.HoughCircles(mask, cv2.HOUGH_GRADIENT, 1, 50, parmam1=120)
+        return circles
         
         return self.frame, mask
 
