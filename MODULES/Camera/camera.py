@@ -91,8 +91,8 @@ class Cam:
             isf, fc = self.detect_flag()
             cs = self.detect_holcup()
             self.logger.debug(f"circles in flag: {cs}")
-            for circles in cs :
-                cv2.circle(self.frame, circles[0], circles[1], (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
+            if cs :
+                cv2.line(self.frame, cs[0], cs[1], 5) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
             if isf:
@@ -190,28 +190,18 @@ class Cam:
         # 노란색 마스크 생성
         mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
 
+        coords = np.column_stack(np.where(mask > 0))
+
+        # x 좌표의 최소값과 최대값 계산
+        if coords.size > 0:
+            x_min = coords[:, 1].min()
+            x_max = coords[:, 1].max()
+            y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+
+            return (x_max, y_center), (x_min, y_center)
+
         # 가우시안 블러 적용
-        blurred = cv2.GaussianBlur(mask, (5, 5), 0)
-        # 노이즈 제거를 위한 모폴로지 연산
-        edges = cv2.Canny(blurred, 50, 150)
-        
-        # 컨투어 찾기
-        contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        # 원형을 감지하기 위한 컨투어 필터링
-        circles = []
-        for contour in contours:
-            if len(contour) >= 5:  # 타원 피팅을 위해 최소 5개의 점 필요
-                # 타원을 근사하여 중심이 뚫린 원에 가까운지 검출
-                ellipse = cv2.fitEllipse(contour)
-                (x, y), (MA, ma), angle = ellipse  # 타원의 중심, 긴반지름, 짧은반지름, 각도
-
-                # 짧은반지름과 긴반지름의 비율이 특정 범위에 있어 원에 가깝다면 필터링
-                if 0.8 < MA / ma < 1000:  # 원형에 가까운 타원 비율
-                    center = (int(x), int(y))
-                    radius = int((MA + ma) / 4)  # 근사 반지름 계산
-                    circles.append([center, radius])
-        return circles
+        return False
         
     def flag_is_center(self, fc):
         """
