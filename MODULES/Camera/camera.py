@@ -199,10 +199,12 @@ class Cam:
         # 컨투어 찾기
         
         # 가장 큰 컨투어 찾기
-        circles = cv2.HoughCircles(mask, cv2.HOUGH_GRADIENT, 1, 50, parmam1=120)
+        rmin = cv2.getTrackbarPos('minRadius', 'img')
+        rmax = cv2.getTrackbarPos('maxRadius', 'img')
+        th = cv2.getTrackbarPos('threshold', 'img')
+        circles = cv2.HoughCircles(mask, cv2.HOUGH_GRADIENT, 1, 50,
+                               parmam1=120, param2=th, minRadius=rmin, maxRadius=rmax)        
         return circles
-        
-        return self.frame, mask
 
     def flag_is_center(self, fc):
         """
