@@ -92,9 +92,7 @@ class Cam:
             circles = self.detect_holcup()
             self.logger.debug(f"circles in flag: {circles}")
             if circles is not None:
-                for i in range(circles.shape[1]): # 검출된 원 갯수만큼 반복
-                    cx, cy, radius = circles[0][i] # i번째 원에 데이터 저장
-                    cv2.circle(self.frame, (cx, cy), radius, (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
+                cv2.circle(self.frame, circles[0], circles[1], (0, 0, 255), 2, cv2.LINE_AA) # 저장된 데이터를 이용해 원 그리기
             if ib:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
             if isf:
@@ -198,11 +196,20 @@ class Cam:
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         
         # 컨투어 찾기
-        
-        # 가장 큰 컨투어 찾기
-        circles = cv2.HoughCircles(mask, cv2.HOUGH_GRADIENT, 1, 50,
-                           param1=150, param2=80, minRadius=10, maxRadius=160)     
-        return circles
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # 원형을 감지하기 위한 컨투어 필터링
+        for contour in contours:
+            # 윤곽선의 외접 원을 구해 반지름 계산
+            (x, y), radius = cv2.minEnclosingCircle(contour)
+            center = (int(x), int(y))
+            radius = int(radius)
+        area = cv2.contourArea(contour)
+        if area > 0:
+            circularity = 4 * np.pi * (area / (cv2.arcLength(contour, True) ** 2))
+            if 0.7 < circularity < 1.2:  # 원형에 가까운 모양인지 확인
+                return [center, radius]
+        return None
 
     def flag_is_center(self, fc):
         """
