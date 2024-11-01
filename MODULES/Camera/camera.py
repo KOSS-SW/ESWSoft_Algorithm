@@ -205,9 +205,9 @@ class Cam:
                 # 타원을 근사하여 중심이 뚫린 원에 가까운지 검출
                 ellipse = cv2.fitEllipse(contour)
                 (x, y), (MA, ma), angle = ellipse  # 타원의 중심, 긴반지름, 짧은반지름, 각도
-                
+
                 # 짧은반지름과 긴반지름의 비율이 특정 범위에 있어 원에 가깝다면 필터링
-                if 0.8 < MA / ma < 1.2:  # 원형에 가까운 타원 비율
+                if 0.8 < MA / ma < 1000:  # 원형에 가까운 타원 비율
                     center = (int(x), int(y))
                     radius = int((MA + ma) / 4)  # 근사 반지름 계산
                     circles.append([center, radius])
