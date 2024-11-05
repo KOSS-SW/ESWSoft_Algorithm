@@ -91,7 +91,7 @@ while True:
             for i in range(3):
                 bot.go()
         else:
-            if cam.ball_left():
+            if cam.ball_left(bc):
                 bot.left_10()
             else:
                 bot.right_10()
