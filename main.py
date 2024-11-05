@@ -204,7 +204,7 @@ while True:
                     # if not is_flag:
                     bot.head_left()  # 중간 각도로 추가 확인
                 if is_flag:
-                    break
+                    continue
             bot.head_center()
             time.sleep(0.3)
             head_lefted = not head_lefted
