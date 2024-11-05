@@ -176,7 +176,7 @@ while True:
                         # for _ in range(3):
                         #     bot.left_20()
                         #     time.sleep(0.1)
-                        bot.left_10()
+                        bot.left_5()
                 else:
                     bot.body_left_10()
                     time.sleep(0.2)
@@ -186,7 +186,7 @@ while True:
                         # for _ in range(3):
                         #     bot.right_20()
                         #     time.sleep(0.1)
-                        bot.right_20()
+                        bot.right_5()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
