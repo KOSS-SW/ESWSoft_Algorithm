@@ -225,6 +225,7 @@ while True:
 
         # 공과 로봇 발 사이의 거리를 계산
         ball_distance = cam.calculate_ball_distance()
+        logger.info(f"발과 공 사이의 거리 : {ball_distance}")
 
         if (
             is_hitable_X and is_hitable_Y and ball_distance >= 11.0
