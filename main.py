@@ -253,7 +253,7 @@ while True:
 
                 # 이후 회전 시작
                 if hit_right:
-                    for _ in range(6):
+                    for _ in range(5):
                         bot.left_20()
                         time.sleep(0.1)
                     bot.body_right_90()
@@ -265,7 +265,7 @@ while True:
                 #        bot.left_20()
                 #        time.sleep(0.1)
                 else:
-                    for _ in range(6):
+                    for _ in range(5):
                         bot.right_20()
                         time.sleep(0.1)
                     bot.body_left_90()
