@@ -270,9 +270,9 @@ while True:
                         time.sleep(0.1)
                     bot.body_left_90()
                     time.sleep(0.3)
-                    for _ in range(3):
-                        bot.right_70()
-                        time.sleep(0.1)
+                    # for _ in range(3):
+                    #     bot.right_70()
+                    #     time.sleep(0.1)
                 #    for _ in range(4):
                 #        bot.right_20()
                 #        time.sleep(0.1)
@@ -325,7 +325,11 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
 
+<<<<<<< HEAD
                 if is_ball:  # 공이 검출되면
+=======
+                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
+>>>>>>> 64c1a0700caf60830925b0a42969f0b0da991ac6
                     checkIn = True
                     bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                     break  # 루프 종료
