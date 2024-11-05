@@ -203,7 +203,6 @@ while True:
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
                     bot.head_left_middle()  # 중간 각도로 추가 확인
-                bot.head_center()
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
