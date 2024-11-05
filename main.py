@@ -205,6 +205,7 @@ while True:
                     bot.head_left()  # 중간 각도로 추가 확인
                 if is_flag:
                     break
+            bot.head_center()
             head_lefted = not head_lefted
             is_turning = time.time()
             searched = True
