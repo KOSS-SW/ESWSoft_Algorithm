@@ -178,7 +178,7 @@ while True:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
+            if is_turning == 0 or abs(time.time() - is_turning) > 2:
                 # 머리 회전 각도를 단계적으로 증가
                 if head_lefted:
                     bot.head_right_max()
