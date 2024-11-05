@@ -188,7 +188,7 @@ while True:
                 bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
             # 머리 회전 각도를 단계적으로 증가
-            for i in range(10):
+            for i in range(20):
                 if head_lefted:
                     # bot.head_right_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
