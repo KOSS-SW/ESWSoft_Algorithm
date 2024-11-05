@@ -206,6 +206,7 @@ while True:
                 if is_flag:
                     break
             bot.head_center()
+            time.sleep(0.3)
             head_lefted = not head_lefted
             is_turning = time.time()
             searched = True
