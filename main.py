@@ -82,6 +82,7 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
+
     elif bot.task == "following":
         logger.info("follow is start")
         for i in range(3):
@@ -141,9 +142,7 @@ while True:
                     for _ in range(2):  # 70도 회전을 3번으로 나눔
                         bot.left_70()
                         time.sleep(0.1)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    bot.body_right_45()
+                    bot.body_right_90()
                     time.sleep(0.3)
                     for _ in range(5):
                         bot.left_70()
@@ -154,9 +153,7 @@ while True:
                         logger.info(f"테스트 돌기 10도 작은 회전 ㅋㅋTV")
                         bot.body_right_10()
                         time.sleep(0.1)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    bot.body_left_45()
+                    bot.body_left_90()
                     time.sleep(0.3)
                     for _ in range(5):
                         bot.right_70()
@@ -259,9 +256,7 @@ while True:
                     for _ in range(3):
                         bot.left_20()
                         time.sleep(0.1)
-                    bot.body_right_45()
-                    time.sleep(0.3)
-                    bot.body_right_45()
+                    bot.body_right_90()
                     time.sleep(0.3)
                     for _ in range(3):
                         bot.left_70()
@@ -273,9 +268,7 @@ while True:
                     for _ in range(3):
                         bot.right_20()
                         time.sleep(0.1)
-                    bot.body_left_45()
-                    time.sleep(0.3)
-                    bot.body_left_45()
+                    bot.body_left_90()
                     time.sleep(0.3)
                     for _ in range(3):
                         bot.right_70()
