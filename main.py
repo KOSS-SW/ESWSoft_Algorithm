@@ -185,15 +185,15 @@ while True:
                     # time.sleep(0.3)  # 회전 후 안정화 대기
                     h, b, f = cam.read()  # 프레임 재획득
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    if not is_flag:
-                        bot.head_right()  # 중간 각도로 추가 확인
+                    # if not is_flag:
+                        # bot.head_right()  # 중간 각도로 추가 확인
                 else:
                     bot.head_left_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
                     h, b, f = cam.read()  # 프레임 재획득
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    if not is_flag:
-                        bot.head_left()  # 중간 각도로 추가 확인
+                    # if not is_flag:
+                        # bot.head_left()  # 중간 각도로 추가 확인
 
                 head_lefted = not head_lefted
                 is_turning = time.time()
