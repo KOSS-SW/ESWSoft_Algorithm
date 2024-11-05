@@ -182,7 +182,7 @@ while True:
                         # for _ in range(3):
                         #     bot.right_20()
                         #     time.sleep(0.1)
-                        bot.right_5()
+                        bot.right_20()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
