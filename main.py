@@ -168,21 +168,21 @@ while True:
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
-                    if not cam.flag_is_center(coordinate):
-                        # for _ in range(3):
-                        #     bot.left_20()
-                        #     time.sleep(0.1)
-                        bot.left_5()
+                    # if not cam.flag_is_center(coordinate):
+                    #     # for _ in range(3):
+                    #     #     bot.left_20()
+                    #     #     time.sleep(0.1)
+                    #     bot.left_5()
                 else:
                     bot.body_left_10()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
-                    if not cam.flag_is_center(coordinate):
-                        # for _ in range(3):
-                        #     bot.right_20()
-                        #     time.sleep(0.1)
-                        bot.right_20()
+                    # if not cam.flag_is_center(coordinate):
+                    #     # for _ in range(3):
+                    #     #     bot.right_20()
+                    #     #     time.sleep(0.1)
+                    #     bot.right_20()
             else:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
