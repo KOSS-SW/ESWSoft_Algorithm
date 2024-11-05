@@ -231,7 +231,7 @@ while True:
             is_hitable_X and is_hitable_Y and ball_distance >= 11.0
         ):  # 거리가 11cm 이상인지 확인
             if hit:
-                bot.back()
+                # bot.back()
                 time.sleep(0.3)
                 bot.task2hit()
             else:
