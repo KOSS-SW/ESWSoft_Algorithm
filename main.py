@@ -82,7 +82,10 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-
+    elif bot.task == 'follow':
+        logger.info('follow is start')
+        h,b,f = cam.read()
+        
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
