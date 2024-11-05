@@ -140,6 +140,12 @@ class Bot:
         '''머리 오른쪽 끝까지 회전'''
         self.__TX_data(27)
 
+    def head_left_middle(self):
+        self.__TX_data(28)
+
+    def head_right_middle(self):
+        self.__TX_data(30)
+
     def head_up(self): # 머리 위로
         '''머리 위로'''
         self.__TX_data(31)
