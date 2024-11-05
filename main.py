@@ -187,8 +187,8 @@ while True:
                 time.sleep(0.3)  # 최종 안정화
                 bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                # 머리 회전 각도를 단계적으로 증가
+            # 머리 회전 각도를 단계적으로 증가
+            for i in range(10):
                 if head_lefted:
                     # bot.head_right_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
@@ -203,15 +203,16 @@ while True:
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
                     bot.head_left()  # 중간 각도로 추가 확인
+                if is_flag:
+                    break
+            head_lefted = not head_lefted
+            is_turning = time.time()
+            searched = True
 
-                head_lefted = not head_lefted
-                is_turning = time.time()
-                searched = True
-
-                # 프레임 재획득 및 깃발 재탐지
-                time.sleep(0.2)
-                h, b, f = cam.read()
-                is_flag, fc = cam.detect_flag()
+            # 프레임 재획득 및 깃발 재탐지
+            time.sleep(0.2)
+            h, b, f = cam.read()
+            is_flag, fc = cam.detect_flag()
 
     elif bot.task == "ready":
         logger.info("ready is start")
