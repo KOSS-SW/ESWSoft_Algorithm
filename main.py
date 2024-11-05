@@ -321,7 +321,7 @@ while True:
                 
                 if is_ball and not cam.ball_left(bc):  # 공이 검출되면
                     checkIn = True
-                    bot.task2ball()  # task2ball 실행 나중에 홀컵인식으로 바꿀 것
+                    bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                     break  # 루프 종료
                 
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
@@ -334,6 +334,7 @@ while True:
                     bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
+
     elif bot.task == "check":
         hc = cam.detect_holcup()
         is_ball, bc = cam.detect_ball()
@@ -341,4 +342,5 @@ while True:
             if calculate.calculateDistance(bc, hc) < 100:
                 bot.end()
                 break
+            
         bot.task2flag()
