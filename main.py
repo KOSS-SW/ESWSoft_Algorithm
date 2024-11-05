@@ -82,10 +82,20 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-    elif bot.task == 'follow':
+    elif bot.task == 'following':
         logger.info('follow is start')
+        for i in range(3):
+            bot.go()
         h,b,f = cam.read()
-        
+        is_ball, bc = cam.detect_ball()
+        if is_ball:
+            if not cam.ball_is_center(bc):
+                if cam.ball_left():
+                    bot.left_10()
+                else:
+                    bot.right_10()
+
+
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
