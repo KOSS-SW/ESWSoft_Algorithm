@@ -101,21 +101,19 @@ while True:
         h, b, f = cam.read()
         h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
         is_ball, bc = cam.detect_ball()
-
+        time.sleep(0.2)  # 안정화 대기
+        # 재확인
+        h, b, f = cam.read()
+        is_ball, bc = cam.detect_ball()
         if is_ball:
-                time.sleep(0.2)  # 안정화 대기
-                # 재확인
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()
-                if is_ball:
-                    is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-                    if is_hitable_X == is_hitable_Y == True:
-                        if checkIn:
-                            bot.task2check()
-                        else:
-                            bot.task2flag()
-                    else:
-                        continue
+            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
+            if is_hitable_Y:
+                if checkIn:
+                    bot.task2check()
+                else:
+                    bot.task2flag()
+            else:
+                bot.go()
         else:
             bot.go()
 
