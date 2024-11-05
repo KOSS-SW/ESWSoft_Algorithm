@@ -325,7 +325,7 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
 
-                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
+                if is_ball and not cam.ball_is_center(bc):  # 공이 검출되면
                     checkIn = True
                     bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                     break  # 루프 종료
