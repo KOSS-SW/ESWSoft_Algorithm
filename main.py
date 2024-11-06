@@ -153,7 +153,7 @@ while True:
                 else:
                     for _ in range(3):
                         bot.right_70()
-                        logger.info(f"테스트 돌기 10도 작은 회전 ㅋㅋTV")
+                        logger.info(f"ROBOT 돌기 (10도 작은 회전)")
                         bot.body_right_10()
                         time.sleep(0.1)
                     bot.body_left_90()
