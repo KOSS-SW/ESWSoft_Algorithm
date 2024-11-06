@@ -293,7 +293,7 @@ class Bot:
         if right:
             self.__TX_data(2)
         else:
-            self.__TX_data() # 왼쪽 샷
+            self.__TX_data(5) # 왼쪽 샷
     
     def ready_x(self, x):
         # x좌표 조정
