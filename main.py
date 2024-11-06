@@ -282,12 +282,10 @@ while True:
                         h, b, f = cam.read()
                         is_ball, bc = cam.detect_ball()
                         if is_ball:
-                            final_distance = cam.calculate_ball_distance()
-                            if MIN_DISTANCE <= final_distance <= MAX_DISTANCE:
-                                hit = True
-                                logger.info(f"Ready to hit. Final distance: {final_distance}cm")
-                            else:
-                                logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
+                            hit = True
+                            #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
+                            # else:
+                            #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
                 else:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
