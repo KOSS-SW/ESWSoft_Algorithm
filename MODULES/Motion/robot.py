@@ -87,7 +87,7 @@ class Bot:
     def task2following(self):
         self.task = "following"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_35()
+        self.head_down_75()
         time.sleep(0.3)
     
     def task2walk(self):
@@ -202,6 +202,7 @@ class Bot:
         self.__TX_data(7)
         self.__TX_data(7)
         
+        self.__TX_data(4)
         self.__TX_data(4)
         self.__TX_data(4)
         self.__TX_data(4)

@@ -88,16 +88,20 @@ while True:
         is_ball, bc = cam.detect_ball()
 
         logger.info("follow is start")
-        center_ball = cam.ball_is_center(bc)
-        if center_ball:
-            logger.info("following task 볼 탐지 성공")
-            for i in range(3):
-                bot.go()
+        if is_ball:
+            bot.task2ball()
+            # center_ball = cam.ball_is_center(bc)
+            # if center_ball:
+            #     logger.info("following task 볼 탐지 성공")
+            #     for i in range(3):
+            #         bot.go()
+            # else:
+            #     if cam.ball_left(bc):
+            #         bot.left_10()
+            #     else:
+            #         bot.right_10()
         else:
-            if cam.ball_left(bc):
-                bot.left_10()
-            else:
-                bot.right_10()
+            bot.left_10()
 
     elif bot.task == "walk":
         logger.info("walk is start")
@@ -436,7 +440,7 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
 
-                if is_ball:  # 공이 검출되면
+                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
                     checkIn = True
                     bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                     break  # 루프 종료
