@@ -84,6 +84,9 @@ while True:
                 searched = True
 
     elif bot.task == "following":
+        h, b, f = cam.read()
+        is_ball, bc = cam.detect_ball()
+        
         logger.info("follow is start")
         center_ball = cam.ball_is_center(bc)
         if center_ball:
