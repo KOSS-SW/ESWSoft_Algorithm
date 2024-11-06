@@ -232,69 +232,70 @@ while True:
                     # 거리가 부족하면 뒤로 이동
                     logger.info(f"Distance too short, moving backward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
                     steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
-                    for _ in range(steps_back):
-                        bot.step_backward()
-                        time.sleep(0.2)
+                    # for _ in range(steps_back):
+                    bot.step_backward()
+                    time.sleep(0.2)
                 
                 elif current_distance > TARGET_DISTANCE:
                     # 거리가 너무 멀면 앞으로 이동
                     logger.info(f"Distance too far, moving forward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
                     steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
-                    for _ in range(steps_forward):
-                        bot.go_little()
-                        time.sleep(0.2)
+                    # for _ in range(steps_forward):
+                    bot.go_little()
+                    time.sleep(0.2)
 
-        # X-Y 위치 미세 조정
-        if (is_hitable_X):
-            if hit:
-                time.sleep(0.3)
-                bot.task2hit()
             else:
-                # 퍼팅 준비를 위한 위치 조정
-                bot.head_center()
-                time.sleep(0.3)
-
-                if hit_right:
-                    # 오른쪽 퍼팅을 위한 위치 조정
-                    for _ in range(5):
-                        bot.left_20()
-                        time.sleep(0.2)
-                    bot.body_right_90()
-                    time.sleep(0.4)
-                    for _ in range(3):
-                        bot.left_70()
-                        time.sleep(0.2)
-                else:
-                    # 왼쪽 퍼팅을 위한 위치 조정
-                    for _ in range(5):
-                        bot.right_20()
-                        time.sleep(0.2)
-                    bot.body_left_90()
-                    time.sleep(0.4)
-                    for _ in range(3):
-                        bot.right_70()
-                        time.sleep(0.2)
-                
-                # 최종 위치 확인
-                bot.head_down_35()
-                time.sleep(0.3)
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()
-                if is_ball:
-                    final_distance = cam.calculate_ball_distance()
-                    if MIN_DISTANCE <= final_distance <= MAX_DISTANCE:
-                        hit = True
-                        logger.info(f"Ready to hit. Final distance: {final_distance}cm")
+                # X-Y 위치 미세 조정
+                if (is_hitable_X):
+                    if hit:
+                        time.sleep(0.3)
+                        bot.task2hit()
                     else:
-                        logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
-        else:
-            # X-Y 축 미세 조정
-            if not is_hitable_X:
-                bot.ready_x(x)
-                time.sleep(0.2)
-            # if not is_hitable_Y:
-            #     bot.ready_y(x)
-            #     time.sleep(0.2)
+                        # 퍼팅 준비를 위한 위치 조정
+                        bot.head_center()
+                        time.sleep(0.3)
+
+                        if hit_right:
+                            # 오른쪽 퍼팅을 위한 위치 조정
+                            for _ in range(5):
+                                bot.left_20()
+                                time.sleep(0.2)
+                            bot.body_right_90()
+                            time.sleep(0.4)
+                            for _ in range(3):
+                                bot.left_70()
+                                time.sleep(0.2)
+                        else:
+                            # 왼쪽 퍼팅을 위한 위치 조정
+                            for _ in range(5):
+                                bot.right_20()
+                                time.sleep(0.2)
+                            bot.body_left_90()
+                            time.sleep(0.4)
+                            for _ in range(3):
+                                bot.right_70()
+                                time.sleep(0.2)
+                        
+                        # 최종 위치 확인
+                        bot.head_down_35()
+                        time.sleep(0.3)
+                        h, b, f = cam.read()
+                        is_ball, bc = cam.detect_ball()
+                        if is_ball:
+                            final_distance = cam.calculate_ball_distance()
+                            if MIN_DISTANCE <= final_distance <= MAX_DISTANCE:
+                                hit = True
+                                logger.info(f"Ready to hit. Final distance: {final_distance}cm")
+                            else:
+                                logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
+                else:
+                    # X-Y 축 미세 조정
+                    if not is_hitable_X:
+                        bot.ready_x(x)
+                        time.sleep(0.2)
+                    # if not is_hitable_Y:
+                    #     bot.ready_y(x)
+                    #     time.sleep(0.2)
 
     elif bot.task == "hit":
         logger.info("hit is start")
