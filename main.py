@@ -245,7 +245,7 @@ while True:
                         time.sleep(0.2)
 
         # X-Y 위치 미세 조정
-        if (is_hitable_X and is_hitable_Y):
+        if (is_hitable_X):
             if hit:
                 time.sleep(0.3)
                 bot.task2hit()
