@@ -39,8 +39,8 @@ hit_right = True
 checkIn = False
 
 while True:
-    time.sleep(1)
     if bot.task == "ball":
+        time.sleep(1)
         logger.info("ball is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -133,7 +133,7 @@ while True:
 
     elif bot.task == "flag":
         logger.info("flag is start")
-        time.sleep(0.3)  # 안정화 대기 시간
+        time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
@@ -187,7 +187,7 @@ while True:
                     #     #     time.sleep(0.1)
                     #     bot.right_20()
             else:
-                time.sleep(0.3)  # 최종 안정화
+                time.sleep(0.2)  # 최종 안정화
                 bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
