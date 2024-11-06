@@ -213,7 +213,7 @@ while True:
         # logger.info(f"발과 공 사이의 거리 : {ball_distance}")
 
         if (
-            (is_hitable_X and is_hitable_Y) or True
+            (is_hitable_X and is_hitable_Y)
         ):  # 거리가 11cm 이상인지 확인
             if hit:
                 # bot.back()
@@ -257,7 +257,6 @@ while True:
                     time.sleep(0.3)
                     # for _ in range(3):
                     #     bot.right_70()
-                    #     time.sleep(0.1)
                 #    for _ in range(4):
                 #        bot.right_20()
                 #        time.sleep(0.1)
@@ -267,10 +266,10 @@ while True:
             #     bot.back()  # 한 걸음 후진
             #     time.sleep(0.2)  # 안정화 대기
             if not is_hitable_X:
-                bot.ready_x(x)
+                bot.ready_x(y)
                 time.sleep(0.1)
             if not is_hitable_Y:
-                bot.ready_y(y)
+                bot.ready_y(x)
                 time.sleep(0.1)
 
     elif bot.task == "hit":
