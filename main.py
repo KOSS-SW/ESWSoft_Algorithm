@@ -133,7 +133,7 @@ while True:
 
     elif bot.task == "flag":
         logger.info("flag is start")
-        time.sleep(0.5)  # 안정화 대기 시간
+        time.sleep(0.3)  # 안정화 대기 시간
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
@@ -271,7 +271,7 @@ while True:
                     else:
                         # 퍼팅 준비를 위한 위치 조정
                         bot.head_center()
-                        time.sleep(0.3)
+                        # time.sleep(0.3)
 
                         if hit_right:
                             # 오른쪽 퍼팅을 위한 위치 조정
