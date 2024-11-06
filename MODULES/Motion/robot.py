@@ -25,7 +25,7 @@ class Bot:
     stream_handler.setLevel(logging.INFO)
     #log를 파일에 출력
     file_handler = logging.FileHandler("./logs/myRobot.log")
-    file_handler.setLevel(logging.INFO)
+    file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
@@ -82,32 +82,41 @@ class Bot:
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_75()
+        time.sleep(1)
+
+    def task2following(self):
+        self.task = "following"
+        Bot.logger.info(f"now task is {self.task}")
+        self.head_down_75()
         time.sleep(0.3)
     
     def task2walk(self):
         self.task = "walk"
         Bot.logger.info(f"now task is {self.task}")
-        time.sleep(0.2)
         self.head_down_35()
-        time.sleep(0.2)
+        time.sleep(2)
     
     def task2flag(self):
         self.task = "flag"
         Bot.logger.info(f"now task is {self.task}")
-        time.sleep(1)
         self.head_down_75()
-        time.sleep(0.3)
+        time.sleep(1)
+    
+    def task2check(self):
+        self.task = "check"
+        Bot.logger.info(f"now task is {self.task}")
+        self.head_down_35()
+        time.sleep(1)
     
     def task2ready(self):
         self.task = "ready"
-        time.sleep(1)
         self.head_down_35()
-        time.sleep(0.3)
+        time.sleep(1)
         Bot.logger.info(f"now task is {self.task}")
     
     def task2hit(self):
         self.task = "hit"
-        self.head_down_75()
+        self.head_down_65()
         Bot.logger.info(f"now task is {self.task}")
         
     def head_angle(self): # 현재 머리 각도 가져오기
@@ -127,6 +136,12 @@ class Bot:
     def head_right_max(self): # 머리 오른쪽 끝까지 회전
         '''머리 오른쪽 끝까지 회전'''
         self.__TX_data(27)
+
+    def head_left_middle(self):
+        self.__TX_data(28)
+
+    def head_right_middle(self):
+        self.__TX_data(30)
 
     def head_up(self): # 머리 위로
         '''머리 위로'''
@@ -177,6 +192,29 @@ class Bot:
     def body_left_20(self):
         '''로봇 왼쪽으로 22.5도 회전 '''
         self.__TX_data(7)
+
+    def body_left_90(self):
+        '''로봇 왼쪽으로 90도 회전 '''
+        self.__TX_data(7)
+        self.__TX_data(7)
+        self.__TX_data(7)
+        
+        self.__TX_data(4)
+        self.__TX_data(4)
+        self.__TX_data(4)
+        self.__TX_data(4)
+
+    def body_right_90(self):
+        '''로봇 오른쪽으로 90도 회전 '''
+        self.__TX_data(9)
+        self.__TX_data(9)
+        self.__TX_data(9)
+
+        self.__TX_data(6)
+        self.__TX_data(6)
+        self.__TX_data(6)
+        self.__TX_data(6)
+
     
     def body_right_20(self):
         '''로봇 오른쪽으로 22.5도 회전 '''
@@ -202,6 +240,10 @@ class Bot:
         '''로봇 오른쪽 옆걸음 20'''
         self.__TX_data(20)
 
+    def left_5(self):
+        '''로봇 왼쪽 옆걸음 5'''
+        self.__TX_data(15)
+
     def left_10(self):
         '''로봇 왼쪽 옆걸음 10'''
         self.__TX_data(40)
@@ -226,9 +268,17 @@ class Bot:
         '''로봇 머리 오른쪽 회전'''
         self.__TX_data(35)
 
+    def head_up(self):
+        '''로봇 머리 90도 올리기'''
+        self.__TX_data(45)
+
     def go(self):
         '''로봇 앞으로 전진'''
         self.__TX_data(19)
+    
+    def go_little(self):
+        '''로봇 앞으로 전진'''
+        self.__TX_data(23)
     
     def back(self):
         '''로봇 뒤로 후진'''
@@ -247,14 +297,29 @@ class Bot:
     
     def ready_x(self, x):
         # x좌표 조정
+        self.logger.info(f"{x}, {type(x)}")
         if x < 0:
-            self.left_10()
+            self.left_5()
         else:
             self.right_10()
 
     def ready_y(self, y):
         # y좌표 조정
         if y < 0:
-            self.go()
+            self.go_little()
         else:
             self.back()
+
+    def step_backward(self):
+        """
+        로봇을 뒤로 이동시키는 메소드.
+        back() 메소드를 사용하여 한 걸음 후진
+        """
+        try:
+            self.back()  # 한 걸음 후진
+            time.sleep(0.2)  # 안정화를 위한 대기
+        except Exception as e:
+            logging.error(f"Error in step_backward: {str(e)}")
+
+    def end(self):
+        self.__TX_data(43)

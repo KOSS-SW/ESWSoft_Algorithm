@@ -2,18 +2,19 @@ import cv2, time
 import numpy as np
 from math import tan
 import logging
-from threading import Thread
+import threading
+from MODULES.Camera import calculate
 
 class Cam:
     W_View_size =  640  #320  #640
     H_View_size = int(W_View_size / 1.333)
-    CENTER = W_View_size//2 + 100
+    CENTER = W_View_size//2
     CENTERH = H_View_size//2
     FPS = 40
     ERROR = 10
     DEBUG = False
-    MIN_AREA = [30,50]
-    HIT_SPOT = (426,439)
+    MIN_AREA = [5,60]
+    HIT_SPOT = (426,449)
 
     hsv_Lower_boll = (0, 108, 163)
     hsv_Upper_boll = (255, 176, 255) 
@@ -46,21 +47,39 @@ class Cam:
 
         Cam.DEBUG = debug
         time.sleep(0.5)
-        tes, frame = self.camera.read()
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
+
+        self.lock = threading.Lock()
+        self.current_frame = None
+        self.last_frame_time = 0
+
+        self.stop_thread = False
+        self.thread = threading.Thread(target=self._reader)
+        self.thread.daemon = True
+        self.thread.start()
+
         self.logger.info("cam is initialized")    
 
+    def _reader(self):
+        while not self.stop_thread:
+            ret, frame = self.camera.read()
+            if not ret:
+                break
+            
+            # 프레임과 시간 정보 업데이트
+            with self.lock:
+                self.current_frame = frame
+                self.last_frame_time = time.time()
 
     def read(self):
-        for i in range(10):
-            self.camera.grab()
-            ret, self.frame =  self.camera.read()
-            #self.video.write(self.frame)
-        t = time.time()
-        # print(t - self.last_read)
-        self.last_read = t
+        with self.lock:
+            if self.current_frame is None:
+                return None
+            
+            # 현재 프레임 복사본 반환
+            self.frame = self.current_frame.copy()
         cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
             h,b,f = self.__process()
@@ -68,6 +87,19 @@ class Cam:
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
+            ib, bc = self.detect_ball()
+            isf, fc = self.detect_flag()
+            cs = self.detect_holcup()
+            self.logger.debug(f"circles in flag: {cs}")
+            if cs :
+                cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
+            if ib:
+                cv2.circle(self.frame, bc, 5, (0,0,0))
+                if cs:
+                    cv2.line(self.frame, cs,bc, 5)
+                    self.logger.info(f"{calculate.calculateDistance(bc,cs)}")
+            if isf:
+                cv2.circle(self.frame, fc, 5, (0,0,0))
             
 
             cv2.imshow('mini CTS5 - Video', self.frame )
@@ -101,8 +133,6 @@ class Cam:
         if Area > 255:
             Area = 255
         if Area > Cam.MIN_AREA[0]:
-            if self.DEBUG:
-                cv2.circle(self.frame, (int(X), int(Y)), 5, (255,255,0))
             return True, (int(X), int(Y))
         return False, None
     
@@ -120,13 +150,12 @@ class Cam:
         return bc[0] < Cam.CENTER
     
     def ball_hitable(self, bc):
-        dis = [abs(bc[0] - Cam.HIT_SPOT[0]), abs(bc[1] - Cam.HIT_SPOT[1])]
+        dis = [(bc[0] - Cam.HIT_SPOT[0]), (bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
-        if all(filter(lambda x: x < Cam.ERROR, dis)):
-           return False, (0, 0)
-        else:
-            return True, set(dis)
-
+        z = list(map(lambda x: abs(x) < (Cam.ERROR), dis))
+        self.logger.debug(z)
+        return z[0], z[1], dis[0], dis[1]
+        
     def flag_distance(self, angle):
         # 현재 목 각도
         angle -= 100
@@ -139,7 +168,8 @@ class Cam:
         # 가장 큰 컨투어 찾기
         if len(contours) > 0:
             largest_contour = max(contours, key=cv2.contourArea)
-            
+            if cv2.contourArea(largest_contour) < Cam.MIN_AREA[1]:
+                return False, None
             # 새로운 마스크 생성 (가장 큰 영역만 포함)
             result_mask = np.zeros(self.mask_flag.shape, np.uint8)
             cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
@@ -162,31 +192,60 @@ class Cam:
         
         # 노란색 마스크 생성
         mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-        
-        # 노이즈 제거를 위한 모폴로지 연산
-        kernel = np.ones((5,5), np.uint8)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-        
-        # 컨투어 찾기
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        
-        # 가장 큰 컨투어 찾기
-        if len(contours) > 0:
-            largest_contour = max(contours, key=cv2.contourArea)
-            
-            # 새로운 마스크 생성 (가장 큰 영역만 포함)
-            result_mask = np.zeros(mask.shape, np.uint8)
-            cv2.drawContours(result_mask, [largest_contour], 0, 255, -1)
-            
-            # 결과 이미지 생성
-            result = cv2.bitwise_and(self.frame, self.frame, mask=result_mask)
-            return result, result_mask
-        
-        return self.frame, mask
 
+        coords = np.column_stack(np.where(mask > 0))
+
+        # x 좌표의 최소값과 최대값 계산
+        if coords.size > 0:
+            x_center = int(np.median(coords[:, 1]))
+            y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+
+            return (x_center, y_center)
+
+        # 가우시안 블러 적용
+        return False
+        
     def flag_is_center(self, fc):
+        """
+        fc : 깃발의 좌표 (x, y)
+        """
         return abs(fc[0]-Cam.CENTER) < Cam.ERROR
     
     def flag_left(self, fc):
         return fc[0] < Cam.CENTER
+    
+    def calculate_ball_distance(self):
+        """
+        공과 로봇의 발 사이의 거리를 계산합니다.
+        카메라 이미지에서 공의 위치와 픽셀 크기를 기반으로 실제 거리(cm)를 계산합니다.
+        
+        Returns:
+            float: 공과 로봇 발 사이의 거리(cm)
+        """
+        _, bc = self.detect_ball()  # 공의 좌표 얻기
+        if bc is None:
+            return float('inf')  # 공이 감지되지 않으면 무한대 거리 반환
+        
+        # 공의 y좌표 (이미지 상단이 0, 하단이 최대값)
+        ball_y = bc[1]
+        
+        # 이미지의 높이
+        image_height = self.frame.shape[0]
+        
+        CAMERA_HEIGHT = 45  # 카메라가 지면에서 떨어진 높이 (cm)
+        CAMERA_ANGLE = 45   # 카메라의 아래쪽 기울기 각도 (도)
+        
+        # 이미지 y좌표를 실제 거리로 변환 / 이미지의 하단이 로봇의 발 위치
+        relative_y = (image_height - ball_y) / image_height
+        
+        # 거리 계산 (삼각법 사용)
+        import math
+        angle_rad = math.radians(CAMERA_ANGLE * relative_y)
+        distance = CAMERA_HEIGHT * math.tan(angle_rad)
+        
+        return distance
+
+if __name__ == "__main__":
+    cam = Cam(True)
+    while 1:
+        cam.read()
