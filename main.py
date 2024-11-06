@@ -106,8 +106,7 @@ while True:
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
         if is_ball:
-            is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
-            if is_hitable_Y:
+            if cam.ball_is_center_h(bc):
                 if checkIn:
                     bot.task2check()
                 else:
