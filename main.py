@@ -213,7 +213,7 @@ while True:
         # logger.info(f"발과 공 사이의 거리 : {ball_distance}")
 
         if (
-            (is_hitable_X and is_hitable_Y)
+            (is_hitable_X and is_hitable_Y) or True
         ):  # 거리가 11cm 이상인지 확인
             if hit:
                 # bot.back()
