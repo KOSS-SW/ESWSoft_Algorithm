@@ -39,6 +39,7 @@ hit_right = True
 checkIn = False
 
 while True:
+    time.sleep(1)
     if bot.task == "ball":
         logger.info("ball is start")
         h, b, f = cam.read()
@@ -74,6 +75,8 @@ while True:
                     h, b, f = cam.read()
                     is_ball, bc = cam.detect_ball()
                     if not is_ball:
+                        break
+                    if cam.ball_is_center(bc):
                         break
             else:
                 bot.task2walk()
@@ -130,7 +133,7 @@ while True:
 
     elif bot.task == "flag":
         logger.info("flag is start")
-        time.sleep(1)  # 안정화 대기 시간
+        time.sleep(0.5)  # 안정화 대기 시간
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
