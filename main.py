@@ -60,7 +60,7 @@ while True:
             is_ball_center = cam.ball_is_center(bc)
             if not is_ball_center:
                 # 미세 조정을 위한 반복 확인
-                for _ in range(3):  # 최대 3번 시도
+                for _ in range(4):  # 최대 3번 시도
                     if cam.ball_left(bc):
                         if checkIn:
                             bot.body_left_10()
