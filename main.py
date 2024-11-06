@@ -116,6 +116,7 @@ while True:
                     bot.task2check()
                 else:
                     bot.task2flag()
+                continue
             else:
                 bot.go()
         bot.task2ball()
