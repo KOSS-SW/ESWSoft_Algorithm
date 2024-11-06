@@ -268,6 +268,7 @@ while True:
                     if hit:
                         time.sleep(0.3)
                         bot.task2hit()
+                        hit = False
                     else:
                         # 퍼팅 준비를 위한 위치 조정
                         bot.head_center()
