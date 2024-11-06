@@ -225,13 +225,13 @@ while True:
                 time.sleep(0.2)  # 안정화 대기
 
                 # 거리 재확인
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()
-                if is_ball:
-                    check_distance = cam.calculate_ball_distance()
-                    if check_distance < 11.0:  # 너무 가까우면
-                        bot.back()  # 뒤로 한 발
-                        time.sleep(0.2)
+                # h, b, f = cam.read()
+                # is_ball, bc = cam.detect_ball()
+                # if is_ball:
+                #     check_distance = cam.calculate_ball_distance()
+                #     if check_distance < 11.0:  # 너무 가까우면
+                #         bot.back()  # 뒤로 한 발
+                #         time.sleep(0.2)
 
                 bot.head_center()  # 고개 다시 중앙으로
                 time.sleep(0.2)
