@@ -203,6 +203,7 @@ class Bot:
         self.__TX_data(4)
         self.__TX_data(4)
         self.__TX_data(4)
+        self.__TX_data(4)
 
     def body_right_90(self):
         '''로봇 오른쪽으로 90도 회전 '''
@@ -210,6 +211,7 @@ class Bot:
         self.__TX_data(9)
         self.__TX_data(9)
 
+        self.__TX_data(6)
         self.__TX_data(6)
         self.__TX_data(6)
         self.__TX_data(6)
