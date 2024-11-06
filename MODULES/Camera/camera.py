@@ -163,7 +163,7 @@ class Cam:
 
 
     def detect_flag(self):
-        contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        '''contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
         # 가장 큰 컨투어 찾기
         if len(contours) > 0:
@@ -180,7 +180,12 @@ class Cam:
                 self.logger.debug(f"flag center: {flag_center}")
                 cv2.circle(self.frame, flag_center, 5, (255,255,0))
             return True, flag_center
-        return False, None
+        return False, None'''
+        fc = self.detect_holcup()
+        if fc:
+            return True, fc
+        else:
+            return False, None
     
     def detect_holcup(self):
         # HSV 색공간으로 변환
