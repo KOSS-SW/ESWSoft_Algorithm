@@ -168,6 +168,7 @@ while True:
             if not is_flag_center:
                 if not cam.flag_left(fc):
                     bot.body_right_10()
+                    if checkIn: bot.right_10()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()
@@ -178,6 +179,7 @@ while True:
                     #     bot.left_5()
                 else:
                     bot.body_left_10()
+                    if checkIn: bot.left_5()
                     time.sleep(0.2)
                     h, b, f = cam.read()
                     bool_result, coordinate = cam.detect_flag()

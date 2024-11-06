@@ -197,8 +197,8 @@ class Bot:
         '''로봇 왼쪽으로 90도 회전 '''
         self.__TX_data(7)
         self.__TX_data(7)
-        self.__TX_data(7)
         
+        self.__TX_data(4)
         self.__TX_data(4)
         self.__TX_data(4)
         self.__TX_data(4)
@@ -209,8 +209,8 @@ class Bot:
         '''로봇 오른쪽으로 90도 회전 '''
         self.__TX_data(9)
         self.__TX_data(9)
-        self.__TX_data(9)
 
+        self.__TX_data(6)
         self.__TX_data(6)
         self.__TX_data(6)
         self.__TX_data(6)
