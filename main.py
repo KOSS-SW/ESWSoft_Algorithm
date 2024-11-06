@@ -106,13 +106,10 @@ while True:
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
         if is_ball:
-            if cam.ball_is_center_h(bc):
-                if checkIn:
-                    bot.task2check()
-                else:
-                    bot.task2flag()
+            if checkIn:
+                bot.task2check()
             else:
-                bot.go()
+                bot.task2flag()
         else:
             bot.go()
 
