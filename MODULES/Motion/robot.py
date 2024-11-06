@@ -325,4 +325,4 @@ class Bot:
             logging.error(f"Error in step_backward: {str(e)}")
 
     def end(self):
-        self.__TX_data(33)
+        self.__TX_data(43)
