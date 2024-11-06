@@ -353,6 +353,7 @@ while True:
                 time.sleep(1)  # 안정화 대기
             else:
                 bot.head_center()
+                bot.head_down_75()
 
             while True:  # 무한 루프 시작
                 h, b, f = cam.read()
@@ -363,7 +364,7 @@ while True:
                 if is_ball:  # 공이 검출되면
                     if is_ball and not cam.ball_left(bc):  # 공이 검출되면
                         checkIn = True
-                        bot.task2check()  # 한번 공을 친 후, following 테스크로 이동
+                        bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                         break  # 루프 종료
 
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
@@ -383,6 +384,7 @@ while True:
         if hc and is_ball:
             if calculate.calculateDistance(bc, hc)[0] < 100:
                 bot.end()
+                logger.info("Gool")
                 break
 
-        bot.task2following()
+        bot.task2flag()
