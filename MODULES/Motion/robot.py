@@ -93,16 +93,14 @@ class Bot:
     def task2walk(self):
         self.task = "walk"
         Bot.logger.info(f"now task is {self.task}")
-        time.sleep(0.2)
         self.head_down_35()
         time.sleep(2)
     
     def task2flag(self):
         self.task = "flag"
         Bot.logger.info(f"now task is {self.task}")
-        time.sleep(1)
         self.head_down_75()
-        time.sleep(0.3)
+        time.sleep(1)
     
     def task2check(self):
         self.task = "check"
@@ -112,9 +110,8 @@ class Bot:
     
     def task2ready(self):
         self.task = "ready"
-        time.sleep(1)
         self.head_down_35()
-        time.sleep(2)
+        time.sleep(1)
         Bot.logger.info(f"now task is {self.task}")
     
     def task2hit(self):

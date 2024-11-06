@@ -338,7 +338,7 @@ while True:
                 power = 30
 
 
-            bot.hit(power)
+            bot.hit(checkIn)
             time.sleep(1)
 
             if not checkIn:
