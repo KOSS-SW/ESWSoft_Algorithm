@@ -209,9 +209,10 @@ while True:
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         
         # 최적의 퍼팅 거리 설정 (센티미터 단위)
-        OPTIMAL_DISTANCE = 15  # 퍼팅하기 좋은 거리
-        MIN_DISTANCE = 11     # 최소 필요 거리
-        MAX_DISTANCE = 20     # 최대 허용 거리
+        TARGET_DISTANCE = 21   # 목표 거리
+        TOLERANCE = 2         # 허용 오차 범위
+        MIN_DISTANCE = TARGET_DISTANCE - TOLERANCE  # 최소 허용 거리 (19cm)
+        MAX_DISTANCE = TARGET_DISTANCE + TOLERANCE  # 최대 허용 거리 (23cm)
 
         # 공과의 거리 확인을 위해 고개를 아래로
         bot.head_down_35()
@@ -226,21 +227,22 @@ while True:
             logger.info(f"Current distance from ball: {current_distance}cm")
 
             # 거리 조정
-            if current_distance < MIN_DISTANCE:
-                # 너무 가까우면 뒤로 이동
-                logger.info("Too close to ball, moving backward")
-                steps_back = int((MIN_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
-                for _ in range(steps_back):
-                    bot.step_backward()
-                    time.sleep(0.2)
-            
-            elif current_distance > MAX_DISTANCE:
-                # 너무 멀면 앞으로 이동
-                logger.info("Too far from ball, moving forward")
-                steps_forward = int((current_distance - OPTIMAL_DISTANCE) / 2)  # 2cm 단위로 전진
-                for _ in range(steps_forward):
-                    bot.go_little()
-                    time.sleep(0.2)
+            if abs(current_distance - TARGET_DISTANCE) > TOLERANCE:
+                if current_distance < TARGET_DISTANCE:
+                    # 거리가 부족하면 뒤로 이동
+                    logger.info(f"Distance too short, moving backward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
+                    steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
+                    for _ in range(steps_back):
+                        bot.step_backward()
+                        time.sleep(0.2)
+                
+                elif current_distance > TARGET_DISTANCE:
+                    # 거리가 너무 멀면 앞으로 이동
+                    logger.info(f"Distance too far, moving forward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
+                    steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
+                    for _ in range(steps_forward):
+                        bot.go_little()
+                        time.sleep(0.2)
 
         # X-Y 위치 미세 조정
         if (is_hitable_X and is_hitable_Y):
