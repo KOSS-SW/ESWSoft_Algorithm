@@ -104,19 +104,21 @@ while True:
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
-        h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
-        is_ball, bc = cam.detect_ball()
-        time.sleep(0.2)  # 안정화 대기
-        # 재확인
-        h, b, f = cam.read()
-        is_ball, bc = cam.detect_ball()
-        if is_ball:
-            if checkIn:
-                bot.task2check()
+        for _ in range(3):
+            h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
+            is_ball, bc = cam.detect_ball()
+            time.sleep(0.2)  # 안정화 대기
+            # 재확인
+            h, b, f = cam.read()
+            is_ball, bc = cam.detect_ball()
+            if is_ball:
+                if checkIn:
+                    bot.task2check()
+                else:
+                    bot.task2flag()
             else:
-                bot.task2flag()
-        else:
-            bot.go()
+                bot.go()
+        bot.task2ball()
 
     elif bot.task == "flag":
         logger.info("flag is start")
