@@ -116,9 +116,10 @@ while True:
                     bot.task2check()
                 else:
                     bot.task2flag()
-                continue
+                break
             else:
                 bot.go()
+        if is_ball: continue
         bot.task2ball()
 
     elif bot.task == "flag":
