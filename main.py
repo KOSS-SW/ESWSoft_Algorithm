@@ -61,9 +61,15 @@ while True:
                 # 미세 조정을 위한 반복 확인
                 for _ in range(3):  # 최대 3번 시도
                     if cam.ball_left(bc):
-                        bot.left_10()
+                        if checkIn:
+                            bot.body_left_10()
+                        else:
+                            bot.left_10()
                     else:
-                        bot.right_10()
+                        if checkIn:
+                            bot.body_right_10()
+                        else:
+                            bot.right_10()
                     time.sleep(0.1)
                     h, b, f = cam.read()
                     is_ball, bc = cam.detect_ball()
