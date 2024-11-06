@@ -204,18 +204,24 @@ while True:
         logger.info("Putting preparation started")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
+        is_flag, fc = cam.detect_flag()  # 깃발 감지 추가
 
         if not is_ball:
             bot.task2ball()
             continue
 
+        if not is_flag:
+            bot.task2flag()
+            continue
+
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         
         # 최적의 퍼팅 거리 설정 (센티미터 단위)
-        TARGET_DISTANCE = 22   # 목표 거리
-        TOLERANCE = 3        # 허용 오차 범위
+        TARGET_DISTANCE = 21   # 목표 거리
+        TOLERANCE = 2         # 허용 오차 범위
         MIN_DISTANCE = TARGET_DISTANCE - TOLERANCE  # 최소 허용 거리 (19cm)
         MAX_DISTANCE = TARGET_DISTANCE + TOLERANCE  # 최대 허용 거리 (23cm)
+        ALIGNMENT_TOLERANCE = 5  # 수평 정렬 허용 오차 (픽셀)
 
         # 공과의 거리 확인을 위해 고개를 아래로
         bot.head_down_35()
@@ -224,60 +230,150 @@ while True:
         # 거리 측정 및 위치 조정
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
+        is_flag, fc = cam.detect_flag()
         
-        if is_ball:
+        if is_ball and is_flag:
             current_distance = cam.calculate_ball_distance()
             logger.info(f"Current distance from ball: {current_distance}cm")
 
             # 거리 조정
             if abs(current_distance - TARGET_DISTANCE) > TOLERANCE:
                 if current_distance < TARGET_DISTANCE:
-                    # 거리가 부족하면 뒤로 이동
                     logger.info(f"Distance too short, moving backward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
-                    steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
-                    # for _ in range(steps_back):
-                    bot.step_backward()
-                    time.sleep(0.2)
+                    steps_back = int((TARGET_DISTANCE - current_distance) / 2)
+                    for _ in range(steps_back):
+                        bot.step_backward()
+                        time.sleep(0.2)
                 
                 elif current_distance > TARGET_DISTANCE:
-                    # 거리가 너무 멀면 앞으로 이동
                     logger.info(f"Distance too far, moving forward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
-                    steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
-                    # for _ in range(steps_forward):
-                    bot.go_little()
-                    time.sleep(0.2)
+                    steps_forward = int((current_distance - TARGET_DISTANCE) / 2)
+                    for _ in range(steps_forward):
+                        bot.go_little()
+                        time.sleep(0.2)
 
+        # X-Y 위치 미세 조정
+        if (is_hitable_X and is_hitable_Y):
+            if hit:
+                time.sleep(0.3)
+                bot.task2hit()
             else:
-                # X-Y 위치 미세 조정
-                if (is_hitable_X):
-                    if hit:
-                        time.sleep(0.3)
-                        bot.task2hit()
-                    else:
-                        # 퍼팅 준비를 위한 위치 조정
-                        bot.head_center()
-                        time.sleep(0.3)
+                # 퍼팅 준비를 위한 위치 조정
+                bot.head_center()
+                time.sleep(0.3)
 
-                        if hit_right:
-                            # 오른쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.left_20()
+                if hit_right:
+                    # 수평 정렬 체크 및 조정
+                    bot.head_down_35()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    is_flag, fc = cam.detect_flag()
+                    
+                    if is_ball and is_flag:
+                        # 공과 깃발의 Y좌표 차이 계산 (수평 정렬)
+                        y_diff = bc[1] - fc[1]  # Y좌표 차이
+                        logger.info(f"Horizontal alignment difference: {y_diff} pixels")
+                        
+                        # 수평 정렬 조정
+                        while abs(y_diff) > ALIGNMENT_TOLERANCE:
+                            if y_diff > 0:  # 공이 깃발보다 아래에 있음
+                                bot.left_5()
                                 time.sleep(0.2)
-                            bot.body_right_90()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.left_70()
+                            else:  # 공이 깃발보다 위에 있음
+                                bot.right_5()
                                 time.sleep(0.2)
-                        else:
-                            # 왼쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.right_20()
+                            
+                            # 위치 재확인
+                            h, b, f = cam.read()
+                            is_ball, bc = cam.detect_ball()
+                            is_flag, fc = cam.detect_flag()
+                            if is_ball and is_flag:
+                                y_diff = bc[1] - fc[1]
+                                logger.info(f"Updated alignment difference: {y_diff} pixels")
+                            else:
+                                break
+
+                    # 오른쪽 퍼팅을 위한 위치 조정
+                    for _ in range(5):
+                        bot.left_20()
+                        time.sleep(0.2)
+                    bot.body_right_90()
+                    time.sleep(0.4)
+                    for _ in range(3):
+                        bot.left_70()
+                        time.sleep(0.2)
+                    
+                    # 최종 수평 정렬 확인
+                    bot.head_center()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    is_flag, fc = cam.detect_flag()
+                    if is_ball and is_flag:
+                        y_diff = bc[1] - fc[1]
+                        if abs(y_diff) > ALIGNMENT_TOLERANCE:
+                            logger.info("Final alignment adjustment needed")
+                            if y_diff > 0:
+                                bot.left_5()
+                            else:
+                                bot.right_5()
+                            time.sleep(0.2)
+
+                else:
+                    # 수평 정렬 체크 및 조정 (왼쪽 퍼팅)
+                    bot.head_down_35()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    is_flag, fc = cam.detect_flag()
+                    
+                    if is_ball and is_flag:
+                        y_diff = bc[1] - fc[1]
+                        logger.info(f"Horizontal alignment difference: {y_diff} pixels")
+                        
+                        while abs(y_diff) > ALIGNMENT_TOLERANCE:
+                            if y_diff > 0:  # 공이 깃발보다 아래에 있음
+                                bot.left_5()
                                 time.sleep(0.2)
-                            bot.body_left_90()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.right_70()
+                            else:  # 공이 깃발보다 위에 있음
+                                bot.right_5()
                                 time.sleep(0.2)
+                            
+                            h, b, f = cam.read()
+                            is_ball, bc = cam.detect_ball()
+                            is_flag, fc = cam.detect_flag()
+                            if is_ball and is_flag:
+                                y_diff = bc[1] - fc[1]
+                                logger.info(f"Updated alignment difference: {y_diff} pixels")
+                            else:
+                                break
+
+                    # 왼쪽 퍼팅을 위한 위치 조정
+                    for _ in range(5):
+                        bot.right_20()
+                        time.sleep(0.2)
+                    bot.body_left_90()
+                    time.sleep(0.4)
+                    for _ in range(3):
+                        bot.right_70()
+                        time.sleep(0.2)
+                    
+                    # 최종 수평 정렬 확인
+                    bot.head_center()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    is_flag, fc = cam.detect_flag()
+                    if is_ball and is_flag:
+                        y_diff = bc[1] - fc[1]
+                        if abs(y_diff) > ALIGNMENT_TOLERANCE:
+                            logger.info("Final alignment adjustment needed")
+                            if y_diff > 0:
+                                bot.left_5()
+                            else:
+                                bot.right_5()
+                            time.sleep(0.2)
                         
                         # 최종 위치 확인
                         bot.head_down_35()
@@ -289,14 +385,14 @@ while True:
                             #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
                             # else:
                             #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
-                else:
-                    # X-Y 축 미세 조정
-                    if not is_hitable_X:
-                        bot.ready_x(x)
-                        time.sleep(0.2)
-                    # if not is_hitable_Y:
-                    #     bot.ready_y(x)
-                    #     time.sleep(0.2)
+                    else:
+                        # X-Y 축 미세 조정
+                        if not is_hitable_X:
+                            bot.ready_x(x)
+                            time.sleep(0.2)
+                        # if not is_hitable_Y:
+                        #     bot.ready_y(x)
+                        #     time.sleep(0.2)
 
     elif bot.task == "hit":
         logger.info("hit is start")
