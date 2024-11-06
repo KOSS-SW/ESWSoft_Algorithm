@@ -279,7 +279,7 @@ while True:
                                 bot.left_20()
                                 time.sleep(0.2)
                             bot.body_right_90()
-                            bot.body_right_30()
+                            # bot.body_right_30()
                             time.sleep(0.4)
                             for _ in range(3):
                                 bot.left_70()
@@ -290,7 +290,7 @@ while True:
                                 bot.right_20()
                                 time.sleep(0.2)
                             bot.body_left_90()
-                            bot.body_left_30()
+                            # bot.body_left_30()
                             time.sleep(0.4)
                             for _ in range(3):
                                 bot.right_70()
