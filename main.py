@@ -214,7 +214,7 @@ while True:
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
         # 최적의 퍼팅 거리 설정 (센티미터 단위)
-        TARGET_DISTANCE = 22   # 목표 거리
+        TARGET_DISTANCE = 23   # 목표 거리
         TOLERANCE = 3        # 허용 오차 범위
         MIN_DISTANCE = TARGET_DISTANCE - TOLERANCE  # 최소 허용 거리 (19cm)
         MAX_DISTANCE = TARGET_DISTANCE + TOLERANCE  # 최대 허용 거리 (23cm)
