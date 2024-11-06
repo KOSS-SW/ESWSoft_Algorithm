@@ -251,54 +251,138 @@ while True:
 
             else:
                 # X-Y 위치 미세 조정
-                if (is_hitable_X):
-                    if hit:
-                        time.sleep(0.3)
-                        bot.task2hit()
-                    else:
-                        # 퍼팅 준비를 위한 위치 조정
+                if hit_right:
+                    logger.info("Adjusting position for right-side putting")
+                    # 초기 위치 조정 (오른쪽 퍼팅)
+                    for _ in range(5):
+                        bot.left_20()
+                        time.sleep(0.2)
+                    bot.body_right_90()
+                    time.sleep(0.4)
+                    
+                    # 먼저 공의 위치 확인
+                    bot.head_down_35()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    
+                    if is_ball:
+                        ball_x = bc[0]  # 공의 x좌표 저장
+                        
+                        # 깃발 위치 확인
                         bot.head_center()
                         time.sleep(0.3)
+                        h, b, f = cam.read()
+                        is_flag, fc = cam.detect_flag()
+                        
+                        if is_flag:
+                            flag_x = fc[0]  # 깃발의 x좌표 저장
+                            
+                            # 화면 중앙 기준으로 공의 위치 조정
+                            alignment_attempts = 0
+                            while alignment_attempts < 3:
+                                # 공 위치 확인
+                                bot.head_down_35()
+                                time.sleep(0.3)
+                                h, b, f = cam.read()
+                                is_ball, bc = cam.detect_ball()
+                                
+                                if is_ball:
+                                    ball_x = bc[0]
+                                    # 화면 중앙값 (예: 320) 기준으로 조정
+                                    center_offset = ball_x - 320  # 화면 중앙이 320이라고 가정
+                                    
+                                    if abs(center_offset) > 10:  # 10픽셀 오차 허용
+                                        if center_offset > 0:  # 공이 중앙보다 오른쪽
+                                            bot.left_70()
+                                            time.sleep(0.2)
+                                        else:  # 공이 중앙보다 왼쪽
+                                            bot.right_70()
+                                            time.sleep(0.2)
+                                    else:
+                                        logger.info("Ball centered successfully")
+                                        break
+                                
+                                alignment_attempts += 1
+                                logger.info(f"Ball alignment attempt {alignment_attempts}")
+                    
+                    # 미세 조정 후 최종 위치로 이동
+                    for _ in range(3):
+                        bot.left_70()
+                        time.sleep(0.2)
 
-                        if hit_right:
-                            # 오른쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.left_20()
-                                time.sleep(0.2)
-                            bot.body_right_90()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.left_70()
-                                time.sleep(0.2)
-                        else:
-                            # 왼쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.right_20()
-                                time.sleep(0.2)
-                            bot.body_left_90()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.right_70()
-                                time.sleep(0.2)
-
-                        # 최종 위치 확인
-                        bot.head_down_35()
+                else:
+                    logger.info("Adjusting position for left-side putting")
+                    # 초기 위치 조정 (왼쪽 퍼팅)
+                    for _ in range(5):
+                        bot.right_20()
+                        time.sleep(0.2)
+                    bot.body_left_90()
+                    time.sleep(0.4)
+                    
+                    # 먼저 공의 위치 확인
+                    bot.head_down_35()
+                    time.sleep(0.3)
+                    h, b, f = cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    
+                    if is_ball:
+                        ball_x = bc[0]  # 공의 x좌표 저장
+                        
+                        # 깃발 위치 확인
+                        bot.head_center()
                         time.sleep(0.3)
                         h, b, f = cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        if is_ball:
-                            hit = True
-                            #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
-                            # else:
-                            #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
-                else:
-                    # X-Y 축 미세 조정
-                    if not is_hitable_X:
-                        bot.ready_x(x)
+                        is_flag, fc = cam.detect_flag()
+                        
+                        if is_flag:
+                            flag_x = fc[0]  # 깃발의 x좌표 저장
+                            
+                            # 화면 중앙 기준으로 공의 위치 조정
+                            alignment_attempts = 0
+                            while alignment_attempts < 3:
+                                # 공 위치 확인
+                                bot.head_down_35()
+                                time.sleep(0.3)
+                                h, b, f = cam.read()
+                                is_ball, bc = cam.detect_ball()
+                                
+                                if is_ball:
+                                    ball_x = bc[0]
+                                    # 화면 중앙값 기준으로 조정
+                                    center_offset = ball_x - 320  # 화면 중앙이 320이라고 가정
+                                    
+                                    if abs(center_offset) > 10:  # 10픽셀 오차 허용
+                                        if center_offset > 0:  # 공이 중앙보다 오른쪽
+                                            bot.left_70()
+                                            time.sleep(0.2)
+                                        else:  # 공이 중앙보다 왼쪽
+                                            bot.right_70()
+                                            time.sleep(0.2)
+                                    else:
+                                        logger.info("Ball centered successfully")
+                                        break
+                                
+                                alignment_attempts += 1
+                                logger.info(f"Ball alignment attempt {alignment_attempts}")
+                    
+                    # 미세 조정 후 최종 위치로 이동
+                    for _ in range(3):
+                        bot.right_70()
                         time.sleep(0.2)
-                    # if not is_hitable_Y:
-                    #     bot.ready_y(x)
-                    #     time.sleep(0.2)
+
+                # 최종 공 위치 확인
+                bot.head_down_35()
+                time.sleep(0.3)
+                h, b, f = cam.read()
+                is_ball, bc = cam.detect_ball()
+                if is_ball:
+                    ball_x = bc[0]
+                    if abs(ball_x - 320) <= 10:  # 허용 오차 범위 내
+                        logger.info("Final position achieved, ball centered for putting")
+                        hit = True
+                    else:
+                        logger.info(f"Final alignment needed: offset {ball_x - 320}")
 
     elif bot.task == "hit":
         logger.info("hit is start")
