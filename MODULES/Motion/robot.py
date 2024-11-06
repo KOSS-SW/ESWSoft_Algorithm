@@ -281,7 +281,7 @@ class Bot:
     
     def go_little(self):
         '''로봇 앞으로 전진'''
-        self.__TX_data(32)
+        self.__TX_data(23)
     
     def back(self):
         '''로봇 뒤로 후진'''
