@@ -378,7 +378,7 @@ while True:
         hc = cam.detect_holcup()
         is_ball, bc = cam.detect_ball()
         if hc and is_ball:
-            if calculate.calculateDistance(bc, hc) < 100:
+            if calculate.calculateDistance(bc, hc)[0] < 100:
                 bot.end()
                 break
 
