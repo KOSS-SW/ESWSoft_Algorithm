@@ -82,7 +82,7 @@ class Bot:
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_75()
-        time.sleep(0.3)
+        time.sleep(1)
 
     def task2following(self):
         self.task = "following"
