@@ -214,10 +214,6 @@ while True:
             bot.task2ball()
             continue
 
-        if not is_flag:
-            bot.task2flag()
-            continue
-
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
         
         # 최적의 퍼팅 거리 설정 (센티미터 단위)
