@@ -166,6 +166,7 @@ while True:
                         time.sleep(0.1)
                 searched = False
                 head_left = False
+            time.sleep(1)
 
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
