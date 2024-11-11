@@ -291,12 +291,15 @@ class Bot:
         '''로봇 정지'''
         self.__TX_data(26)
 
-    def hit(self, right=True):
+    def hit(self, right=True, is_par4_sec=False):
         '''퍼팅 중'''
         if right:
             self.__TX_data(2)
         else:
-            self.__TX_data(5) # 왼쪽 샷
+            if is_par4_sec:
+                self.__TX_data(38)
+            else:
+                self.__TX_data(5) # 왼쪽 샷
     
     def ready_x(self, x):
         # x좌표 조정
