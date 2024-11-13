@@ -1,9 +1,8 @@
-from MODULES.Motion.robot import Bot
+import serial
 
 import time
 
-bot = Bot()
-
-bot.test_TX(38)
-# while True:
-time.sleep(5)
+serial_ = serial.Serial('/dev/ttyS0', 4800, timeout=0.01)
+serial_.flush() # serial cls
+    
+serial_.write(serial.to_bytes([38]))
