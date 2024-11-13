@@ -230,6 +230,7 @@ while True:
             bot.task2ball()
             continue
         ##깃발 90도 확인 및 재조정
+        logger.info("set 90")
         while True:
             cam.read()
             is_flag, fc = cam.detect_flag()
@@ -239,6 +240,7 @@ while True:
                 bot.body_left_10()
             else:
                 bot.body_right_5()
+        logger.info("set 90 done")
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
