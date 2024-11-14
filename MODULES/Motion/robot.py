@@ -300,7 +300,7 @@ class Bot:
         else:
             if is_par4_sec:
                 # self.__TX_data(38)
-                self.__TX_data(5)
+                self.__TX_data(2)
             else:
                 self.__TX_data(5) # 왼쪽 샷
     
