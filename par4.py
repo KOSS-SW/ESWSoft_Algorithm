@@ -231,17 +231,17 @@ while True:
                 is_flag, fc = cam.detect_flag()
 
     elif bot.task == "ready":
+        if hit:
+            time.sleep(0.3)
+            bot.task2hit()
+            hit = False
+            continue
         logger.info("Putting preparation started")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
         if not is_ball:
             bot.task2ball()
-            continue
-        if hit:
-            time.sleep(0.3)
-            bot.task2hit()
-            hit = False
             continue
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
