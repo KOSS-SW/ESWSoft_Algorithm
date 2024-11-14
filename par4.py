@@ -127,7 +127,7 @@ while True:
                 if checkIn:
                     bot.task2check()
                 else:
-                    bot.task2flag()
+                    bot.task2ready()
                 break
             else:
                 bot.go()
@@ -231,6 +231,11 @@ while True:
                 is_flag, fc = cam.detect_flag()
 
     elif bot.task == "ready":
+        if hit:
+            time.sleep(0.3)
+            bot.task2hit()
+            hit = False
+            continue
         logger.info("Putting preparation started")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -280,55 +285,33 @@ while True:
             else:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
-                    if hit:
-                        time.sleep(0.3)
-                        bot.task2hit()
-                        hit = False
-                    else:
                         ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
-                        bot.head_up()
-                        bot.head_left_max()
-                        time.sleep(1.5)
-                        h, b, f = cam.read()
-                        is_flag, fc = cam.detect_flag()
-                        ##깃발 90도 확인 및 재조정
-                        logger.info("set 90")
-                        while True:
-                            cam.read()
-                            is_flag, fc = cam.detect_flag()
-                            if is_flag and cam.flag_is_center(fc):
-                                break
-                            if cam.flag_left(fc):
-                                bot.body_left_10()
-                            else:
-                                bot.body_right_5()
-                        logger.info("set 90 done")
                         # 퍼팅 준비를 위한 위치 조정
                         bot.head_center()
                         # time.sleep(0.3)
 
-                        if hit_right:
-                            # 오른쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.left_20()
-                                time.sleep(0.2)
-                            bot.body_right_90()
-                            # bot.body_right_30()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.left_70()
-                                time.sleep(0.2)
-                        else:
-                            # 왼쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.right_20()
-                                time.sleep(0.2)
-                            bot.body_left_90()
-                            # bot.body_left_30()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.right_70()
-                                time.sleep(0.2)
+                        # if hit_right:
+                        #     # 오른쪽 퍼팅을 위한 위치 조정
+                        #     for _ in range(5):
+                        #         bot.left_20()
+                        #         time.sleep(0.2)
+                        #     bot.body_right_90()
+                        #     # bot.body_right_30()
+                        #     time.sleep(0.4)
+                        #     for _ in range(3):
+                        #         bot.left_70()
+                        #         time.sleep(0.2)
+                        # else:
+                        #     # 왼쪽 퍼팅을 위한 위치 조정
+                        #     for _ in range(5):
+                        #         bot.right_20()
+                        #         time.sleep(0.2)
+                        #     bot.body_left_90()
+                        #     # bot.body_left_30()
+                        #     time.sleep(0.4)
+                        #     for _ in range(3):
+                        #         bot.right_70()
+                        #         time.sleep(0.2)
 
                         # 최종 위치 확인
                         bot.head_down_35()
@@ -337,6 +320,32 @@ while True:
                         is_ball, bc = cam.detect_ball()
                         if is_ball:
                             hit = True
+                            bot.head_up()
+                            if hit_right:
+                                bot.head_left_max()
+                            else:
+                                bot.head_right_max()
+                            time.sleep(1.5)
+                            h, b, f = cam.read()
+                            is_flag, fc = cam.detect_flag()
+                            ##깃발 90도 확인 및 재조정
+                            logger.info("set 90")
+                            while True:
+                                cam.read()
+                                is_flag, fc = cam.detect_flag()
+                                if is_flag:
+                                    if cam.flag_is_center(fc):
+                                        break
+                                    if cam.flag_left(fc):
+                                        bot.body_left_10()
+                                    else:
+                                        bot.body_right_5()
+                                else:
+                                    if hit_right:
+                                        bot.body_right_5()
+                                    else:
+                                        bot.body_left_5()
+                            logger.info("set 90 done")
                             #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
                             # else:
                             #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
