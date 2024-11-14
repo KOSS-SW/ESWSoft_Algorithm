@@ -133,7 +133,7 @@ while True:
                 bot.go()
         if is_ball: continue
         bot.task2ball()
-
+ 
     elif bot.task == "flag":
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
