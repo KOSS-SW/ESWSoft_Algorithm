@@ -333,12 +333,18 @@ while True:
                             while True:
                                 cam.read()
                                 is_flag, fc = cam.detect_flag()
-                                if is_flag and cam.flag_is_center(fc):
-                                    break
-                                if cam.flag_left(fc):
-                                    bot.body_left_10()
+                                if is_flag:
+                                    if cam.flag_is_center(fc):
+                                        break
+                                    if cam.flag_left(fc):
+                                        bot.body_left_10()
+                                    else:
+                                        bot.body_right_5()
                                 else:
-                                    bot.body_right_5()
+                                    if hit_right:
+                                        bot.body_right_5()
+                                    else:
+                                        bot.body_left_5()
                             logger.info("set 90 done")
                             #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
                             # else:
