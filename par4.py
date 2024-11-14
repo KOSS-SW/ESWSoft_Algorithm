@@ -43,6 +43,8 @@ is_par4_sec = False
 
 while True:
     if bot.task == "ball":
+        if checkIn:
+            bot.head_up()
         time.sleep(1)
         logger.info("ball is start")
         h, b, f = cam.read()
