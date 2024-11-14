@@ -1,6 +1,6 @@
-from ..MODULES.Camera.camera import Cam
-from ..MODULES.Camera import calculate
-from ..MODULES.Motion.robot import Bot
+from MODULES.Camera.camera import Cam
+from MODULES.Camera import calculate
+from MODULES.Motion.robot import Bot
 
 import logging
 import time
