@@ -238,6 +238,11 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
+        if hit:
+            time.sleep(0.3)
+            bot.task2hit()
+            hit = False
+            continue
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
@@ -280,11 +285,6 @@ while True:
             else:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
-                    if hit:
-                        time.sleep(0.3)
-                        bot.task2hit()
-                        hit = False
-                    else:
                         ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
                         # 퍼팅 준비를 위한 위치 조정
                         bot.head_center()
