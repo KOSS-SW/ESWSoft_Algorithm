@@ -143,7 +143,7 @@ class Bot:
     def head_right_middle(self):
         self.__TX_data(30)
 
-    def head_up_80(self):
+    def head_down_80(self):
         '''머리 위로 회전'''
         self.__TX_data(31)
 
