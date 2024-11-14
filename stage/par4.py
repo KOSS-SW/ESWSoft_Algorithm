@@ -377,7 +377,7 @@ while True:
                 time.sleep(1)  # 안정화 대기
             else:
                 bot.head_center()
-                bot.head_down_75()
+                bot.head_up()
 
             while True:  # 무한 루프 시작
                 h, b, f = cam.read()
