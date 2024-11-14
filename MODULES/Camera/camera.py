@@ -6,7 +6,7 @@ import threading
 from MODULES.Camera import calculate
 
 class Cam:
-    W_View_size =  700  #320  #640
+    W_View_size = 700  #320  #640
     H_View_size = int(W_View_size / 1.333)
     CENTER = W_View_size//2
     CENTERH = H_View_size//2
@@ -59,6 +59,7 @@ class Cam:
         self.thread = threading.Thread(target=self._reader)
         self.thread.daemon = True
         self.thread.start()
+        self.read()
 
         self.logger.info("cam is initialized")    
 
