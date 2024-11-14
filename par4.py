@@ -278,6 +278,18 @@ while True:
                 if (is_hitable_X):
                     if hit:
                         time.sleep(0.3)
+                        ##깃발 90도 확인 및 재조정
+                        logger.info("set 90")
+                        while True:
+                            cam.read()
+                            is_flag, fc = cam.detect_flag()
+                            if is_flag and cam.flag_is_center(fc):
+                                break
+                            if cam.flag_left(fc):
+                                bot.body_left_10()
+                            else:
+                                bot.body_right_5()
+                        logger.info("set 90 done")
                         bot.task2hit()
                         hit = False
                     else:
