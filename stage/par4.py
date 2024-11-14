@@ -1,6 +1,6 @@
-from MODULES.Camera.camera import Cam
-from MODULES.Camera import calculate
-from MODULES.Motion.robot import Bot
+from ..MODULES.Camera.camera import Cam
+from ..MODULES.Camera import calculate
+from ..MODULES.Motion.robot import Bot
 
 import logging
 import time
@@ -234,18 +234,6 @@ while True:
         if not is_ball:
             bot.task2ball()
             continue
-        ##깃발 90도 확인 및 재조정
-        # logger.info("set 90")
-        # while True:
-        #     cam.read()
-        #     is_flag, fc = cam.detect_flag()
-        #     if is_flag and cam.flag_is_center(fc):
-        #         break
-        #     if cam.flag_left(fc):
-        #         bot.body_left_10()
-        #     else:
-        #         bot.body_right_5()
-        # logger.info("set 90 done")
 
         is_hitable_X, is_hitable_Y, x, y = cam.ball_hitable(bc)
 
