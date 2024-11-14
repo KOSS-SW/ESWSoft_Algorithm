@@ -144,26 +144,26 @@ while True:
             bot.head_center()
             if searched:
                 # 회전 동작 최적화
-                if not head_lefted:
-                    for _ in range(3):  # 70도 회전을 3번으로 나눔
-                        bot.left_70()
-                        time.sleep(0.1)
-                    bot.body_right_90()
-                    time.sleep(0.3)
-                    for _ in range(5):
-                        bot.left_70()
-                        time.sleep(0.1)
-                else:
-                    for _ in range(3):
-                        bot.right_70()
-                        logger.info(f"ROBOT 돌기 (10도 작은 회전)")
-                        bot.body_right_10()
-                        time.sleep(0.1)
-                    bot.body_left_90()
-                    time.sleep(0.3)
-                    for _ in range(5):
-                        bot.right_70()
-                        time.sleep(0.1)
+                # if not head_lefted:
+                #     for _ in range(3):  # 70도 회전을 3번으로 나눔
+                #         bot.left_70()
+                #         time.sleep(0.1)
+                #     bot.body_right_90()
+                #     time.sleep(0.3)
+                #     for _ in range(5):
+                #         bot.left_70()
+                #         time.sleep(0.1)
+                # else:
+                #     for _ in range(3):
+                #         bot.right_70()
+                #         logger.info(f"ROBOT 돌기 (10도 작은 회전)")
+                #         bot.body_right_10()
+                #         time.sleep(0.1)
+                #     bot.body_left_90()
+                #     time.sleep(0.3)
+                #     for _ in range(5):
+                #         bot.right_70()
+                #         time.sleep(0.1)
                 searched = False
                 head_left = False
             time.sleep(1)
