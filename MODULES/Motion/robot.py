@@ -81,13 +81,13 @@ class Bot:
     def task2ball(self):
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_75()
+        self.head_down_80()
         time.sleep(1)
 
     def task2following(self):
         self.task = "following"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_75()
+        self.head_down_80()
         time.sleep(0.3)
     
     def task2walk(self):
@@ -143,8 +143,8 @@ class Bot:
     def head_right_middle(self):
         self.__TX_data(30)
 
-    def head_up(self): # 머리 위로
-        '''머리 위로'''
+    def head_up_80(self):
+        '''머리 위로 회전'''
         self.__TX_data(31)
 
     def head_down(self): # 머리 아래로
