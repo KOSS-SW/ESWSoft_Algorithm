@@ -201,23 +201,26 @@ while True:
                 if head_lefted:
                     # bot.head_right_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
+                    bot.head_right_middle()  # 중간 각도로 추가 확인
+                    time.sleep(0.2)
                     h, b, f = cam.read()  # 프레임 재획득
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
-                    bot.head_right_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
                     if not is_flag:
                         bot.head_right_max()
                 else:
                     # bot.head_left_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
+                    bot.head_left_middle()  # 중간 각도로 추가 확인
+                    time.sleep(0.2)
                     h, b, f = cam.read()  # 프레임 재획득
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
-                    bot.head_left_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
                     if not is_flag:
                         bot.head_left_max()
+                
+                h, b, f = cam.read()  # 프레임 재획득
+                is_flag, fc = cam.detect_flag()  # 깃발 재탐지    
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
@@ -282,6 +285,24 @@ while True:
                         bot.task2hit()
                         hit = False
                     else:
+                        ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
+                        bot.head_up()
+                        bot.head_left_max()
+                        time.sleep(1.5)
+                        h, b, f = cam.read()
+                        is_flag, fc = cam.detect_flag()
+                        ##깃발 90도 확인 및 재조정
+                        logger.info("set 90")
+                        while True:
+                            cam.read()
+                            is_flag, fc = cam.detect_flag()
+                            if is_flag and cam.flag_is_center(fc):
+                                break
+                            if cam.flag_left(fc):
+                                bot.body_left_10()
+                            else:
+                                bot.body_right_5()
+                        logger.info("set 90 done")
                         # 퍼팅 준비를 위한 위치 조정
                         bot.head_center()
                         # time.sleep(0.3)
@@ -330,24 +351,6 @@ while True:
 
     elif bot.task == "hit":
         logger.info("hit is start")
-        bot.head_up()
-        ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
-        bot.head_left_max()
-        time.sleep(1.5)
-        h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag()
-        ##깃발 90도 확인 및 재조정
-        logger.info("set 90")
-        while True:
-            cam.read()
-            is_flag, fc = cam.detect_flag()
-            if is_flag and cam.flag_is_center(fc):
-                break
-            if cam.flag_left(fc):
-                bot.body_left_10()
-            else:
-                bot.body_right_5()
-        logger.info("set 90 done")
         # distance = cam.flag_distance(bot.head_angle())
         # time.sleep(0.3)
         # 거리 기반 파워 조절
