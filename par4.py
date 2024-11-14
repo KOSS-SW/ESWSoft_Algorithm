@@ -329,7 +329,10 @@ while True:
 
     elif bot.task == "hit":
         logger.info("hit is start")
+        bot.head_up()
+        ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
         bot.head_left_max()
+        time.sleep(1.5)
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
         ##깃발 90도 확인 및 재조정
