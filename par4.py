@@ -290,28 +290,28 @@ while True:
                         bot.head_center()
                         # time.sleep(0.3)
 
-                        if hit_right:
-                            # 오른쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.left_20()
-                                time.sleep(0.2)
-                            bot.body_right_90()
-                            # bot.body_right_30()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.left_70()
-                                time.sleep(0.2)
-                        else:
-                            # 왼쪽 퍼팅을 위한 위치 조정
-                            for _ in range(5):
-                                bot.right_20()
-                                time.sleep(0.2)
-                            bot.body_left_90()
-                            # bot.body_left_30()
-                            time.sleep(0.4)
-                            for _ in range(3):
-                                bot.right_70()
-                                time.sleep(0.2)
+                        # if hit_right:
+                        #     # 오른쪽 퍼팅을 위한 위치 조정
+                        #     for _ in range(5):
+                        #         bot.left_20()
+                        #         time.sleep(0.2)
+                        #     bot.body_right_90()
+                        #     # bot.body_right_30()
+                        #     time.sleep(0.4)
+                        #     for _ in range(3):
+                        #         bot.left_70()
+                        #         time.sleep(0.2)
+                        # else:
+                        #     # 왼쪽 퍼팅을 위한 위치 조정
+                        #     for _ in range(5):
+                        #         bot.right_20()
+                        #         time.sleep(0.2)
+                        #     bot.body_left_90()
+                        #     # bot.body_left_30()
+                        #     time.sleep(0.4)
+                        #     for _ in range(3):
+                        #         bot.right_70()
+                        #         time.sleep(0.2)
 
                         # 최종 위치 확인
                         bot.head_down_35()
@@ -321,15 +321,13 @@ while True:
                         if is_ball:
                             hit = True
                             bot.head_up()
-                            bot.head_left_max()
+                            if hit_right:
+                                bot.head_left_max()
+                            else:
+                                bot.head_right_max()
                             time.sleep(1.5)
                             h, b, f = cam.read()
                             is_flag, fc = cam.detect_flag()
-                            if not is_flag:
-                                bot.head_right_max()
-                                time.sleep(0.5)
-                                cam.read()
-                                is_flag, fc = cam.detect_flag()
                             ##깃발 90도 확인 및 재조정
                             logger.info("set 90")
                             while True:
