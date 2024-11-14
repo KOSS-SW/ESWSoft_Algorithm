@@ -205,6 +205,9 @@ while True:
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
                     bot.head_right_middle()  # 중간 각도로 추가 확인
+                    if not is_flag:
+                        bot.head_right_max()
+                        time.sleep(0.1)
                 else:
                     # bot.head_left_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
@@ -212,6 +215,8 @@ while True:
                     is_flag, fc = cam.detect_flag()  # 깃발 재탐지
                     # if not is_flag:
                     bot.head_left_middle()  # 중간 각도로 추가 확인
+                    if not is_flag:
+                        bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
@@ -389,7 +394,7 @@ while True:
                         is_par4_sec = True
                         break  # 루프 종료
 
-                bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
+                bot.body_left_20()  # 공이 검출되지 않으면 왼쪽으로 회전
 
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
