@@ -164,6 +164,7 @@ class Bot:
         '''머리 약간 아래로'''
         time.sleep(1)
         self.__TX_data(44)
+        self.__TX_data(31)
 
     def head_center(self):
         '''머리 중앙으로'''
