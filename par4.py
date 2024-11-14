@@ -278,18 +278,6 @@ while True:
                 if (is_hitable_X):
                     if hit:
                         time.sleep(0.3)
-                        ##깃발 90도 확인 및 재조정
-                        logger.info("set 90")
-                        while True:
-                            cam.read()
-                            is_flag, fc = cam.detect_flag()
-                            if is_flag and cam.flag_is_center(fc):
-                                break
-                            if cam.flag_left(fc):
-                                bot.body_left_10()
-                            else:
-                                bot.body_right_5()
-                        logger.info("set 90 done")
                         bot.task2hit()
                         hit = False
                     else:
@@ -341,69 +329,74 @@ while True:
 
     elif bot.task == "hit":
         logger.info("hit is start")
+        bot.head_left_max()
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
-
-        if is_flag:
-            # distance = cam.flag_distance(bot.head_angle())
-            # time.sleep(0.3)
-
-            # 거리 기반 파워 조절
-            # if 0 <= distance <= 50:
-            #     power = 8
-            # elif 50 < distance <= 100:
-            #     power = 15
-            # elif 100 < distance <= 150:
-            #     power = 20
-            # elif 150 < distance <= 200:
-            #     power = 25
-            # else:
-            #     power = 30
-
-
-            bot.hit(not checkIn, is_par4_sec)
-            time.sleep(1)
-
-            if not checkIn:
-                bot.head_up()
-                time.sleep(1)
-
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                time.sleep(1)  # 안정화 대기
+        ##깃발 90도 확인 및 재조정
+        logger.info("set 90")
+        while True:
+            cam.read()
+            is_flag, fc = cam.detect_flag()
+            if is_flag and cam.flag_is_center(fc):
+                break
+            if cam.flag_left(fc):
+                bot.body_left_10()
             else:
-                bot.head_center()
-                bot.head_up()
+                bot.body_right_5()
+        logger.info("set 90 done")
+        # distance = cam.flag_distance(bot.head_angle())
+        # time.sleep(0.3)
+        # 거리 기반 파워 조절
+        # if 0 <= distance <= 50:
+        #     power = 8
+        # elif 50 < distance <= 100:
+        #     power = 15
+        # elif 100 < distance <= 150:
+        #     power = 20
+        # elif 150 < distance <= 200:
+        #     power = 25
+        # else:
+        #     power = 30
 
-            while True:  # 무한 루프 시작
-                h, b, f = cam.read()
-                h, b, f = cam.read()
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()  # 공 검출 시도
 
-                if is_ball:  # 공이 검출되면
-                    if is_ball and not cam.ball_left(bc):  # 공이 검출되면
-                        checkIn = True
-                        bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
-                        if is_par4_sec:
-                            break
-                        is_par4_sec = True
-                        break  # 루프 종료
-
-                bot.body_left_20()  # 공이 검출되지 않으면 왼쪽으로 회전
-
+        bot.hit(not checkIn, is_par4_sec)
+        time.sleep(1)
+        if not checkIn:
+            bot.head_up()
+            time.sleep(1)
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            time.sleep(1)  # 안정화 대기
         else:
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                if head_lefted:
-                    bot.head_right_max()
-                else:
-                    bot.head_left_max()
-                head_lefted = not head_lefted
-                is_turning = time.time()
+            bot.head_center()
+            bot.head_up()
+        while True:  # 무한 루프 시작
+            h, b, f = cam.read()
+            h, b, f = cam.read()
+            h, b, f = cam.read()
+            is_ball, bc = cam.detect_ball()  # 공 검출 시도
+            if is_ball:  # 공이 검출되면
+                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
+                    checkIn = True
+                    bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
+                    if is_par4_sec:
+                        break
+                    is_par4_sec = True
+                    break  # 루프 종료
+            bot.body_left_20()  # 공이 검출되지 않으면 왼쪽으로 회전
+
+        # else:
+        #     if is_turning == 0 or abs(time.time() - is_turning) > 1:
+        #         if head_lefted:
+        #             bot.head_right_max()
+        #         else:
+        #             bot.head_left_max()
+        #         head_lefted = not head_lefted
+                # is_turning = time.time()
 
     elif bot.task == "check":
         hc = cam.detect_holcup()
