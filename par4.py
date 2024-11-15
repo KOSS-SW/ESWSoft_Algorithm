@@ -89,9 +89,9 @@ while True:
         else:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
-                    bot.head_right_max()
+                    bot.head_right_middle()
                 else:
-                    bot.head_left_max()
+                    bot.head_left_middle()
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
