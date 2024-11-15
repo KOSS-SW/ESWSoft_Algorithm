@@ -37,6 +37,7 @@ flag_pass = False
 hit = False
 hit_right = True
 checkIn = False
+set90 = False
 
 while True:
     if bot.task == "ball":
