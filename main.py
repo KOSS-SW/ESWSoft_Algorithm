@@ -244,6 +244,7 @@ while True:
             logger.info("set 90 done")
             set90 = False
             bot.head_down_35()
+            time.sleep(1.5)
 
         if not is_ball:
             bot.task2ball()
