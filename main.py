@@ -197,25 +197,25 @@ while True:
                 if head_lefted:
                     # bot.head_right_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
-                    h, b, f = cam.read()  # 프레임 재획득
-                    is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    # if not is_flag:
                     bot.head_right_middle()  # 중간 각도로 추가 확인
+                    # h, b, f = cam.read()  # 프레임 재획득
+                    # is_flag, fc = cam.detect_flag()  # 깃발 재탐지
+                    # if not is_flag:
                 else:
                     # bot.head_left_max()
                     # time.sleep(0.3)  # 회전 후 안정화 대기
-                    h, b, f = cam.read()  # 프레임 재획득
-                    is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    # if not is_flag:
                     bot.head_left_middle()  # 중간 각도로 추가 확인
+                    # h, b, f = cam.read()  # 프레임 재획득
+                    # is_flag, fc = cam.detect_flag()  # 깃발 재탐지
+                    # if not is_flag:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
 
                 # 프레임 재획득 및 깃발 재탐지
-                time.sleep(0.2)
-                h, b, f = cam.read()
-                is_flag, fc = cam.detect_flag()
+                # time.sleep(0.2)
+                # h, b, f = cam.read()
+                # is_flag, fc = cam.detect_flag()
 
     elif bot.task == "ready":
         logger.info("Putting preparation started")
