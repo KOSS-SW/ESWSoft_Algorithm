@@ -222,6 +222,29 @@ while True:
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
+        if set90:
+            bot.head_up()
+            ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
+            bot.head_left_max()
+            time.sleep(1.5)
+            h, b, f = cam.read()
+            is_flag, fc = cam.detect_flag()
+            ##깃발 90도 확인 및 재조정
+            logger.info("set 90")
+            while True:
+                cam.read()
+                is_flag, fc = cam.detect_flag()
+                if is_flag and cam.flag_is_center(fc):
+                    break
+                if cam.flag_left(fc):
+                    bot.body_left_10()
+                else:
+                    bot.body_right_5()
+            logger.info("set 90 done")
+            set90 = False
+            bot.task2ready()
+            continue
+
         if not is_ball:
             bot.task2ball()
             continue

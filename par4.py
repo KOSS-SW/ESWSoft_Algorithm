@@ -255,6 +255,8 @@ while True:
                     bot.body_right_5()
             logger.info("set 90 done")
             set90 = False
+            bot.task2ready()
+            continue
 
         if not is_ball:
             bot.task2ball()
