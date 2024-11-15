@@ -211,11 +211,11 @@ class Cam:
         # 가우시안 블러 적용
         return False
         
-    def flag_is_center(self, fc):
+    def flag_is_center(self, fc, b=0):
         """
         fc : 깃발의 좌표 (x, y)
         """
-        return abs(fc[0]-Cam.CENTER) < Cam.ERROR
+        return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
     
     def flag_left(self, fc):
         return fc[0] < Cam.CENTER

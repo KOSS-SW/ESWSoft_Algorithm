@@ -235,7 +235,7 @@ while True:
             while True:
                 cam.read()
                 is_flag, fc = cam.detect_flag()
-                if is_flag and cam.flag_is_center(fc):
+                if is_flag and cam.flag_is_center(fc, 30):
                     break
                 if cam.flag_left(fc):
                     bot.body_left_10()
@@ -243,8 +243,7 @@ while True:
                     bot.body_right_5()
             logger.info("set 90 done")
             set90 = False
-            bot.task2ready()
-            continue
+            bot.head_down_35()
 
         if not is_ball:
             bot.task2ball()
