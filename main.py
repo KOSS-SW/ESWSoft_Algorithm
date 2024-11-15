@@ -235,7 +235,9 @@ while True:
             while True:
                 cam.read()
                 is_flag, fc = cam.detect_flag()
-                if is_flag and cam.flag_is_center(fc, 100):
+                if not is_flag:
+                    break
+                if cam.flag_is_center(fc, 100):
                     break
                 if cam.flag_left(fc):
                     bot.body_left_10()
