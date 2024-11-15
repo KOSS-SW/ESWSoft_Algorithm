@@ -330,6 +330,7 @@ while True:
                         is_ball, bc = cam.detect_ball()
                         if is_ball:
                             hit = True
+                            set90 = True
                             #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
                             # else:
                             #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
