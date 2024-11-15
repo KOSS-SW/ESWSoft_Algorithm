@@ -123,7 +123,7 @@ class Bot:
         '''
         현재 머리 각도 가져오기
         '''
-        self.__TX_data(38)
+        # self.__TX_data(38)
         time.sleep(0.0001)
         return Bot.recived.get()
 
