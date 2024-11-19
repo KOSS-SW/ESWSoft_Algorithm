@@ -197,9 +197,9 @@ class Cam:
         upper_yellow = (30+10, 255, 255)
         
         # 노란색 마스크 생성
-        mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
+        # mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
 
-        coords = np.column_stack(np.where(mask > 0))
+        coords = np.column_stack(np.where(self.mask_flag > 0))
 
         # x 좌표의 최소값과 최대값 계산
         if coords.size > 0:
@@ -209,7 +209,7 @@ class Cam:
             return (x_center, y_center)
 
         # 가우시안 블러 적용
-        return False
+        return False    
         
     def flag_is_center(self, fc, b=0):
         """
