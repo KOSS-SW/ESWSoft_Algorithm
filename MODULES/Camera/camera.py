@@ -216,7 +216,7 @@ class Cam:
         else:
             return False, None
     
-    def detect_holcup(self):
+    def detect_holcup(self, middle=False):
         # HSV 색공간으로 변환
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         
@@ -232,7 +232,10 @@ class Cam:
         # x 좌표의 최소값과 최대값 계산
         if coords.size > 0:
             x_center = int(np.median(coords[:, 1]))
-            y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+            if middle:
+                y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+            else:
+                y_center = int(np.max(coords[:, 0]))
 
             return (x_center, y_center)
 

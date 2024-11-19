@@ -71,24 +71,23 @@ while True:
             is_ball_center = cam.ball_is_center(bc)
             if not is_ball_center:
                 # 미세 조정을 위한 반복 확인
-                for _ in range(4):  # 최대 3번 시도
-                    if cam.ball_left(bc):
-                        if checkIn:
-                            bot.body_left_10()
-                        else:
-                            bot.left_10()
+                if cam.ball_left(bc):
+                    if checkIn:
+                        bot.body_left_10()
                     else:
-                        if checkIn:
-                            bot.body_right_10()
-                        else:
-                            bot.right_10()
-                    time.sleep(0.1)
-                    h, b, f = cam.read()
-                    is_ball, bc = cam.detect_ball()
-                    if not is_ball:
-                        break
-                    if cam.ball_is_center(bc):
-                        break
+                        bot.left_10()
+                else:
+                    if checkIn:
+                        bot.body_right_10()
+                    else:
+                        bot.right_10()
+                time.sleep(0.1)
+                h, b, f = cam.read()
+                is_ball, bc = cam.detect_ball()
+                if not is_ball:
+                    break
+                if cam.ball_is_center(bc):
+                    bot.task2walk()
             else:
                 bot.task2walk()
         else:
@@ -124,10 +123,10 @@ while True:
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
-        for _ in range(5):
+        for _ in range(7):
             h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
             is_ball, bc = cam.detect_ball()
-            time.sleep(0.2)  # 안정화 대기
+            time.sleep(0.1)  # 안정화 대기
             # 재확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
@@ -445,7 +444,7 @@ while True:
                 time.sleep()
 
     elif bot.task == "check":
-        hc = cam.detect_holcup()
+        hc = cam.detect_holcup(True)
         is_ball, bc = cam.detect_ball()
         if hc and is_ball:
             if calculate.calculateDistance(bc, hc)[0] < 100:
