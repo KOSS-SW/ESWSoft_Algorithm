@@ -107,16 +107,6 @@ while True:
         logger.info("follow is start")
         if is_ball:
             bot.task2ball()
-            # center_ball = cam.ball_is_center(bc)
-            # if center_ball:
-            #     logger.info("following task 볼 탐지 성공")
-            #     for i in range(3):
-            #         bot.go()
-            # else:
-            #     if cam.ball_left(bc):
-            #         bot.left_10()
-            #     else:
-            #         bot.right_10()
         else:
             bot.head_down_35()
 
@@ -160,17 +150,6 @@ while True:
                     for _ in range(5):
                         bot.left_70()
                         time.sleep(0.1)
-                # else:
-                #     for _ in range(3):
-                #         bot.right_70()
-                #         logger.info(f"ROBOT 돌기 (10도 작은 회전)")
-                #         bot.body_right_10()
-                #         time.sleep(0.1)
-                #     bot.body_left_90()
-                #     time.sleep(0.3)
-                #     for _ in range(3):
-                #         bot.right_70()
-                #         time.sleep(0.1)
                 searched = False
                 head_left = False
             else:
@@ -187,73 +166,21 @@ while True:
             bot.task2ready()
             continue
             ###
-            is_flag_center = cam.flag_is_center(fc)
-            if not is_flag_center:
-                if not cam.flag_left(fc):
-                    bot.body_right_10()
-                    if checkIn: bot.right_10()
-                    time.sleep(0.2)
-                    h, b, f = cam.read()
-                    bool_result, coordinate = cam.detect_flag()
-                    # if not cam.flag_is_center(coordinate):
-                    #     # for _ in range(3):
-                    #     #     bot.left_20()
-                    #     #     time.sleep(0.1)
-                    #     bot.left_5()
-                else:
-                    bot.body_left_10()
-                    if checkIn: bot.left_5()
-                    time.sleep(0.2)
-                    h, b, f = cam.read()
-                    bool_result, coordinate = cam.detect_flag()
-                    # if not cam.flag_is_center(coordinate):
-                    #     # for _ in range(3):
-                    #     #     bot.right_20()
-                    #     #     time.sleep(0.1)
-                    #     bot.right_20()
-            else:
-                time.sleep(0.2)  # 최종 안정화
-                bot.task2ready()
         else:  # 깃발이 시야에 없을 때 탐색
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 # 머리 회전 각도를 단계적으로 증가
                 if head_lefted:
-                    # bot.head_right_max()
-                    # time.sleep(0.3)  # 회전 후 안정화 대기
                     bot.head_right_middle()  # 중간 각도로 추가 확인
-                    # h, b, f = cam.read()  # 프레임 재획득
-                    # is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    # if not is_flag:
                 else:
-                    # bot.head_left_max()
-                    # time.sleep(0.3)  # 회전 후 안정화 대기
                     bot.head_left_middle()  # 중간 각도로 추가 확인
-                    # h, b, f = cam.read()  # 프레임 재획득
-                    # is_flag, fc = cam.detect_flag()  # 깃발 재탐지
-                    # if not is_flag:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
                 time.sleep(1)
 
-                # 프레임 재획득 및 깃발 재탐지
-                # time.sleep(0.2)
-                # h, b, f = cam.read()
-                # is_flag, fc = cam.detect_flag()
-
     elif bot.task == "ready":
         logger.info("Putting preparation started")
         if set90:
-            # if not head_lefted:
-            #     for _ in range(5):
-            #         bot.left_20()
-            #         time.sleep(0.2)
-            #     bot.body_right_90()
-            #     # bot.body_right_30()
-            #     time.sleep(0.4)
-            #     for _ in range(3):
-            #         bot.left_70()
-            #         time.sleep(0.2)
             bot.head_down_75()
             ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
             bot.head_left_max()
@@ -313,7 +240,7 @@ while True:
                     steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
                     # for _ in range(steps_back):
                     bot.step_backward()
-                    time.sleep(0.2)
+                    time.sleep(0.3)
 
                 elif current_distance > TARGET_DISTANCE:
                     # 거리가 너무 멀면 앞으로 이동
@@ -321,7 +248,7 @@ while True:
                     steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
                     # for _ in range(steps_forward):
                     bot.go_little()
-                    time.sleep(0.2)
+                    time.sleep(0.3)
 
             else:
                 # X-Y 위치 미세 조정
@@ -335,50 +262,10 @@ while True:
                         continue
                     else:
                         set90 = True
-                    # time.sleep(0.3)
-                    
-
-                    # if hit_right:
-                    #     # 오른쪽 퍼팅을 위한 위치 조정
-                    #     for _ in range(5):
-                    #         bot.left_20()
-                    #         time.sleep(0.2)
-                    #     bot.body_right_90()
-                    #     # bot.body_right_30()
-                    #     time.sleep(0.4)
-                    #     for _ in range(3):
-                    #         bot.left_70()
-                    #         time.sleep(0.2)
-                    # else:
-                    #     # 왼쪽 퍼팅을 위한 위치 조정
-                    #     for _ in range(5):
-                    #         bot.right_20()
-                    #         time.sleep(0.2)
-                    #     bot.body_left_90()
-                    #     # bot.body_left_30()
-                    #     time.sleep(0.4)
-                    #     for _ in range(3):
-                    #         bot.right_70()
-                    #         time.sleep(0.2)
-
-                    # 최종 위치 확인
-                    # bot.head_down_35()
-                    # time.sleep(0.3)
-                    # h, b, f = cam.read()
-                    # is_ball, bc = cam.detect_ball()
-                    # if is_ball:
-                    #     bot.task2hit()
-                        #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
-                        # else:
-                        #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
                 else:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
                         bot.ready_x(x)
-                        # time.sleep(0.2)
-                    # if not is_hitable_Y:
-                    #     bot.ready_y(x)
-                    #     time.sleep(0.2)
 
     elif bot.task == "hit":
         logger.info("hit is start")
@@ -444,16 +331,6 @@ while True:
 
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
 
-        else:
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                if head_lefted:
-                    bot.head_right_middle()
-                else:
-                    bot.head_left_middle()
-                head_lefted = not head_lefted
-                is_turning = time.time()
-                time.sleep()
-
     elif bot.task == "check":
         hc = cam.detect_holcup(True)
         is_ball, bc = cam.detect_ball()
@@ -465,5 +342,4 @@ while True:
 
         bot.task2flag()
 
-
-print((time.time() - startTime)/60000)
+print((time.time() - startTime))
