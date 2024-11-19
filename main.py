@@ -407,7 +407,8 @@ while True:
 
             if not checkIn:
                 bot.head_up()
-                time.sleep(1)
+                time.sleep(.5)
+                bot.body_left_10()
 
                 bot.left_70()
                 bot.left_70()
@@ -418,11 +419,11 @@ while True:
                 if par4:
                     for _ in range(2):
                         bot.left_70()
-                        bot.body_left_10()
+                        bot.body_left_5()
                         bot.left_70()
                         bot.left_70()
                         bot.left_70()
-                        bot.body_left_10()
+                        bot.body_left_5()
                         bot.left_70()
                         bot.left_70()
 
