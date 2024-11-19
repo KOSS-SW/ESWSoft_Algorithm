@@ -283,22 +283,6 @@ while True:
         is_flag, fc = cam.detect_flag()
 
         if is_flag or True:
-            distance = cam.flag_distance(bot.head_angle())
-            time.sleep(0.3)
-
-            # 거리 기반 파워 조절
-            if 0 <= distance <= 50:
-                power = 8
-            elif 50 < distance <= 100:
-                power = 15
-            elif 100 < distance <= 150:
-                power = 20
-            elif 150 < distance <= 200:
-                power = 25
-            else:
-                power = 30
-
-
             bot.hit(not checkIn, par4)
             time.sleep(1)
 
