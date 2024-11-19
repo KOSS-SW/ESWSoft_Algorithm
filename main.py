@@ -262,23 +262,23 @@ while True:
                         continue
                     else:
                         ### test
-                        cam.read()
-                        is_ball, bc = cam.detect_ball()
-                        is_flag, fc = cam.detect_flag()
-                        if is_ball and is_flag:
-                            while True:
-                                e = bc[1]-fc[1]
-                                if abs(e) < Cam.ERROR:
-                                    hit=True
-                                    break
-                                if e<0:
-                                    bot.body_left_5()
-                                else:
-                                    bot.body_right_5()
-                        else:
-                            set90 = True
+                        # cam.read()
+                        # is_ball, bc = cam.detect_ball()
+                        # is_flag, fc = cam.detect_flag()
+                        # if is_ball and is_flag:
+                        #     while True:
+                        #         e = bc[1]-fc[1]
+                        #         if abs(e) < Cam.ERROR:
+                        #             hit=True
+                        #             break
+                        #         if e<0:
+                        #             bot.body_left_5()
+                        #         else:
+                        #             bot.body_right_5()
+                        # else:
+                        #     set90 = True
                         ###
-                        # set90 = True
+                        set90 = True
                 else:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
