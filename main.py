@@ -37,7 +37,9 @@ flag_pass = False
 hit = False
 hit_right = True
 checkIn = False
-set90 = False
+set90 = True
+
+startTime = time.time()
 
 while True:
     if bot.task == "ball":
@@ -310,28 +312,28 @@ while True:
                     bot.head_center()
                     # time.sleep(0.3)
 
-                    if hit_right:
-                        # 오른쪽 퍼팅을 위한 위치 조정
-                        for _ in range(5):
-                            bot.left_20()
-                            time.sleep(0.2)
-                        bot.body_right_90()
-                        # bot.body_right_30()
-                        time.sleep(0.4)
-                        for _ in range(3):
-                            bot.left_70()
-                            time.sleep(0.2)
-                    else:
-                        # 왼쪽 퍼팅을 위한 위치 조정
-                        for _ in range(5):
-                            bot.right_20()
-                            time.sleep(0.2)
-                        bot.body_left_90()
-                        # bot.body_left_30()
-                        time.sleep(0.4)
-                        for _ in range(3):
-                            bot.right_70()
-                            time.sleep(0.2)
+                    # if hit_right:
+                    #     # 오른쪽 퍼팅을 위한 위치 조정
+                    #     for _ in range(5):
+                    #         bot.left_20()
+                    #         time.sleep(0.2)
+                    #     bot.body_right_90()
+                    #     # bot.body_right_30()
+                    #     time.sleep(0.4)
+                    #     for _ in range(3):
+                    #         bot.left_70()
+                    #         time.sleep(0.2)
+                    # else:
+                    #     # 왼쪽 퍼팅을 위한 위치 조정
+                    #     for _ in range(5):
+                    #         bot.right_20()
+                    #         time.sleep(0.2)
+                    #     bot.body_left_90()
+                    #     # bot.body_left_30()
+                    #     time.sleep(0.4)
+                    #     for _ in range(3):
+                    #         bot.right_70()
+                    #         time.sleep(0.2)
 
                     # 최종 위치 확인
                     bot.head_down_35()
@@ -425,3 +427,6 @@ while True:
                 break
 
         bot.task2flag()
+
+
+print((time.time() - startTime)/60000)
