@@ -251,7 +251,7 @@ while True:
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
                     break
-                if cam.flag_is_center(fc, 100 if checkIn else 50):
+                if cam.flag_is_center(fc, 110 if checkIn else 50):
                     break
                 if cam.flag_left(fc):
                     bot.body_left_10()
@@ -315,7 +315,8 @@ while True:
                         bot.task2hit()
                         set90 = False
                         continue
-                    set90 = True
+                    else:
+                        set90 = True
                     # time.sleep(0.3)
                     
 
