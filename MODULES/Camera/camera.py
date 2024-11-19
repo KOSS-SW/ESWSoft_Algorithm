@@ -96,6 +96,7 @@ class Cam:
             isf, fc = self.detect_flag()
             cs = self.detect_holcup()
             self.logger.debug(f"circles in flag: {cs}")
+            self.logger.debug(f"circles in flag: {self.flag_is_center(fc), self.get_y_flag_line(fc[0])-fc[1]}")
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
@@ -144,8 +145,9 @@ class Cam:
         else:  # 수직선인 경우
             cv2.line(img, (point1[0], 0), (point1[0], height), color, thickness)
 
-    def check_flag_line(self, x):
-        return 
+    def get_y_flag_line(self, x):
+        m,b = 1.964705882352941, -630.8235294117646
+        return m * x + b
 
     
     def detect_ball(self, mask_boll=0):
@@ -242,7 +244,7 @@ class Cam:
         fc : 깃발의 좌표 (x, y)
         """
         # return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
-        return abs(fc[0]-fc[1]) < Cam.ERROR
+        return abs(self.get_y_flag_line(fc[0])-fc[1]) < Cam.ERROR*3
     
     def flag_left(self, fc):
         return fc[0] < Cam.CENTER
