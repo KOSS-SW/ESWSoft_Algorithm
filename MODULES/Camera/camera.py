@@ -9,7 +9,7 @@ else:
     from MODULES.Camera import calculate
 
 class Cam:
-    W_View_size = 800  #320  #640
+    W_View_size = 640  #320  #640
     H_View_size = int(W_View_size / 1.333)
     CENTER = W_View_size//2
     CENTERH = H_View_size//2
@@ -87,7 +87,7 @@ class Cam:
         cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
             h,b,f = self.__process()
-            self.draw_infinite_line(self.frame, (630, 450), (537, 269), (0, 255, 0), 2)
+            self.draw_infinite_line(self.frame, (515, 381), (430, 214), (0, 255, 0), 2)
             cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
