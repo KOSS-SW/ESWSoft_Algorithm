@@ -248,7 +248,7 @@ while True:
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
-                time.sleep(.01)
+                time.sleep(.08)
                 cam.read()
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
