@@ -258,7 +258,6 @@ while True:
                 else:
                     bot.body_right_5()
             logger.info("set 90 done")
-            set90 = False
             bot.head_down_35()
             time.sleep(1.5)
         h, b, f = cam.read()
