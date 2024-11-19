@@ -248,7 +248,7 @@ class Cam:
     
     def flag_left(self, fc):
         # return fc[0] < Cam.CENTER
-        return -(self.get_y_flag_line(fc[0])-fc[1])
+        return (self.get_y_flag_line(fc[0])-fc[1]) < 0
     
     def calculate_ball_distance(self):
         """
