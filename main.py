@@ -264,7 +264,7 @@ while True:
                 if cam.flag_is_center(fc, 110 if checkIn else 50):
                     break
                 if cam.flag_left(fc):
-                    bot.body_left_10()
+                    bot.body_left_5()
                 else:
                     bot.body_right_5()
             logger.info("set 90 done")
