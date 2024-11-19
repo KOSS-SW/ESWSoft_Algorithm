@@ -70,7 +70,7 @@ class Bot:
             while ser.in_waiting > 0:
                 result = ser.read(1)
                 RX = int(ord(result))
-                Bot.logger.debug(f"recived {RX} {Bot.waiting}")
+                Bot.logger.debug(f"recived {RX} {Bot.waiting} {Bot.recived}")
                 if RX in Bot.waiting:
                     Bot.waiting.remove(RX)
                 else:
