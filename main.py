@@ -37,7 +37,7 @@ flag_pass = False
 hit = False
 hit_right = True
 checkIn = False
-set90 = True
+set90 = False
 
 startTime = time.time()
 
@@ -310,8 +310,11 @@ while True:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
-                    bot.head_center()
-                    bot.task2hit()
+                    if set90:
+                        bot.head_center()
+                        bot.task2hit()
+                        set90 = False
+                        continue
                     set90 = True
                     # time.sleep(0.3)
                     
