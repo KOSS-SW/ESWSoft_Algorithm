@@ -81,7 +81,7 @@ while True:
                         bot.body_right_10()
                     else:
                         bot.right_10()
-                time.sleep(0.1)
+                # time.sleep(0.1)
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
                 if not is_ball:
@@ -145,7 +145,7 @@ while True:
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag()
+        is_flag, fc = cam.detect_flag(bot.hitting > 1)
 
         if is_flag:
             bot.head_center()
@@ -259,13 +259,13 @@ while True:
             bot.head_left_max()
             time.sleep(1.5)
             h, b, f = cam.read()
-            is_flag, fc = cam.detect_flag()
+            is_flag, fc = cam.detect_flag(bot.hitting > 1)
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
                 time.sleep(.15)
                 cam.read()
-                is_flag, fc = cam.detect_flag()
+                is_flag, fc = cam.detect_flag(bot.hitting > 1)
                 if not is_flag:
                     bot.body_right_5()
                     continue
@@ -296,9 +296,7 @@ while True:
         MAX_DISTANCE = TARGET_DISTANCE + TOLERANCE  # 최대 허용 거리 (23cm)
 
         # 공과의 거리 확인을 위해 고개를 아래로
-        bot.head_down_35()
-        time.sleep(0.3)
-
+        
         # 거리 측정 및 위치 조정
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -315,7 +313,7 @@ while True:
                     steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
                     # for _ in range(steps_back):
                     bot.step_backward()
-                    time.sleep(0.2)
+                    time.sleep(0.15)
 
                 elif current_distance > TARGET_DISTANCE:
                     # 거리가 너무 멀면 앞으로 이동
@@ -323,7 +321,7 @@ while True:
                     steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
                     # for _ in range(steps_forward):
                     bot.go_little()
-                    time.sleep(0.2)
+                    time.sleep(0.15)
 
             else:
                 # X-Y 위치 미세 조정

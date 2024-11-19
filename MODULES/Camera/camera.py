@@ -216,7 +216,7 @@ class Cam:
         else:
             return False, None
     
-    def detect_holcup(self, middle=False):
+    def detect_holcup(self, middle=False, mask_half=False):
         # HSV 색공간으로 변환
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         
@@ -226,8 +226,12 @@ class Cam:
         
         # 노란색 마스크 생성
         # mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
-
-        coords = np.column_stack(np.where(self.mask_flag > 0))
+        if mask_half:
+            mask = self.mask_flag
+            mask[Cam.H_View_size // 2 :, :] = 0 
+            coords = np.column_stack(np.where(mask > 0))
+        else:
+            coords = np.column_stack(np.where(self.mask_flag > 0))
 
         # x 좌표의 최소값과 최대값 계산
         if coords.size > 0:
