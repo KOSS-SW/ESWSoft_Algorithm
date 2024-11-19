@@ -140,7 +140,7 @@ while True:
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
-        if is_flag or searched:
+        if is_flag:
             bot.head_center()
             if searched:
                 # 회전 동작 최적화
@@ -217,6 +217,7 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
+                time.sleep(1)
 
                 # 프레임 재획득 및 깃발 재탐지
                 # time.sleep(0.2)
@@ -359,7 +360,7 @@ while True:
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
-        if is_flag:
+        if is_flag or True:
             distance = cam.flag_distance(bot.head_angle())
             time.sleep(0.3)
 
@@ -416,6 +417,7 @@ while True:
                     bot.head_left_middle()
                 head_lefted = not head_lefted
                 is_turning = time.time()
+                time.sleep()
 
     elif bot.task == "check":
         hc = cam.detect_holcup()
