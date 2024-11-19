@@ -165,7 +165,7 @@ while True:
                 searched = False
                 head_left = False
             ### test
-            bot.task2read()
+            bot.task2ready()
             continue
             ###
             is_flag_center = cam.flag_is_center(fc)
