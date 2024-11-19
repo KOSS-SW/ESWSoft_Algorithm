@@ -162,10 +162,8 @@ while True:
                 for _ in range(5):
                     bot.left_70()
                     time.sleep(0.1)
-            ### test
             bot.task2ready()
             continue
-            ###
         else:  # 깃발이 시야에 없을 때 탐색
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 # 머리 회전 각도를 단계적으로 증가
@@ -176,7 +174,7 @@ while True:
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
-                time.sleep(1)
+                time.sleep(.5)
 
     elif bot.task == "ready":
         logger.info("Putting preparation started")
@@ -328,6 +326,7 @@ while True:
                         bot.left_70()
                         bot.left_70()
                         bot.body_left_5()
+                        bot.left_70()
                         bot.left_70()
                         bot.left_70()
 
