@@ -284,7 +284,8 @@ class Bot:
 
     def go(self):
         '''로봇 앞으로 전진'''
-        self.__TX_data(19)
+        # self.__TX_data(19)
+        self.__TX_data(11)
     
     def go_little(self):
         '''로봇 앞으로 전진'''

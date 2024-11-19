@@ -123,7 +123,7 @@ while True:
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
-        for _ in range(7):
+        for _ in range(6):
             h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
             is_ball, bc = cam.detect_ball()
             time.sleep(0.1)  # 안정화 대기
