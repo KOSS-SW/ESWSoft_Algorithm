@@ -13,7 +13,7 @@ class Bot:
     serial_.flush() # serial cls
     manager = Manager()
     waiting = manager.list()
-    recived = manager.Queue()
+    recived = manager.list()
     logger = logging.getLogger("[Robot]")
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
@@ -215,7 +215,7 @@ class Bot:
         '''로봇 오른쪽으로 90도 회전 '''
         self.__TX_data(9)
         self.__TX_data(9)
-        self.__TX_data(9)
+        # self.__TX_data(9)
 
         self.__TX_data(6)
         self.__TX_data(6)
