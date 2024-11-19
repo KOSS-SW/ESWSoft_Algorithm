@@ -311,7 +311,9 @@ while True:
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
                     bot.head_center()
+                    bot.task2hit()
                     # time.sleep(0.3)
+                    
 
                     # if hit_right:
                     #     # 오른쪽 퍼팅을 위한 위치 조정
@@ -337,12 +339,12 @@ while True:
                     #         time.sleep(0.2)
 
                     # 최종 위치 확인
-                    bot.head_down_35()
-                    time.sleep(0.3)
-                    h, b, f = cam.read()
-                    is_ball, bc = cam.detect_ball()
-                    if is_ball:
-                        bot.task2hit()
+                    # bot.head_down_35()
+                    # time.sleep(0.3)
+                    # h, b, f = cam.read()
+                    # is_ball, bc = cam.detect_ball()
+                    # if is_ball:
+                    #     bot.task2hit()
                         #     logger.info(f"Ready to hit. Final distance: {final_distance}cm")
                         # else:
                         #     logger.info(f"Distance adjustment needed. Current distance: {final_distance}cm")
