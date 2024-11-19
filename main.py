@@ -226,9 +226,6 @@ while True:
 
     elif bot.task == "ready":
         logger.info("Putting preparation started")
-        h, b, f = cam.read()
-        is_ball, bc = cam.detect_ball()
-
         if set90:
             for _ in range(5):
                 bot.left_20()
@@ -263,6 +260,8 @@ while True:
             # set90 = False
             bot.head_down_35()
             time.sleep(1.5)
+        h, b, f = cam.read()
+        is_ball, bc = cam.detect_ball()
 
         if not is_ball:
             bot.task2ball()
