@@ -125,12 +125,12 @@ while True:
                     bot.task2check()
                 else:
                     bot.task2flag()
-                    while True:
-                        ihx, _, x, _ = cam.ball_hitable(bc)
-                        if ihx:
-                            break
-                        else:
-                            bot.ready_x(x)
+                    # while True:
+                    #     ihx, _, x, _ = cam.ball_hitable(bc)
+                    #     if ihx:
+                    #         break
+                    #     else:
+                    #         bot.ready_x(x)
                 break
             else:
                 bot.go()
