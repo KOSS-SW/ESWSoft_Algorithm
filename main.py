@@ -257,7 +257,7 @@ while True:
                 else:
                     bot.body_right_5()
             logger.info("set 90 done")
-            # set90 = False
+            set90 = False
             bot.head_down_35()
             time.sleep(1.5)
         h, b, f = cam.read()
@@ -311,6 +311,7 @@ while True:
                     # 퍼팅 준비를 위한 위치 조정
                     bot.head_center()
                     bot.task2hit()
+                    set90 = True
                     # time.sleep(0.3)
                     
 
