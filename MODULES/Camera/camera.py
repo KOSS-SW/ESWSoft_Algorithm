@@ -197,7 +197,7 @@ class Cam:
         upper_yellow = (30+10, 255, 255)
         
         # 노란색 마스크 생성
-        mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+        mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
 
         coords = np.column_stack(np.where(mask > 0))
 
