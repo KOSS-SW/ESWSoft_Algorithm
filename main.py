@@ -140,7 +140,7 @@ while True:
         h, b, f = cam.read()
         is_flag, fc = cam.detect_flag()
 
-        if is_flag:
+        if is_flag or searched:
             bot.head_center()
             if searched:
                 # 회전 동작 최적화
