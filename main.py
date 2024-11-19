@@ -131,10 +131,12 @@ while True:
                         if cam.ball_is_center(bc):
                             break
                         else:
-                            if not cam.ball_left(bc):
+                            if cam.ball_left(bc):
                                 bot.left_5()
                             else:
                                 bot.right_5()
+                        cam.read()
+                        is_ball, bc = cam.detect_ball()
                 break
             else:
                 bot.go()
