@@ -96,7 +96,6 @@ class Cam:
             isf, fc = self.detect_flag()
             cs = self.detect_holcup()
             self.logger.debug(f"circles in flag: {cs}")
-            self.logger.debug(f"circles in flag: {self.flag_is_center(fc), self.get_y_flag_line(fc[0])-fc[1]}")
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
@@ -105,6 +104,7 @@ class Cam:
                     cv2.line(self.frame, cs,bc, 5)
                     self.logger.info(f"{calculate.calculateDistance(bc,cs)}")
             if isf:
+                self.logger.debug(f"circles in flag: {self.flag_is_center(fc), self.get_y_flag_line(fc[0])-fc[1]}")
                 cv2.circle(self.frame, fc, 5, (0,0,0))
             
 
