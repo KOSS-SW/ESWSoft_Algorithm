@@ -218,7 +218,7 @@ class Bot:
         self.__TX_data(6)
         self.__TX_data(6)
         self.__TX_data(6)
-        self.__TX_data(6)
+        # self.__TX_data(6)
 
     
     def body_right_20(self):
@@ -256,6 +256,10 @@ class Bot:
     def right_10(self):
         '''로봇 오른쪽 옆걸음 10'''
         self.__TX_data(39)
+
+    def right_5(self):
+        '''로봇 오른쪽 옆걸음 10'''
+        self.__TX_data(20)
 
     def left_70(self):
         '''로봇 왼쪽 옆걸음 미정'''
