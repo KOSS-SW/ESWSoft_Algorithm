@@ -260,7 +260,7 @@ while True:
                 else:
                     bot.body_right_5()
             logger.info("set 90 done")
-            set90 = False
+            # set90 = False
             bot.head_down_35()
             time.sleep(1.5)
 
@@ -396,8 +396,6 @@ while True:
                 bot.head_down_75()
 
             while True:  # 무한 루프 시작
-                h, b, f = cam.read()
-                h, b, f = cam.read()
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()  # 공 검출 시도
 
