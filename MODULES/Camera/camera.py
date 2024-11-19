@@ -87,6 +87,7 @@ class Cam:
         cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
             h,b,f = self.__process()
+            self.draw_infinite_line(self.frame, (630, 450), (537, 269), (0, 255, 0), 2)
             cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
@@ -124,6 +125,24 @@ class Cam:
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)    
         self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         return hsv, self.mask_boll, self.mask_flag
+    
+    def draw_infinite_line(img, point1, point2, color, thickness):
+        height, width = img.shape[:2]
+
+        # 직선의 기울기와 y절편 계산
+        if point2[0] - point1[0] != 0:  # 수직선이 아닌 경우
+            m = (point2[1] - point1[1]) / (point2[0] - point1[0])
+            b = point1[1] - m * point1[0]
+
+            # 화면 왼쪽 끝과 오른쪽 끝의 y 좌표 계산
+            left_y = int(m * 0 + b)
+            right_y = int(m * width + b)
+
+            # 선 그리기
+            cv2.line(img, (0, left_y), (width, right_y), color, thickness)
+        else:  # 수직선인 경우
+            cv2.line(img, (point1[0], 0), (point1[0], height), color, thickness)
+
     
     def detect_ball(self, mask_boll=0):
         if type(mask_boll) == int:
