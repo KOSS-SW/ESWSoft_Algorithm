@@ -311,6 +311,11 @@ while True:
             else:
                 bot.head_center()
                 bot.head_down_75()
+                if par4 and bot.hitting == 2:
+                    bot.body_left_10()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
 
             while True:  # 무한 루프 시작
                 h, b, f = cam.read()
