@@ -267,7 +267,7 @@ while True:
                 cam.read()
                 is_flag, fc = cam.detect_flag(bot.hitting > 1)
                 if not is_flag:
-                    bot.body_right_5()
+                    bot.body_right_10()
                     continue
                 if cam.flag_is_center(fc, 110 if checkIn else 50):
                     break
