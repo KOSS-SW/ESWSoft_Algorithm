@@ -82,7 +82,7 @@ class Bot:
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_80()
-        time.sleep(2)
+        time.sleep(1.2)
 
     def task2following(self):
         self.task = "following"
@@ -310,7 +310,7 @@ class Bot:
         if x < 0:
             self.left_5()
         else:
-            self.right_10()
+            self.right_5()
 
     def ready_y(self, y):
         # y좌표 조정
