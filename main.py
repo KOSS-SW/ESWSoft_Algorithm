@@ -42,7 +42,8 @@ set90 = False
 par4 = False
 
 if __name__ == "__main__":
-    if len(sys.argv)>=1 and sys.argv[1] == 'true':
+    print(sys.argv)
+    if len(sys.argv) >= 1 and sys.argv[1] == 'true':
         par4 = True
         print("par4 is True")
 
@@ -267,7 +268,7 @@ while True:
                 cam.read()
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
-                    break
+                    bot.body_right_5()
                 if cam.flag_is_center(fc, 110 if checkIn else 50):
                     break
                 if cam.flag_left(fc):
