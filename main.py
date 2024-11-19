@@ -261,6 +261,7 @@ while True:
                     bot.body_right_5()
             logger.info("set 90 done")
             set90 = False
+            hit = True
             bot.head_down_35()
             time.sleep(1.5)
         h, b, f = cam.read()
@@ -312,7 +313,7 @@ while True:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
-                    if not set90:
+                    if set90 or hit:
                         bot.head_center()
                         bot.task2hit()
                         set90 = False
