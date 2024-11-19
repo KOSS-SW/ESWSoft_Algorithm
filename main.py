@@ -313,7 +313,7 @@ while True:
                     steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
                     # for _ in range(steps_back):
                     bot.step_backward()
-                    time.sleep(0.15)
+                    time.sleep(0.2)
 
                 elif current_distance > TARGET_DISTANCE:
                     # 거리가 너무 멀면 앞으로 이동
@@ -321,7 +321,7 @@ while True:
                     steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
                     # for _ in range(steps_forward):
                     bot.go_little()
-                    time.sleep(0.15)
+                    time.sleep(0.2)
 
             else:
                 # X-Y 위치 미세 조정
