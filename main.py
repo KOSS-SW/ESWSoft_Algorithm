@@ -368,7 +368,7 @@ while True:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
                         bot.ready_x(x)
-                        time.sleep(0.2)
+                        # time.sleep(0.2)
                     # if not is_hitable_Y:
                     #     bot.ready_y(x)
                     #     time.sleep(0.2)
