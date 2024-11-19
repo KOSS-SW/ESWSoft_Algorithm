@@ -9,7 +9,7 @@ else:
     from MODULES.Camera import calculate
 
 class Cam:
-    W_View_size = 600  #320  #640
+    W_View_size = 640  #320  #640
     H_View_size = int(W_View_size / 1.333)
     CENTER = W_View_size//2
     CENTERH = H_View_size//2
