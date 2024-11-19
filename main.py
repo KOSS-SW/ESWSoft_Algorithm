@@ -153,17 +153,17 @@ while True:
                     for _ in range(5):
                         bot.left_70()
                         time.sleep(0.1)
-                else:
-                    for _ in range(3):
-                        bot.right_70()
-                        logger.info(f"ROBOT 돌기 (10도 작은 회전)")
-                        bot.body_right_10()
-                        time.sleep(0.1)
-                    bot.body_left_90()
-                    time.sleep(0.3)
-                    for _ in range(3):
-                        bot.right_70()
-                        time.sleep(0.1)
+                # else:
+                #     for _ in range(3):
+                #         bot.right_70()
+                #         logger.info(f"ROBOT 돌기 (10도 작은 회전)")
+                #         bot.body_right_10()
+                #         time.sleep(0.1)
+                #     bot.body_left_90()
+                #     time.sleep(0.3)
+                #     for _ in range(3):
+                #         bot.right_70()
+                #         time.sleep(0.1)
                 searched = False
                 head_left = False
             ### test
@@ -227,15 +227,16 @@ while True:
     elif bot.task == "ready":
         logger.info("Putting preparation started")
         if set90:
-            for _ in range(5):
-                bot.left_20()
-                time.sleep(0.2)
-            bot.body_right_90()
-            # bot.body_right_30()
-            time.sleep(0.4)
-            for _ in range(3):
-                bot.left_70()
-                time.sleep(0.2)
+            if not head_lefted:
+                for _ in range(5):
+                    bot.left_20()
+                    time.sleep(0.2)
+                bot.body_right_90()
+                # bot.body_right_30()
+                time.sleep(0.4)
+                for _ in range(3):
+                    bot.left_70()
+                    time.sleep(0.2)
             bot.head_down_75()
             ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
             bot.head_left_max()
@@ -245,7 +246,7 @@ while True:
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
-                time.sleep(.1)
+                time.sleep(.15)
                 cam.read()
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
