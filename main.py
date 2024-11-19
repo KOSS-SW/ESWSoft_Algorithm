@@ -42,7 +42,7 @@ set90 = False
 par4 = False
 
 if __name__ == "__main__":
-    if len(sys.argv)>1 and sys.argv[1] == 'true':
+    if len(sys.argv)>=1 and sys.argv[1] == 'true':
         par4 = True
         print("par4 is True")
 
