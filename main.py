@@ -107,6 +107,8 @@ while True:
         logger.info("follow is start")
         if is_ball:
             bot.task2ball()
+            if bot.head == 35:
+                bot.task2check()
         else:
             bot.head_down_35()
 
@@ -125,12 +127,14 @@ while True:
                     bot.task2check()
                 else:
                     bot.task2flag()
-                    # while True:
-                    #     ihx, _, x, _ = cam.ball_hitable(bc)
-                    #     if ihx:
-                    #         break
-                    #     else:
-                    #         bot.ready_x(x)
+                    while True:
+                        if cam.ball_is_center(bc):
+                            break
+                        else:
+                            if cam.ball_left(bc):
+                                bot.left_5()
+                            else:
+                                bot.right_5()
                 break
             else:
                 bot.go()

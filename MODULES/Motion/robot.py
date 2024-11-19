@@ -38,6 +38,7 @@ class Bot:
         self.head_center()
         self.head_down_75()
         self.hitting = 0
+        self.head = 75
         """
         다음 행동에서 할 일 목록
         ball - 공 찾기
@@ -146,24 +147,27 @@ class Bot:
 
     def head_down_80(self):
         '''머리 위로 회전'''
+        self.head = 80
         self.__TX_data(31)
 
     def head_down(self): # 머리 아래로
         '''머리 아래로'''
+        self.head = 0
         self.__TX_data(34)
     
     def head_down_35(self):
         '''머리 아주 아래로'''
+        self.head = 35
         self.__TX_data(29)
     
     def head_down_65(self):
         '''머리 약간 아래로'''
-        time.sleep(1)
+        self.head = 65
         self.__TX_data(8)
 
     def head_down_75(self):
         '''머리 약간 아래로'''
-        time.sleep(1)
+        self.head = 75
         self.__TX_data(44)
 
     def head_center(self):
