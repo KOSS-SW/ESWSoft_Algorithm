@@ -111,7 +111,7 @@ while True:
             #     else:
             #         bot.right_10()
         else:
-            bot.left_10()
+            bot.head_down_35()
 
     elif bot.task == "walk":
         logger.info("walk is start")
@@ -237,16 +237,16 @@ while True:
     elif bot.task == "ready":
         logger.info("Putting preparation started")
         if set90:
-            if not head_lefted:
-                for _ in range(5):
-                    bot.left_20()
-                    time.sleep(0.2)
-                bot.body_right_90()
-                # bot.body_right_30()
-                time.sleep(0.4)
-                for _ in range(3):
-                    bot.left_70()
-                    time.sleep(0.2)
+            # if not head_lefted:
+            #     for _ in range(5):
+            #         bot.left_20()
+            #         time.sleep(0.2)
+            #     bot.body_right_90()
+            #     # bot.body_right_30()
+            #     time.sleep(0.4)
+            #     for _ in range(3):
+            #         bot.left_70()
+            #         time.sleep(0.2)
             bot.head_down_75()
             ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
             bot.head_left_max()
@@ -325,6 +325,7 @@ while True:
                         bot.head_center()
                         bot.task2hit()
                         set90 = False
+                        hit = False
                         continue
                     else:
                         set90 = True
