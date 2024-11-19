@@ -166,6 +166,8 @@ while True:
                 #         time.sleep(0.1)
                 searched = False
                 head_left = False
+            else:
+                head_left = False
             ### test
             bot.task2ready()
             continue
