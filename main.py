@@ -168,6 +168,14 @@ while True:
                 head_left = False
             else:
                 head_left = False
+                for _ in range(3):  # 70도 회전을 3번으로 나눔
+                    bot.left_70()
+                    time.sleep(0.1)
+                bot.body_right_90()
+                time.sleep(0.3)
+                for _ in range(5):
+                    bot.left_70()
+                    time.sleep(0.1)
             ### test
             bot.task2ready()
             continue
