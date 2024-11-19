@@ -71,7 +71,7 @@ class Bot:
                 RX = int(ord(result))
                 Bot.logger.debug(f"recived {RX} {Bot.waiting}")
                 if RX:
-                    Bot.waiting.remove(RX)
+                    Bot.waiting.pop()
                 else:
                     # Bot.logger.info("unexpected key", RX, Bot.waiting)
                     Bot.recived.put(RX)
