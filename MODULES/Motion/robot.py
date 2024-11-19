@@ -306,9 +306,9 @@ class Bot:
     def hit(self, right=True, is_par4=False):
         '''퍼팅 중'''
         if is_par4:
-            if self.hitting == 1:
+            if self.hitting == 0:
                 self.__TX_data(2)
-            elif self.hitting == 2:
+            elif self.hitting == 1:
                 self.__TX_data(38)
             else:
                 self.__TX_data(5)
