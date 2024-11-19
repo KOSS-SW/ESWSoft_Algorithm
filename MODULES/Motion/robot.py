@@ -94,7 +94,7 @@ class Bot:
         self.task = "walk"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_35()
-        time.sleep(2)
+        time.sleep(1.2)
     
     def task2flag(self):
         self.task = "flag"
