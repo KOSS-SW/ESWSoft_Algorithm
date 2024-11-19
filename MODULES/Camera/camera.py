@@ -126,7 +126,7 @@ class Cam:
         self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         return hsv, self.mask_boll, self.mask_flag
     
-    def draw_infinite_line(img, point1, point2, color, thickness):
+    def draw_infinite_line(self, img, point1, point2, color, thickness):
         height, width = img.shape[:2]
 
         # 직선의 기울기와 y절편 계산
