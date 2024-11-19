@@ -300,11 +300,11 @@ class Bot:
     def hit(self, right=True, is_par4_sec=False):
         '''퍼팅 중'''
         if right:
-            self.__TX_data(2)
+            self.__TX_data(5)
         else:
             if is_par4_sec:
                 # self.__TX_data(38)
-                self.__TX_data(2)
+                self.__TX_data(5)
             else:
                 self.__TX_data(5) # 왼쪽 샷
     
