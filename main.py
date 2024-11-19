@@ -129,7 +129,8 @@ while True:
                         ihx, _, x, _ = cam.ball_hitable(bc)
                         if ihx:
                             break
-                        bot.ready_x(x)
+                        else:
+                            bot.ready_x(x)
                 break
             else:
                 bot.go()
