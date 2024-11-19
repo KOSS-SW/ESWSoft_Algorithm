@@ -308,7 +308,7 @@ class Bot:
         if is_par4:
             if self.hitting == 0:
                 self.__TX_data(2)
-            elif self.hitting == 1:
+            elif self.hitting in [1,2]:
                 self.__TX_data(38)
             else:
                 self.__TX_data(5)

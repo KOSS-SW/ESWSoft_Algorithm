@@ -147,7 +147,7 @@ while True:
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag(bot.hitting >= 1)
+        is_flag, fc = cam.detect_flag(True, bot.hitting >= 1)
 
         if is_flag:
             bot.head_center()
@@ -196,13 +196,13 @@ while True:
             bot.head_left_max()
             time.sleep(1.5)
             h, b, f = cam.read()
-            is_flag, fc = cam.detect_flag(bot.hitting > 1)
+            is_flag, fc = cam.detect_flag(False, bot.hitting > 1)
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
                 time.sleep(.15)
                 cam.read()
-                is_flag, fc = cam.detect_flag(bot.hitting > 1)
+                is_flag, fc = cam.detect_flag(False, bot.hitting > 1)
                 if not is_flag:
                     bot.body_right_10()
                     continue

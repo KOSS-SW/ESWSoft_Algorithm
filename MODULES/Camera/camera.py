@@ -191,7 +191,7 @@ class Cam:
         return 11 * (1/tan(angle))
 
 
-    def detect_flag(self, mask_half=False):
+    def detect_flag(self, middle=False, mask_half=False):
         '''contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
         # 가장 큰 컨투어 찾기
@@ -210,7 +210,7 @@ class Cam:
                 cv2.circle(self.frame, flag_center, 5, (255,255,0))
             return True, flag_center
         return False, None'''
-        fc = self.detect_holcup(mask_half)
+        fc = self.detect_holcup(middle, mask_half)
         if fc:
             return True, fc
         else:
@@ -239,7 +239,7 @@ class Cam:
             if middle:
                 y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
             else:
-                y_center = int(np.max(coords[:, 0]))
+                y_center = int(np.min(coords[:, 0]))
 
             return (x_center, y_center)
 
