@@ -41,7 +41,7 @@ set90 = False
 
 while True:
     if bot.task == "ball":
-        time.sleep(1)
+        time.sleep(.3)
         logger.info("ball is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -114,7 +114,7 @@ while True:
     elif bot.task == "walk":
         logger.info("walk is start")
         h, b, f = cam.read()
-        for _ in range(3):
+        for _ in range(5):
             h, b, f = cam.read()  # 두 번 읽어 안정적인 프레임 확보
             is_ball, bc = cam.detect_ball()
             time.sleep(0.2)  # 안정화 대기
@@ -164,7 +164,10 @@ while True:
                         time.sleep(0.1)
                 searched = False
                 head_left = False
-
+            ### test
+            bot.task2read()
+            continue
+            ###
             is_flag_center = cam.flag_is_center(fc)
             if not is_flag_center:
                 if not cam.flag_left(fc):
@@ -233,6 +236,7 @@ while True:
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
+                time.sleep(.01)
                 cam.read()
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
