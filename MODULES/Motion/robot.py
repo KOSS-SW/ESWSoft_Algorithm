@@ -75,7 +75,7 @@ class Bot:
                     Bot.waiting.remove(RX)
                 else:
                     # Bot.logger.info("unexpected key", RX, Bot.waiting)
-                    Bot.recived.put(RX)
+                    Bot.recived.append(RX)
 
     def test_TX(self, code):
         self.__TX_data(code)
