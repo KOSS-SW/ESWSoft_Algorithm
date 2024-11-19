@@ -161,7 +161,7 @@ while True:
                         time.sleep(0.1)
                     bot.body_left_90()
                     time.sleep(0.3)
-                    for _ in range(4):
+                    for _ in range(3):
                         bot.right_70()
                         time.sleep(0.1)
                 searched = False
@@ -248,7 +248,7 @@ while True:
             ##깃발 90도 확인 및 재조정
             logger.info("set 90")
             while True:
-                time.sleep(.08)
+                time.sleep(.1)
                 cam.read()
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
