@@ -3,7 +3,10 @@ import numpy as np
 from math import tan
 import logging
 import threading
-import calculate
+if __name__ == "__main__":
+    import calculate
+else:
+    from MODULES.Camera import calculate
 
 class Cam:
     W_View_size = 640  #320  #640
