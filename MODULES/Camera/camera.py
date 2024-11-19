@@ -135,6 +135,7 @@ class Cam:
             b = point1[1] - m * point1[0]
 
             # 화면 왼쪽 끝과 오른쪽 끝의 y 좌표 계산
+            print("m,b:: ", m,b)
             left_y = int(m * 0 + b)
             right_y = int(m * width + b)
 
@@ -142,6 +143,9 @@ class Cam:
             cv2.line(img, (0, left_y), (width, right_y), color, thickness)
         else:  # 수직선인 경우
             cv2.line(img, (point1[0], 0), (point1[0], height), color, thickness)
+
+    def check_flag_line(self, x):
+        return 
 
     
     def detect_ball(self, mask_boll=0):
@@ -237,7 +241,8 @@ class Cam:
         """
         fc : 깃발의 좌표 (x, y)
         """
-        return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
+        # return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
+        return abs(fc[0]-fc[1]) < Cam.ERROR
     
     def flag_left(self, fc):
         return fc[0] < Cam.CENTER
