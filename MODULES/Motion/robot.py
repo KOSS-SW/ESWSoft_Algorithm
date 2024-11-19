@@ -37,6 +37,7 @@ class Bot:
         serial_t.start()
         self.head_center()
         self.head_down_75()
+        self.hitting = 0
         """
         다음 행동에서 할 일 목록
         ball - 공 찾기
@@ -297,17 +298,17 @@ class Bot:
         '''로봇 정지'''
         self.__TX_data(26)
 
-    def hit(self, right=True, is_par4_sec=False):
+    def hit(self, right=True, is_par4=False):
         '''퍼팅 중'''
-        if right:
-            self.__TX_data(5)
-        else:
-            if is_par4_sec:
-                # self.__TX_data(38)
-                self.__TX_data(5)
+        if is_par4:
+            if self.hitting <= 2:
+                self.__TX_data(2)
             else:
-                self.__TX_data(5) # 왼쪽 샷
-    
+                self.__TX_data(5)
+        else:
+            self.__TX_data(5)
+        self.hitting += 1
+            
     def ready_x(self, x):
         # x좌표 조정
         self.logger.info(f"{x}, {type(x)}")

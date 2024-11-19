@@ -4,6 +4,7 @@ from MODULES.Motion.robot import Bot
 
 import logging
 import time
+import sys
 
 logger = logging.getLogger("[mainLogger]")
 logger.setLevel(logging.INFO)
@@ -38,6 +39,11 @@ hit = False
 hit_right = True
 checkIn = False
 set90 = False
+par4 = False
+
+if __name__ == "__main__":
+    if sys.argv[1] == 'true':
+        par4 = True
 
 startTime = time.time()
 
@@ -396,7 +402,7 @@ while True:
                 power = 30
 
 
-            bot.hit(not checkIn)
+            bot.hit(not checkIn, par4)
             time.sleep(1)
 
             if not checkIn:
