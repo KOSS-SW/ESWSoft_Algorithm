@@ -217,11 +217,9 @@ class Cam:
             return False, None
     
     def detect_holcup(self, middle=False, mask_half=False):
+        mask = self.mask_flag.copy()
         if mask_half:
-            mask = self.mask_flag
             mask[Cam.H_View_size // 2 :, :] = 0 
-        else:
-            mask = self.mask_flag
 
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
