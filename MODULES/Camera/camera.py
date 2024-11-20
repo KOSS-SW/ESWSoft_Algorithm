@@ -217,34 +217,44 @@ class Cam:
             return False, None
     
     def detect_holcup(self, middle=False, mask_half=False):
-        # HSV 색공간으로 변환
-        hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
-        
-        # 노란색 범위 설정 (HSV)
-        lower_yellow = (30-10, 100, 100)
-        upper_yellow = (30+10, 255, 255)
-        
-        # 노란색 마스크 생성
-        # mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
         if mask_half:
             mask = self.mask_flag
             mask[Cam.H_View_size // 2 :, :] = 0 
-            coords = np.column_stack(np.where(mask > 0))
         else:
-            coords = np.column_stack(np.where(self.mask_flag > 0))
+            mask = self.mask_flag
 
-        # x 좌표의 최소값과 최대값 계산
-        if coords.size > 0:
-            x_center = int(np.median(coords[:, 1]))
-            if middle:
-                y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
-            else:
-                y_center = int(np.min(coords[:, 0]))
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+        if len(contours) == 0:  # 컨투어가 없으면 None 반환
+            return None if not middle else (None, None)
 
+        # 가장 높은 컨투어 선택
+        def top_y(contour):
+            return np.min(contour[:, 0, 1])  # 각 컨투어의 최상단 y 좌표 반환
+
+        highest_contour = min(contours, key=top_y)  # 최상단 y 좌표가 가장 작은 컨투어
+
+        # 컨투어에서 x, y 좌표 추출
+        x_coords = highest_contour[:, 0, 0]  # x 좌표
+        y_coords = highest_contour[:, 0, 1]  # y 좌표
+
+        # 중앙값 계산
+        x_center = int(np.median(x_coords))
+        if middle:
+            y_center = int(np.median(y_coords))
             return (x_center, y_center)
 
-        # 가우시안 블러 적용
-        return False    
+        return x_center
+        # # x 좌표의 최소값과 최대값 계산
+        # if coords.size > 0:
+        #     x_center = int(np.median(coords[:, 1]))
+        #     if middle:
+        #         y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+        #     else:
+        #         y_center = int(np.min(coords[:, 0]))
+
+        #     return (x_center, y_center)
+        # return False    
         
     def flag_is_center(self, fc, b=0):
         """
