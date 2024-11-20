@@ -49,7 +49,7 @@ class Bot:
         """
         self.task = ""
         self.task2ball()
-        time.sleep(2)
+        time.sleep(.5)
 
 
     # 시리얼 쓰기 함수
