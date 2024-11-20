@@ -211,7 +211,7 @@ class Cam:
             return True, flag_center
         return False, None'''
         fc = self.detect_holcup(middle, mask_half)
-        self.logger.debug(fc)
+        self.logger.debug(f"fx: {fc}")
         if fc:
             return True, fc
         else:
