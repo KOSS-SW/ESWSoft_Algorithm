@@ -43,7 +43,7 @@ par4 = False
 
 if __name__ == "__main__":
     print(sys.argv)
-    if len(sys.argv) >= 1 and sys.argv[1] == 'true':
+    if len(sys.argv) > 1 and sys.argv[1] == 'true':
         par4 = True
         print("par4 is True")
 
@@ -313,6 +313,9 @@ while True:
                 bot.head_down_75()
                 if par4 and bot.hitting == 2:
                     bot.body_left_10()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
                     bot.left_70()
                     bot.left_70()
                     bot.left_70()
