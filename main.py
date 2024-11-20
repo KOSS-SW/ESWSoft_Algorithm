@@ -153,6 +153,7 @@ while True:
             bot.head_center()
             if searched:
                 # 회전 동작 최적화
+                logger.debug("turning 90")
                 if not head_lefted:
                     for _ in range(3):  # 70도 회전을 3번으로 나눔
                         bot.left_70()
