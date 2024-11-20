@@ -225,7 +225,7 @@ class Cam:
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
         if len(contours) == 0:  # 컨투어가 없으면 None 반환
-            return None if not middle else (None, None)
+            return None
 
         # 가장 높은 컨투어 선택
         def top_y(contour):
