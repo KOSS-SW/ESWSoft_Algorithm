@@ -48,7 +48,7 @@ if __name__ == "__main__":
             par4 = True
             print("par4 is True")
         elif 'down' in sys.argv:
-            bot.head_down_35()
+            bot.head_down_65()
 
 startTime = time.time()
 
