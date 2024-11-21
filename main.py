@@ -43,9 +43,12 @@ par4 = False
 
 if __name__ == "__main__":
     print(sys.argv)
-    if len(sys.argv) > 1 and sys.argv[1] == 'true':
-        par4 = True
-        print("par4 is True")
+    if len(sys.argv) > 1 :
+        if sys.argv[1] == 'true':
+            par4 = True
+            print("par4 is True")
+        elif sys.argv[1] == 'down':
+            bot.head_down_35()
 
 startTime = time.time()
 
