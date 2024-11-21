@@ -338,7 +338,7 @@ while True:
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
 
     elif bot.task == "check":
-        hc = cam.detect_holcup(True)
+        hc = cam.detect_holcup()
         is_ball, bc = cam.detect_ball()
         if hc and is_ball:
             if calculate.calculateDistance(bc, hc)[0] < 100:
