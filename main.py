@@ -164,7 +164,7 @@ while True:
                         time.sleep(0.1)
                     bot.body_right_90()
                     time.sleep(0.3)
-                    for _ in range(5):
+                    for _ in range(4):
                         bot.left_70()
                         time.sleep(0.1)
                 searched = False
@@ -176,7 +176,7 @@ while True:
                     time.sleep(0.1)
                 bot.body_right_90()
                 time.sleep(0.3)
-                for _ in range(5):
+                for _ in range(4):
                     bot.left_70()
                     time.sleep(0.1)
             bot.task2ready()
