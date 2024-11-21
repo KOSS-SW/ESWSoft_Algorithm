@@ -239,7 +239,10 @@ class Cam:
 
         # 중앙값 계산
         x_center = int(np.median(x_coords))
-        y_center = int(np.min(y_coords))
+        if middle:
+            y_center = int(np.median(y_coords))
+        else:
+            y_center = int(np.min(y_coords))
         
         return (x_center, y_center)
         # # x 좌표의 최소값과 최대값 계산
