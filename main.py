@@ -44,7 +44,7 @@ par4 = False
 if __name__ == "__main__":
     print(sys.argv)
     if len(sys.argv) > 1 :
-        if 'true' in sys.argv:
+        if 'par4' in sys.argv:
             par4 = True
             print("par4 is True")
         elif 'down' in sys.argv:
@@ -186,8 +186,16 @@ while True:
                 # 머리 회전 각도를 단계적으로 증가
                 if head_lefted:
                     bot.head_right_middle()  # 중간 각도로 추가 확인
+                    cam.read()
+                    is_flag, fc = cam.detect_flag()
+                    if not is_flag:
+                        bot.head_right_max()
                 else:
                     bot.head_left_middle()  # 중간 각도로 추가 확인
+                    cam.read()
+                    is_flag, fc = cam.detect_flag()
+                    if not is_flag:
+                        bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
