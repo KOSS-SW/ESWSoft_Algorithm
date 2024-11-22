@@ -17,7 +17,7 @@ class Cam:
     ERROR = 10
     DEBUG = False
     MIN_AREA = [5,60]
-    HIT_SPOT = (426,449)
+    HIT_SPOT = (426,206.1411764706)
 
     hsv_Lower_boll = (0, 108, 163)
     hsv_Upper_boll = (255, 176, 255) 
@@ -99,6 +99,7 @@ class Cam:
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
+                self.logger.debug(cam.ball_hitable(bc))
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
