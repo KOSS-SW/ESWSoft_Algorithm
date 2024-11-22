@@ -257,7 +257,7 @@ class Cam:
         #     return (x_center, y_center)
         # return False    
         
-    def flag_is_center(self, fc, b=0):
+    def flag_is_center(self, fc):
         """
         fc : 깃발의 좌표 (x, y)
         """
