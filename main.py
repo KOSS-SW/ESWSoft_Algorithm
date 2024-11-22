@@ -320,6 +320,10 @@ while True:
                     bot.left_70()
                     bot.left_70()
                     bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
 
             while True:  # 무한 루프 시작
                 h, b, f = cam.read()
