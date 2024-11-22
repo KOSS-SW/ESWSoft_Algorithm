@@ -264,7 +264,7 @@ while True:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
-                    if set90 <= 4:
+                    if set90 >= 4:
                         bot.head_center()
                         bot.task2hit()
                         set90 = 0
