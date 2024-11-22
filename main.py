@@ -159,28 +159,12 @@ while True:
             if searched:
                 # 회전 동작 최적화
                 if not head_lefted:
-                    for _ in range(2):  # side 전진을 3번으로 나눔
-                        bot.left_70()
-                        time.sleep(0.1)
-                    bot.left_20()
-                    time.sleep(0.1)
                     bot.body_right_90()
-                    time.sleep(0.3)
-                    for _ in range(4):
-                        bot.left_70()
-                        time.sleep(0.1)
                 searched = False
                 head_left = False
             else:
                 head_left = False
-                for _ in range(3):  # 70도 회전을 3번으로 나눔
-                    bot.left_70()
-                    time.sleep(0.1)
                 bot.body_right_90()
-                time.sleep(0.3)
-                for _ in range(4):
-                    bot.left_70()
-                    time.sleep(0.1)
             bot.task2ready()
             continue
         else:  # 깃발이 시야에 없을 때 탐색
