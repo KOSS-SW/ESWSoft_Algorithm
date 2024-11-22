@@ -215,6 +215,7 @@ while True:
                     bot.body_right_5()
             logger.info("set 90 done")
             hit = True
+            set90 += 1
             bot.head_down_35()
             time.sleep(1.5)
         h, b, f = cam.read()
