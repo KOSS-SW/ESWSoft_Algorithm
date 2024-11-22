@@ -92,6 +92,7 @@ class Cam:
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
+            cv2.circle(self.frame, self.HIT_SPOT, 5, (0,0,0))
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
             cs = self.detect_holcup(True)
@@ -99,7 +100,7 @@ class Cam:
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
-                self.logger.debug(cam.ball_hitable(bc))
+                self.logger.debug(f"hitable: {cam.ball_hitable(bc)}")
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
