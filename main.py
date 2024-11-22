@@ -125,8 +125,7 @@ while True:
             # 재확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
-            is_ball_center = cam.ball_is_center(bc)
-            if is_ball_center:
+            if is_ball:
                 if checkIn:
                     bot.task2check()
                 else:
@@ -143,10 +142,7 @@ while True:
                     bot.task2flag()
                 break
             else:
-                if is_ball:
-                    bot.go_little()
-                else:
-                    bot.go()
+                bot.go()
         if is_ball: continue
         bot.task2ball()
 
@@ -281,7 +277,7 @@ while True:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
                         bot.ready_x(x)
-                        time.sleep(0.2)
+                        time.sleep(0.5)
 
     elif bot.task == "hit":
         logger.info("hit is start")
