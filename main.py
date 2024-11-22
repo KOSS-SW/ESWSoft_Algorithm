@@ -223,7 +223,7 @@ while True:
                 if not is_flag:
                     bot.body_right_10()
                     continue
-                if cam.flag_is_center(fc, 110 if checkIn else 50):
+                if cam.flag_is_center(fc):
                     break
                 if cam.flag_left(fc):
                     bot.body_left_5()
@@ -293,6 +293,7 @@ while True:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:
                         bot.ready_x(x)
+                        time.sleep(0.2)
 
     elif bot.task == "hit":
         logger.info("hit is start")
