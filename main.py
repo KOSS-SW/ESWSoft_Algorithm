@@ -287,7 +287,8 @@ while True:
             time.sleep(1)
 
             if not checkIn:
-                bot.head_up()
+                bot.head_center()
+                bot.head_down_80()
                 time.sleep(.5)
                 bot.body_left_10()
                 bot.body_left_10()
