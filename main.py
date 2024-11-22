@@ -125,7 +125,8 @@ while True:
             # 재확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
-            if is_ball:
+            is_ball_center = cam.ball_is_center(bc)
+            if is_ball_center:
                 if checkIn:
                     bot.task2check()
                 else:
@@ -142,7 +143,10 @@ while True:
                     bot.task2flag()
                 break
             else:
-                bot.go()
+                if is_ball:
+                    bot.go_little()
+                else:
+                    bot.go()
         if is_ball: continue
         bot.task2ball()
 
