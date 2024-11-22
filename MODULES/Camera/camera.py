@@ -100,7 +100,7 @@ class Cam:
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
             if ib:
-                self.logger.debug(f"hitable: {cam.ball_hitable(bc)}")
+                self.logger.debug(f"hitable: {self.ball_hitable(bc)}")
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
