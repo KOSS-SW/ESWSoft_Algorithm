@@ -6,3 +6,4 @@ videoLogs/
 legacy/
 __pycache__/
 testTool/
+logs/
