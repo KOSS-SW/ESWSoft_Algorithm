@@ -216,13 +216,13 @@ class Bot:
         self.__TX_data(9)
         self.__TX_data(9)
         # self.__TX_data(9)
+        self.__TX_data(14)
+        self.__TX_data(14)
+        self.__TX_data(14)
+        self.__TX_data(14)
 
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
+        self.__TX_data(9)
+        self.__TX_data(9)
         # self.__TX_data(6)
 
     
