@@ -54,7 +54,7 @@ startTime = time.time()
 
 while True:
     if bot.task == "ball":
-        time.sleep(.3)
+        time.sleep(.2)
         logger.info("ball is start")
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
@@ -335,7 +335,7 @@ while True:
                 bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
 
     elif bot.task == "check":
-        hc = cam.detect_holcup()
+        hc = cam.detect_holcup(True)
         is_ball, bc = cam.detect_ball()
         if hc and is_ball:
             if calculate.calculateDistance(bc, hc)[0] < 100:
