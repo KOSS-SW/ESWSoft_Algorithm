@@ -38,7 +38,7 @@ flag_pass = False
 hit = False
 hit_right = True
 checkIn = False
-set90 = False
+set90 = 0
 par4 = False
 
 if __name__ == "__main__":
@@ -191,7 +191,7 @@ while True:
 
     elif bot.task == "ready":
         logger.info("Putting preparation started")
-        if set90:
+        if set90 < 2:
             bot.head_down_75()
             ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
             bot.head_left_max()
@@ -214,7 +214,7 @@ while True:
                 else:
                     bot.body_right_5()
             logger.info("set 90 done")
-            set90 = False
+            set90 = 0
             hit = True
             bot.head_down_35()
             time.sleep(1.5)
@@ -265,14 +265,14 @@ while True:
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
-                    if set90 or hit:
+                    if set90 == 2 or hit:
                         bot.head_center()
                         bot.task2hit()
-                        set90 = False
+                        set90 = 0
                         hit = False
                         continue
                     else:
-                        set90 = True
+                        set90 += 1
                 else:
                     # X-Y 축 미세 조정
                     if not is_hitable_X:

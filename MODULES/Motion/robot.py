@@ -200,9 +200,9 @@ class Bot:
 
     def body_left_90(self):
         '''로봇 왼쪽으로 90도 회전 '''
-        self.__TX_data(7)
-        self.__TX_data(7)
         self.__TX_data(13)
+        self.__TX_data(7)
+        self.__TX_data(7)
         self.__TX_data(13)
         self.__TX_data(13)
         self.__TX_data(13)
@@ -211,9 +211,9 @@ class Bot:
 
     def body_right_90(self):
         '''로봇 오른쪽으로 90도 회전 '''
-        self.__TX_data(9)
-        self.__TX_data(9)
         self.__TX_data(14)
+        self.__TX_data(9)
+        self.__TX_data(9)
         self.__TX_data(14)
         self.__TX_data(14)
         self.__TX_data(14)
