@@ -240,28 +240,30 @@ while True:
         is_ball, bc = cam.detect_ball()
 
         if is_ball:
-            current_distance = cam.calculate_ball_distance()
-            logger.info(f"Current distance from ball: {current_distance}cm")
+                current_distance = cam.calculate_ball_distance()
+                logger.info(f"Current distance from ball: {current_distance}cm")
 
             # 거리 조정
-            if abs(current_distance - TARGET_DISTANCE) > TOLERANCE:
-                if current_distance < TARGET_DISTANCE:
-                    # 거리가 부족하면 뒤로 이동
-                    logger.info(f"Distance too short, moving backward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
-                    steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
-                    # for _ in range(steps_back):
-                    bot.step_backward()
-                    time.sleep(0.3)
+            # if abs(current_distance - TARGET_DISTANCE) > TOLERANCE:
+            #     if current_distance < TARGET_DISTANCE:
+            #         # 거리가 부족하면 뒤로 이동
+            #         logger.info(f"Distance too short, moving backward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
+            #         steps_back = int((TARGET_DISTANCE - current_distance) / 2)  # 2cm 단위로 후진
+            #         # for _ in range(steps_back):
+            #         bot.step_backward()
+            #         time.sleep(0.3)
 
-                elif current_distance > TARGET_DISTANCE:
-                    # 거리가 너무 멀면 앞으로 이동
-                    logger.info(f"Distance too far, moving forward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
-                    steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
-                    # for _ in range(steps_forward):
-                    bot.go_little()
-                    time.sleep(0.3)
+            #     elif current_distance > TARGET_DISTANCE:
+            #         # 거리가 너무 멀면 앞으로 이동
+            #         logger.info(f"Distance too far, moving forward. Current: {current_distance}cm, Target: {TARGET_DISTANCE}cm")
+            #         steps_forward = int((current_distance - TARGET_DISTANCE) / 2)  # 2cm 단위로 전진
+            #         # for _ in range(steps_forward):
+            #         bot.go_little()
+            #         time.sleep(0.3)
 
-            else:
+            # else:
+                if not is_hitable_Y:
+                    bot.ready_y(y)
                 # X-Y 위치 미세 조정
                 if (is_hitable_X):
                     # 퍼팅 준비를 위한 위치 조정
