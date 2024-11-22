@@ -191,7 +191,7 @@ while True:
 
     elif bot.task == "ready":
         logger.info("Putting preparation started")
-        if set90 < 2:
+        if set90 in [1,2]:
             bot.head_down_75()
             ## 90도 맞추기 위해 고개 돌리면 깃발이 안보이는 문제 발생
             bot.head_left_max()
@@ -242,6 +242,7 @@ while True:
         if is_ball:
             current_distance = cam.calculate_ball_distance()
             logger.info(f"Current distance from ball: {current_distance}cm")
+            set90 += 0.00001
 
             # 거리 조정
             if abs(current_distance - TARGET_DISTANCE) > TOLERANCE:
