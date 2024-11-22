@@ -172,14 +172,14 @@ while True:
                 # 머리 회전 각도를 단계적으로 증가
                 if head_lefted:
                     bot.head_right_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
+                    time.sleep(0.4)
                     cam.read()
                     is_flag, fc = cam.detect_flag()
                     if not is_flag:
                         bot.head_right_max()
                 else:
                     bot.head_left_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
+                    time.sleep(0.4)
                     cam.read()
                     is_flag, fc = cam.detect_flag()
                     if not is_flag:
