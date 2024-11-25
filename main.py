@@ -125,25 +125,26 @@ while True:
             # 재확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
-            is_ball_center = cam.ball_is_center_h(bc)
-            if is_ball and is_ball_center:
-                if bot.hitting >= (2 if not par4 else 3):
-                    bot.task2check()
-                else:
-                    while True:
-                        if cam.ball_is_center(bc):
-                            break
-                        else:
-                            if cam.ball_left(bc):
-                                bot.left_5()
+            if is_ball:
+                is_ball_center = cam.ball_is_center_h(bc)
+                if is_ball_center:
+                    if bot.hitting >= (2 if not par4 else 3):
+                        bot.task2check()
+                    else:
+                        while True:
+                            if cam.ball_is_center(bc):
+                                break
                             else:
-                                bot.right_5()
-                        cam.read()
-                        is_ball, bc = cam.detect_ball()
-                    bot.task2flag()
-                break
-            else:
-                bot.go()
+                                if cam.ball_left(bc):
+                                    bot.left_5()
+                                else:
+                                    bot.right_5()
+                            cam.read()
+                            is_ball, bc = cam.detect_ball()
+                        bot.task2flag()
+                        break
+                    continue
+            bot.go()
         if is_ball: continue
         bot.task2ball()
 
