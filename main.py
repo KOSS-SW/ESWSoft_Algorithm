@@ -125,7 +125,8 @@ while True:
             # 재확인
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
-            if is_ball:
+            is_ball_center = cam.ball_is_center_h(bc)
+            if is_ball and is_ball_center:
                 if bot.hitting >= (2 if not par4 else 3):
                     bot.task2check()
                 else:

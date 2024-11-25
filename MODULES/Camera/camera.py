@@ -174,7 +174,7 @@ class Cam:
         return abs(bc[0]-Cam.CENTER) < Cam.ERROR * 2
     
     def ball_is_center_h(self, bc):
-        return bc[1] > Cam.CENTERH - Cam.ERROR * 10
+        return bc[1] > Cam.CENTERH - Cam.ERROR * 15
     
     def ball_left(self, bc):
         return bc[0] < Cam.CENTER
