@@ -58,7 +58,7 @@ class Bot:
         Bot.logger.debug(f"send serial: {one_byte}")
         Bot.serial_.write(serial.to_bytes([one_byte]))  #python3
         while len(Bot.waiting) != 0:
-            time.sleep(0.3)
+            time.sleep(0.1)
 
     # 시리얼 읽기 함수
     def __RX_Receiving(self,ser):
