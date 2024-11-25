@@ -238,7 +238,7 @@ class Cam:
 
         # 중앙값 계산
         if left:
-            x_center = int(np.min(y_coords))
+            x_center = int(np.max(y_coords))
         else:
             x_center = int(np.median(x_coords))
         if middle:
