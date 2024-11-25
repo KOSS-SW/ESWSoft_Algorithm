@@ -97,8 +97,18 @@ while True:
             if is_turning == 0 or abs(time.time() - is_turning) > 1:
                 if head_lefted:
                     bot.head_right_middle()
+                    time.sleep(0.2)
+                    cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    if not is_ball:
+                        bot.head_right_max()
                 else:
                     bot.head_left_middle()
+                    time.sleep(0.2)
+                    cam.read()
+                    is_ball, bc = cam.detect_ball()
+                    if not is_ball:
+                        bot.head_left_max()
                 head_lefted = not head_lefted
                 is_turning = time.time()
                 searched = True
