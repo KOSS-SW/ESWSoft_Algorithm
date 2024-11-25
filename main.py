@@ -111,6 +111,7 @@ while True:
         if is_ball:
             bot.task2ball()
             if bot.head == 35:
+                logger.debug("검증 테스트")
                 bot.task2check()
         else:
             bot.head_down_35()
