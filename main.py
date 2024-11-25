@@ -328,17 +328,15 @@ while True:
                 bot.left_70()
         
 
-            while True:  # 무한 루프 시작
-                h, b, f = cam.read()
-                is_ball, bc = cam.detect_ball()  # 공 검출 시도
-
-                if is_ball:  # 공이 검출되면
-                    if is_ball and not cam.ball_left(bc):  # 공이 검출되면
-                        checkIn = True
-                        bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
-                        break  # 루프 종료
-
-                bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
+        while True:  # 무한 루프 시작
+            h, b, f = cam.read()
+            is_ball, bc = cam.detect_ball()  # 공 검출 시도
+            if is_ball:  # 공이 검출되면
+                if is_ball and not cam.ball_left(bc):  # 공이 검출되면
+                    checkIn = True
+                    bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
+                    break  # 루프 종료
+            bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
 
     elif bot.task == "check":
         hc = cam.detect_holcup(True)
