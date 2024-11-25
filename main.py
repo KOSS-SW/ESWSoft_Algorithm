@@ -358,7 +358,7 @@ while True:
         if hc and is_ball:
             if calculate.calculateDistance(bc, hc)[0] < 100:
                 bot.end()
-                logger.info("Gool")
+                logger.info("Goal")
                 break
 
         bot.task2flag()
