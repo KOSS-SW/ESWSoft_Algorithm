@@ -65,10 +65,10 @@ while True:
                 # 더 정확한 회전 각도 조정
                 if head_lefted:
                     bot.body_left_30()
-                    time.sleep(0.2)  # 안정화 대기
+                    # time.sleep(0.2)  # 안정화 대기
                 else:
                     bot.body_right_30()
-                    time.sleep(0.2)  # 안정화 대기
+                    # time.sleep(0.2)  # 안정화 대기
                 searched = False
 
             is_ball_center = cam.ball_is_center(bc)
