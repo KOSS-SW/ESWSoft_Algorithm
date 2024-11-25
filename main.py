@@ -150,7 +150,7 @@ while True:
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag(True)
+        is_flag, fc = cam.detect_flag(True, bot.hitting == 0)
         logger.debug(f"is_flag in flag: {is_flag}, {fc}")
 
         if is_flag:
