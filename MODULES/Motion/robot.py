@@ -301,15 +301,16 @@ class Bot:
 
     def hit(self, right=True, is_par4=False):
         '''퍼팅 중'''
-        # if is_par4:
-        #     if self.hitting == 0:
-        #         self.__TX_data(2)
-        #     elif self.hitting in [1,2]:
-        #         self.__TX_data(38)
-        #     else:
-        #         self.__TX_data(5)
-        # else:
-        self.__TX_data(38)
+        if is_par4:
+            if self.hitting in [0, 1]:
+                self.__TX_data(38)
+            elif self.hitting in [2]:
+                self.__TX_data(2)
+            else:
+                self.__TX_data(5)
+        else:
+            if self.hitting in [0,1]:
+                self.__TX_data(38)
         self.hitting += 1
             
     def ready_x(self, x):
