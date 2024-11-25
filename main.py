@@ -208,6 +208,7 @@ while True:
                 is_flag, fc = cam.detect_flag()
                 if not is_flag:
                     bot.body_right_10()
+                    bot.body_right_10()
                     continue
                 if cam.flag_is_center(fc):
                     break
@@ -304,7 +305,6 @@ while True:
             bot.left_70()
             bot.left_70()
             if par4:
-                bot.body_left_10()
                 for _ in range(3):
                     bot.left_70()
                     bot.left_70()
@@ -312,6 +312,8 @@ while True:
                     bot.left_70()
                     bot.left_70()
                     # bot.left_70()
+                bot.body_left_10()
+                bot.body_left_10()
             else:
                 bot.left_70()
                 bot.left_70()
@@ -336,6 +338,8 @@ while True:
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
+                bot.body_left_45()
+                bot.body_left_10()
         
 
         while True:  # 무한 루프 시작
