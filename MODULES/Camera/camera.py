@@ -103,7 +103,7 @@ class Cam:
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
 
-                    self.logger.info(f"{calculate.calculateDistance(bc,cs)}")
+                    self.logger.info(f"calculated: {calculate.calculateDistance(bc,cs)}")
             if isf:
                 self.logger.debug(f"circles in flag: {self.flag_is_center(fc), self.get_y_flag_line(fc[0])-fc[1]}")
                 cv2.circle(self.frame, fc, 5, (0,0,0))
