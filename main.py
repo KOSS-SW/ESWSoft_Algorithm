@@ -279,51 +279,54 @@ while True:
 
     elif bot.task == "hit":
         logger.info("hit is start")
-        h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag()
+        bot.hit(not checkIn, par4)
+        time.sleep(1)
+        bot.head_down_35()
+        cam.read()
+        is_ball, bc = cam.detect_ball()
+        if is_ball:
+            bot.task2walk()
+            continue
 
-        if is_flag or True:
-            bot.hit(not checkIn, par4)
-            time.sleep(1)
+        if not checkIn:
+            bot.head_center()
+            bot.head_down_80()
+            time.sleep(.5)
+            bot.body_left_10()
+            bot.body_left_10()
 
-            if not checkIn:
-                bot.head_center()
-                bot.head_down_80()
-                time.sleep(.5)
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            bot.left_70()
+            if par4:
+                for _ in range(3):
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
+                    bot.left_70()
+                    # bot.left_70()
+
+            time.sleep(1)  # 안정화 대기
+        else:
+            bot.head_center()
+            bot.head_down_75()
+            if par4 and bot.hitting == 2:
                 bot.body_left_10()
-                bot.body_left_10()
-
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
-                if par4:
-                    for _ in range(3):
-                        bot.left_70()
-                        bot.left_70()
-                        bot.left_70()
-                        bot.left_70()
-                        bot.left_70()
-                        # bot.left_70()
-
-                time.sleep(1)  # 안정화 대기
-            else:
-                bot.head_center()
-                bot.head_down_75()
-                if par4 and bot.hitting == 2:
-                    bot.body_left_10()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
-                    bot.left_70()
+                bot.left_70()
+                bot.left_70()
+                bot.left_70()
+                bot.left_70()
+        
 
             while True:  # 무한 루프 시작
                 h, b, f = cam.read()

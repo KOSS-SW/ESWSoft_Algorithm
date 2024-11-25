@@ -122,7 +122,7 @@ class Cam:
     def __process(self):
         hsv = cv2.cvtColor(cv2.medianBlur(self.frame,3), cv2.COLOR_BGR2YUV)  # HSV => YUV
         self.mask_boll = cv2.inRange(hsv, Cam.hsv_Lower_boll, Cam.hsv_Upper_boll)
-        kernel = np.ones((5,5), np.uint8)
+        kernel = np.ones((1,1), np.uint8)
         mask = cv2.inRange(hsv, Cam.hsv_Lower_flag, Cam.hsv_Upper_flag)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)    
         self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
