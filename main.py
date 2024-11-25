@@ -126,7 +126,7 @@ while True:
             h, b, f = cam.read()
             is_ball, bc = cam.detect_ball()
             if is_ball:
-                if bot.hitting >= 2:
+                if bot.hitting >= (2 if not par4 else 3):
                     bot.task2check()
                 else:
                     while True:
