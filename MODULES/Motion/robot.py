@@ -112,14 +112,14 @@ class Bot:
     
     def task2ready(self):
         self.task = "ready"
+        Bot.logger.info(f"now task is {self.task}")
         self.head_down_35()
         time.sleep(1)
-        Bot.logger.info(f"now task is {self.task}")
     
     def task2hit(self):
         self.task = "hit"
-        self.head_down_65()
         Bot.logger.info(f"now task is {self.task}")
+        self.head_down_65()
         
     def head_angle(self): # 현재 머리 각도 가져오기
         '''

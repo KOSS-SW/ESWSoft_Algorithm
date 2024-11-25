@@ -121,7 +121,6 @@ while True:
         if is_ball:
             bot.task2ball()
             if bot.head == 35:
-                logger.debug("검증 테스트")
                 bot.task2check()
         else:
             bot.head_down_35()
@@ -141,6 +140,7 @@ while True:
                 if is_ball_center:
                     if bot.hitting >= (2 if not par4 else 3):
                         bot.task2check()
+                        break
                     else:
                         while True:
                             if cam.ball_is_center(bc):
@@ -154,7 +154,6 @@ while True:
                             is_ball, bc = cam.detect_ball()
                         bot.task2flag()
                         break
-                    continue
             bot.go()
         if is_ball: continue
         bot.task2ball()
