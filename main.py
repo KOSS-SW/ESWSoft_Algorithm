@@ -304,8 +304,8 @@ while True:
             bot.left_70()
             bot.left_70()
             if par4:
+                bot.body_left_10()
                 for _ in range(3):
-                    bot.body_left_10()
                     bot.left_70()
                     bot.left_70()
                     bot.left_70()
