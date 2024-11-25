@@ -352,7 +352,7 @@ while True:
                     bot.task2following()  # 한번 공을 친 후, following 테스크로 이동
                     break  # 루프 종료
             bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
-
+        continue
     elif bot.task == "check":
         hc = cam.detect_holcup(True)
         is_ball, bc = cam.detect_ball()
