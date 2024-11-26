@@ -38,6 +38,11 @@ checkIn = False
 set90 = 0
 par4 = False
 
+logger.info("main intializing")
+cam = Cam(False)
+bot = Bot()
+logger.info("bot True")
+
 if __name__ == "__main__":
     print(sys.argv)
     if len(sys.argv) > 1 :
@@ -46,13 +51,9 @@ if __name__ == "__main__":
             print("par4 is True")
         if 'down' in sys.argv:
             bot.head_down_65()
-        if 'nodebug' in sys.argv:
-            cam.DEBUG = False
+        if 'nodebug' not in sys.argv:
+            cam.DEBUG = True
 
-logger.info("main intializing")
-cam = Cam(True)
-bot = Bot()
-logger.info("bot True")
 
 while True:
     if bot.task == "ball":
