@@ -6,6 +6,8 @@ import logging
 import time
 import sys
 
+startTime = time.time()
+
 logger = logging.getLogger("[mainLogger]")
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -51,8 +53,6 @@ logger.info("main intializing")
 cam = Cam(True)
 bot = Bot()
 logger.info("bot True")
-
-startTime = time.time()
 
 while True:
     if bot.task == "ball":
