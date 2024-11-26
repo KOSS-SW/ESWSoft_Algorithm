@@ -70,6 +70,7 @@ class Cam:
         while not self.stop_thread:
             ret, frame = self.camera.read()
             if not ret:
+                self.logger.error("no cam alive")
                 break
             
             # 프레임과 시간 정보 업데이트
