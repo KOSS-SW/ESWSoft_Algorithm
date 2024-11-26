@@ -44,16 +44,15 @@ logger.info("bot True")
 
 if __name__ == "__main__":
     print(sys.argv)
-    if len(sys.argv) > 1 :
-        if 'par4' in sys.argv:
-            par4 = True
-            print("par4 is True")
-        if 'down' in sys.argv:
-            bot.head_down_65()
-        if 'nodebug' in sys.argv:
-            cam = Cam(False)
-        else :
-            cam = Cam(True)
+    if 'par4' in sys.argv:
+        par4 = True
+        print("par4 is True")
+    if 'down' in sys.argv:
+        bot.head_down_65()
+    if 'nodebug' in sys.argv:
+        cam = Cam(False)
+    else :
+        cam = Cam(True)
 
 
 while True:
