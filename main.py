@@ -40,6 +40,7 @@ par4 = False
 
 logger.info("main intializing")
 bot = Bot()
+cam = Cam(True)
 logger.info("bot True")
 
 if __name__ == "__main__":
@@ -49,11 +50,8 @@ if __name__ == "__main__":
         print("par4 is True")
     if 'down' in sys.argv:
         bot.head_down_65()
-    if 'nodebug' in sys.argv:
-        cam = Cam(False)
-    else :
-        cam = Cam(True)
-
+    # if 'nodebug' in sys.argv:
+    #     cam = Cam(False)
 
 while True:
     if bot.task == "ball":
