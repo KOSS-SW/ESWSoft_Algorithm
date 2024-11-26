@@ -310,7 +310,7 @@ class Bot:
                 self.__TX_data(5)
         else:
             if self.hitting in [0,1]:
-                self.__TX_data(38)
+                self.__TX_data(2)
         self.hitting += 1
             
     def ready_x(self, x):
