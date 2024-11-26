@@ -167,6 +167,7 @@ while True:
 
         if is_flag:
             bot.head_center()
+            time.sleep(1)
             logger.debug("turning 90")
             if searched:
                 # 회전 동작 최적화
@@ -295,6 +296,7 @@ while True:
     elif bot.task == "hit":
         logger.info("hit is start")
         bot.hit(not checkIn, par4)
+        head_lefted = False
         time.sleep(1)
         bot.head_down_35()
         cam.read()
