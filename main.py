@@ -175,7 +175,7 @@ while True:
                 searched = False
                 head_left = False
             else:
-                if cam.flag_is_center(fc, 183) and bot.hitting >= 1:
+                if cam.flag_is_center(fc, 183) or bot.hitting  1:
                     head_left = False
                     bot.body_right_90()
             bot.task2ready()
