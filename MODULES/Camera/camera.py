@@ -41,7 +41,7 @@ class Cam:
         file_handler.setFormatter(formatter)
         self.logger.addHandler(file_handler)
         self.last_read = 0
-        self.camera = cv2.VideoCapture(0)
+        self.camera = cv2.VideoCapture(10)
         #self.camera = cv2.VideoCapture("./test.mp4")
         self.camera.set(3, Cam.W_View_size)
         self.camera.set(4, Cam.H_View_size)
