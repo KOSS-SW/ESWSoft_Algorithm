@@ -175,8 +175,9 @@ while True:
                 searched = False
                 head_left = False
             else:
-                head_left = False
-                bot.body_right_90()
+                if not cam.flag_is_center(fc, 183):
+                    head_left = False
+                    bot.body_right_90()
             bot.task2ready()
             continue
         else:  # 깃발이 시야에 없을 때 탐색
