@@ -61,10 +61,12 @@ Cam.hsv_Upper_flag = (255, 105, 161)
 while True:
     cam.read()
     if 1 in bot.recived:
-        break
+        bot.recived.remove(1)
+    else:
+        continue
 
-while True:
-    if bot.task == "flag":
+    while True:
+        if bot.task == "flag":
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
@@ -109,6 +111,4 @@ while True:
                 searched = True
                 time.sleep(.5)
 
-while True:
-    cam.read()
 print((time.time() - startTime))
