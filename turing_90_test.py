@@ -58,6 +58,10 @@ bot.task2flag()
 bot.hitting = 1
 Cam.hsv_Upper_flag = (255, 105, 161)
 ###
+while True:
+    cam.read()
+    if 1 in bot.waiting:
+        break
 
 while True:
     if bot.task == "flag":
