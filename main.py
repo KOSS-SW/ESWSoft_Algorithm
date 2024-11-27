@@ -335,13 +335,6 @@ while True:
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
-                bot.body_left_10()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
-                bot.left_70()
 
             time.sleep(1)  # 안정화 대기
         else:
