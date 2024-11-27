@@ -21,7 +21,7 @@ class Cam:
 
     hsv_Lower_boll = (0, 100, 163)
     hsv_Upper_boll = (255, 176, 255) 
-    hsv_Lower_flag = (145, 35, 60)
+    hsv_Lower_flag = (145, 35, 85)
     hsv_Upper_flag = (255, 105, 151)
 
 
