@@ -56,7 +56,7 @@ if __name__ == "__main__":
 ### for test ###
 bot.task2flag()
 bot.hitting = 1
-Cam.hsv_Upper_flag = (255, 105, 151)
+Cam.hsv_Upper_flag = (255, 105, 161)
 ###
 
 while True:
