@@ -67,48 +67,48 @@ while True:
 
     while True:
         if bot.task == "flag":
-        logger.info("flag is start")
-        time.sleep(0.2)  # 안정화 대기 시간
-        h, b, f = cam.read()
-        is_flag, fc = cam.detect_flag(True, bot.hitting == 0)
-        logger.debug(f"is_flag in flag: {is_flag}, {fc}")
+            logger.info("flag is start")
+            time.sleep(0.2)  # 안정화 대기 시간
+            h, b, f = cam.read()
+            is_flag, fc = cam.detect_flag(True, bot.hitting == 0)
+            logger.debug(f"is_flag in flag: {is_flag}, {fc}")
 
-        if is_flag:
-            bot.head_center()
-            time.sleep(1)
-            logger.debug("turning 90")
-            if searched:
-                # 회전 동작 최적화
-                if not head_lefted:
-                    bot.body_right_90()
-                searched = False
-                head_left = False
-            else:
-                if (cam.flag_turnable(fc) and cam.flag_left(fc) ) or bot.hitting < 1:
+            if is_flag:
+                bot.head_center()
+                time.sleep(1)
+                logger.debug("turning 90")
+                if searched:
+                    # 회전 동작 최적화
+                    if not head_lefted:
+                        bot.body_right_90()
+                    searched = False
                     head_left = False
-                    bot.body_right_90()
-            logger.info("test is done")
-            break
-        else:  # 깃발이 시야에 없을 때 탐색
-            if is_turning == 0 or abs(time.time() - is_turning) > 1:
-                # 머리 회전 각도를 단계적으로 증가
-                if head_lefted:
-                    bot.head_right_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
-                    cam.read()
-                    is_flag, fc = cam.detect_flag()
-                    if not is_flag:
-                        bot.head_right_max()
                 else:
-                    bot.head_left_middle()  # 중간 각도로 추가 확인
-                    time.sleep(0.2)
-                    cam.read()
-                    is_flag, fc = cam.detect_flag()
-                    if not is_flag:
-                        bot.head_left_max()
-                head_lefted = not head_lefted
-                is_turning = time.time()
-                searched = True
-                time.sleep(.5)
+                    if (cam.flag_turnable(fc) and cam.flag_left(fc) ) or bot.hitting < 1:
+                        head_left = False
+                        bot.body_right_90()
+                logger.info("test is done")
+                break
+            else:  # 깃발이 시야에 없을 때 탐색
+                if is_turning == 0 or abs(time.time() - is_turning) > 1:
+                    # 머리 회전 각도를 단계적으로 증가
+                    if head_lefted:
+                        bot.head_right_middle()  # 중간 각도로 추가 확인
+                        time.sleep(0.2)
+                        cam.read()
+                        is_flag, fc = cam.detect_flag()
+                        if not is_flag:
+                            bot.head_right_max()
+                    else:
+                        bot.head_left_middle()  # 중간 각도로 추가 확인
+                        time.sleep(0.2)
+                        cam.read()
+                        is_flag, fc = cam.detect_flag()
+                        if not is_flag:
+                            bot.head_left_max()
+                    head_lefted = not head_lefted
+                    is_turning = time.time()
+                    searched = True
+                    time.sleep(.5)
 
 print((time.time() - startTime))
