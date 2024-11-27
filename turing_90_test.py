@@ -60,7 +60,7 @@ Cam.hsv_Upper_flag = (255, 105, 161)
 ###
 while True:
     cam.read()
-    if 18 in bot.recived:
+    if 31 in bot.recived:
         bot.recived.remove(31)
     else:
         continue
