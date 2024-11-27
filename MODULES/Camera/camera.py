@@ -266,6 +266,9 @@ class Cam:
         """
         # return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
         return abs(self.get_y_flag_line(fc[0])-fc[1]) < Cam.ERROR*3 + b
+
+    def flag_turnable(self, fc):
+        return 183 < fc[0] < 457
     
     def flag_left(self, fc):
         # return fc[0] < Cam.CENTER
