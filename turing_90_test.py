@@ -60,7 +60,7 @@ Cam.hsv_Upper_flag = (255, 105, 161)
 ###
 while True:
     cam.read()
-    if 1 in bot.waiting:
+    if 1 in bot.recived:
         break
 
 while True:
