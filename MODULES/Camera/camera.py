@@ -22,7 +22,7 @@ class Cam:
     hsv_Lower_boll = (0, 100, 163)
     hsv_Upper_boll = (255, 176, 255) 
     hsv_Lower_flag = (145, 35, 100)
-    hsv_Upper_flag = (255, 95, 151)
+    hsv_Upper_flag = (255, 85, 151)
 
 
     def __init__(self, debug=False):
@@ -49,7 +49,7 @@ class Cam:
         self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         Cam.DEBUG = debug
-        time.sleep(0.5)
+        time.sleep(0.1)
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
