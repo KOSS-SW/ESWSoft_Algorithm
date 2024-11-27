@@ -310,7 +310,7 @@ while True:
             bot.head_down_80()
             time.sleep(.5)
             bot.body_left_10()
-            bot.body_left_10()
+            # bot.body_left_10()
 
             bot.left_70()
             bot.left_70()
