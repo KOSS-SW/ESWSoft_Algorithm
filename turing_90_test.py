@@ -71,7 +71,6 @@ while True:
         logger.debug(f"is_flag in flag: {is_flag}, {fc}")
         if (cam.flag_turnable(fc) or not cam.flag_left(fc)) or bot.hitting < 1:
             head_left = False
-            bot.body_right_90()
             logger.info("test is done")
             logger.info("test is done")
             logger.info("test is done")
