@@ -51,6 +51,7 @@ if __name__ == "__main__":
     if 'down' in sys.argv:
         # bot.head_down_65()
         bot.head_down_35()
+        # time.sleep(.3)
 
 
 while True:
