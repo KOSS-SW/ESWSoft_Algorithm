@@ -19,7 +19,7 @@ class Cam:
     MIN_AREA = [5,60]
     HIT_SPOT = (412,449)
 
-    hsv_Lower_boll = (0, 108, 163)
+    hsv_Lower_boll = (0, 100, 163)
     hsv_Upper_boll = (255, 176, 255) 
     hsv_Lower_flag = (145, 35, 60)
     hsv_Upper_flag = (255, 105, 151)
