@@ -49,7 +49,8 @@ if __name__ == "__main__":
         par4 = True
         print("par4 is True")
     if 'down' in sys.argv:
-        bot.head_down_65()
+        # bot.head_down_65()
+        bot.head_down_35()
 
 
 while True:
