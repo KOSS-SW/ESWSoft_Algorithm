@@ -120,8 +120,6 @@ while True:
         logger.info("follow is start")
         if is_ball:
             bot.task2ball()
-            if bot.head == 35:
-                bot.task2check()
         else:
             bot.head_down_35()
 
