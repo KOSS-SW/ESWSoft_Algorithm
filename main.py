@@ -356,8 +356,8 @@ while True:
                 bot.left_70()
                 bot.left_70()
                 bot.left_70()
-                bot.body_left_45()
-                bot.body_left_10()
+                # bot.body_left_45()
+                # bot.body_left_10()
         
 
         while True:  # 무한 루프 시작
