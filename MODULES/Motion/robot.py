@@ -309,9 +309,9 @@ class Bot:
             else:
                 self.__TX_data(5)
         else:
-            if self.hitting in [1]:
+            if self.hitting in [0,1]:
                 self.__TX_data(38)
-            elif self.hitting in [0]:
+            elif self.hitting in [None]:
                 self.__TX_data(2)
         self.hitting += 1
             
