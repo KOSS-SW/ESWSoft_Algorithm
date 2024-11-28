@@ -269,7 +269,7 @@ class Cam:
         fc : 깃발의 좌표 (x, y)
         """
         # return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
-        return abs(self.get_y_flag_line(fc[0]-1)-fc[1]) < Cam.ERROR*3 + b
+        return abs(self.get_y_flag_line(fc[0]-3)-fc[1]) < Cam.ERROR*3 + b
 
     def flag_turnable(self, fc):
         return 120 < fc[0]
