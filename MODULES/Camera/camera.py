@@ -23,7 +23,11 @@ class Cam:
     hsv_Upper_boll = (255, 176, 255) 
     hsv_Lower_flag = (100, 35, 80) # par3 145 par4 100 par3 100 par4 80
     hsv_Upper_flag = (255, 100, 151) # par3 85 par4 100
+    '''
+    hsv_Lower_flag = (100, 35, 80) # par3 145 par4 100 par3 100 par4 80
+    hsv_Upper_flag = (255, 100, 151) # par3 85 par4 100
 
+    '''
 
     def __init__(self, debug=False):
         self.logger = logging.getLogger("[Camera]")
@@ -268,7 +272,7 @@ class Cam:
         return abs(self.get_y_flag_line(fc[0])-fc[1]) < Cam.ERROR*3 + b
 
     def flag_turnable(self, fc):
-        return 120 < fc[0] < 520
+        return 120 < fc[0]
     
     def flag_left(self, fc):
         # return fc[0] < Cam.CENTER
