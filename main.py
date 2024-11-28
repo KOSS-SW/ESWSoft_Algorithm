@@ -90,7 +90,7 @@ while True:
                 h, b, f = cam.read()
                 is_ball, bc = cam.detect_ball()
                 if not is_ball:
-                    continue
+                    break
                 if cam.ball_is_center(bc):
                     bot.task2walk()
             else:
@@ -176,7 +176,7 @@ while True:
                 searched = False
                 head_left = False
             else:
-                if (cam.flag_turnable(fc)) or bot.hitting < 1:
+                if (cam.flag_turnable(fc) and not cam.flag_left(fc) ) or bot.hitting < 1:
                     head_left = False
                     bot.body_right_90()
             bot.task2ready()
