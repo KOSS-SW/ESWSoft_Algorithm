@@ -217,7 +217,7 @@ while True:
             while True:
                 time.sleep(.07)
                 cam.read()
-                is_flag, fc = cam.detect_flag()
+                is_flag, fc = cam.detect_flag(True)
                 if not is_flag:
                     bot.body_right_10()
                     bot.body_right_10()
