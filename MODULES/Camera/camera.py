@@ -22,7 +22,7 @@ class Cam:
     hsv_Lower_boll = (0, 100, 163)
     hsv_Upper_boll = (255, 176, 255) 
     hsv_Lower_flag = (145, 35, 100)
-    hsv_Upper_flag = (255, 85, 151)
+    hsv_Upper_flag = (255, 105, 151) # par3 85 par4 105
 
 
     def __init__(self, debug=False):
