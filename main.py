@@ -138,7 +138,7 @@ while True:
             if is_ball:
                 is_ball_center = cam.ball_is_center_h(bc)
                 if is_ball_center:
-                    if bot.hitting >= (2 if not par4 else 3):
+                    if bot.hitting >= (1 if not par4 else 3):
                         bot.task2check()
                         break
                     else:
