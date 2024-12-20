@@ -13,7 +13,7 @@ class Bot:
     serial_.flush() # serial cls
     manager = Manager()
     waiting = manager.list()
-    recived = manager.Queue()
+    recived = manager.list()
     logger = logging.getLogger("[Robot]")
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
@@ -37,6 +37,8 @@ class Bot:
         serial_t.start()
         self.head_center()
         self.head_down_75()
+        self.hitting = 0
+        self.head = 75
         """
         다음 행동에서 할 일 목록
         ball - 공 찾기
@@ -47,7 +49,7 @@ class Bot:
         """
         self.task = ""
         self.task2ball()
-        time.sleep(2)
+        time.sleep(.5)
 
 
     # 시리얼 쓰기 함수
@@ -56,7 +58,7 @@ class Bot:
         Bot.logger.debug(f"send serial: {one_byte}")
         Bot.serial_.write(serial.to_bytes([one_byte]))  #python3
         while len(Bot.waiting) != 0:
-            time.sleep(0.3)
+            time.sleep(0.1)
 
     # 시리얼 읽기 함수
     def __RX_Receiving(self,ser):
@@ -68,12 +70,12 @@ class Bot:
             while ser.in_waiting > 0:
                 result = ser.read(1)
                 RX = int(ord(result))
-                Bot.logger.debug(f"recived {RX} {Bot.waiting}")
+                Bot.logger.debug(f"recived {RX} {Bot.waiting} {Bot.recived}")
                 if RX in Bot.waiting:
                     Bot.waiting.remove(RX)
                 else:
                     # Bot.logger.info("unexpected key", RX, Bot.waiting)
-                    Bot.recived.put(RX)
+                    Bot.recived.append(RX)
 
     def test_TX(self, code):
         self.__TX_data(code)
@@ -81,26 +83,26 @@ class Bot:
     def task2ball(self):
         self.task = "ball"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_75()
-        time.sleep(1)
+        self.head_down_80()
+        time.sleep(.4)
 
     def task2following(self):
         self.task = "following"
         Bot.logger.info(f"now task is {self.task}")
-        self.head_down_75()
+        self.head_down_80()
         time.sleep(0.3)
     
     def task2walk(self):
         self.task = "walk"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_35()
-        time.sleep(2)
+        time.sleep(.4)
     
     def task2flag(self):
         self.task = "flag"
         Bot.logger.info(f"now task is {self.task}")
         self.head_down_75()
-        time.sleep(1)
+        time.sleep(.4)
     
     def task2check(self):
         self.task = "check"
@@ -110,20 +112,20 @@ class Bot:
     
     def task2ready(self):
         self.task = "ready"
+        Bot.logger.info(f"now task is {self.task}")
         self.head_down_35()
         time.sleep(1)
-        Bot.logger.info(f"now task is {self.task}")
     
     def task2hit(self):
         self.task = "hit"
-        self.head_down_65()
         Bot.logger.info(f"now task is {self.task}")
+        self.head_down_65()
         
     def head_angle(self): # 현재 머리 각도 가져오기
         '''
         현재 머리 각도 가져오기
         '''
-        self.__TX_data(38)
+        # self.__TX_data(38)
         time.sleep(0.0001)
         return Bot.recived.get()
 
@@ -143,26 +145,29 @@ class Bot:
     def head_right_middle(self):
         self.__TX_data(30)
 
-    def head_up(self): # 머리 위로
-        '''머리 위로'''
+    def head_down_80(self):
+        '''머리 위로 회전'''
+        self.head = 80
         self.__TX_data(31)
 
     def head_down(self): # 머리 아래로
         '''머리 아래로'''
+        self.head = 0
         self.__TX_data(34)
     
     def head_down_35(self):
         '''머리 아주 아래로'''
+        self.head = 35
         self.__TX_data(29)
     
     def head_down_65(self):
         '''머리 약간 아래로'''
-        time.sleep(1)
+        self.head = 65
         self.__TX_data(8)
 
     def head_down_75(self):
         '''머리 약간 아래로'''
-        time.sleep(1)
+        self.head = 75
         self.__TX_data(44)
 
     def head_center(self):
@@ -195,25 +200,26 @@ class Bot:
 
     def body_left_90(self):
         '''로봇 왼쪽으로 90도 회전 '''
+        self.__TX_data(13)
         self.__TX_data(7)
         self.__TX_data(7)
+        self.__TX_data(13)
+        self.__TX_data(13)
+        self.__TX_data(13)
         self.__TX_data(7)
-        
-        self.__TX_data(4)
-        self.__TX_data(4)
-        self.__TX_data(4)
-        self.__TX_data(4)
+        # self.__TX_data(4)
 
     def body_right_90(self):
         '''로봇 오른쪽으로 90도 회전 '''
+        self.__TX_data(14)
         self.__TX_data(9)
         self.__TX_data(9)
+        self.__TX_data(14)
+        self.__TX_data(14)
+        self.__TX_data(14)
         self.__TX_data(9)
-
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
-        self.__TX_data(6)
+        # self.__TX_data(9)
+        # self.__TX_data(6)
 
     
     def body_right_20(self):
@@ -252,6 +258,10 @@ class Bot:
         '''로봇 오른쪽 옆걸음 10'''
         self.__TX_data(39)
 
+    def right_5(self):
+        '''로봇 오른쪽 옆걸음 10'''
+        self.__TX_data(20)
+
     def left_70(self):
         '''로봇 왼쪽 옆걸음 미정'''
         self.__TX_data(14)
@@ -274,7 +284,8 @@ class Bot:
 
     def go(self):
         '''로봇 앞으로 전진'''
-        self.__TX_data(19)
+        # self.__TX_data(19)
+        self.__TX_data(11)
     
     def go_little(self):
         '''로봇 앞으로 전진'''
@@ -288,20 +299,29 @@ class Bot:
         '''로봇 정지'''
         self.__TX_data(26)
 
-    def hit(self, right=True):
+    def hit(self, right=True, is_par4=False):
         '''퍼팅 중'''
-        if right:
-            self.__TX_data(2)
+        if is_par4:
+            if self.hitting in [0, 1, 2]:
+                self.__TX_data(38)
+            elif self.hitting in [None]:
+                self.__TX_data(2)
+            else:
+                self.__TX_data(5)
         else:
-            self.__TX_data() # 왼쪽 샷
-    
+            if self.hitting in [0,1]:
+                self.__TX_data(38)
+            else:
+                self.__TX_data(5)
+        self.hitting += 1
+            
     def ready_x(self, x):
         # x좌표 조정
         self.logger.info(f"{x}, {type(x)}")
         if x < 0:
             self.left_5()
         else:
-            self.right_10()
+            self.right_5()
 
     def ready_y(self, y):
         # y좌표 조정

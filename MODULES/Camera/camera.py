@@ -3,10 +3,13 @@ import numpy as np
 from math import tan
 import logging
 import threading
-from MODULES.Camera import calculate
+if __name__ == "__main__":
+    import calculate
+else:
+    from MODULES.Camera import calculate
 
 class Cam:
-    W_View_size =  640  #320  #640
+    W_View_size = 640  #320  #640
     H_View_size = int(W_View_size / 1.333)
     CENTER = W_View_size//2
     CENTERH = H_View_size//2
@@ -14,13 +17,17 @@ class Cam:
     ERROR = 10
     DEBUG = False
     MIN_AREA = [5,60]
-    HIT_SPOT = (426,449)
+    HIT_SPOT = (409,449)
 
-    hsv_Lower_boll = (0, 108, 163)
+    hsv_Lower_boll = (0, 100, 163)
     hsv_Upper_boll = (255, 176, 255) 
-    hsv_Lower_flag = (164, 60, 60)
-    hsv_Upper_flag = (255, 105, 151)
+    hsv_Lower_flag = (100, 35, 80) # par3 145 par4 100 par3 100 par4 80
+    hsv_Upper_flag = (255, 100, 151) # par3 85 par4 100
+    '''
+    hsv_Lower_flag = (100, 35, 80) # par3 145 par4 100 par3 100 par4 80
+    hsv_Upper_flag = (255, 100, 151) # par3 85 par4 100
 
+    '''
 
     def __init__(self, debug=False):
         self.logger = logging.getLogger("[Camera]")
@@ -46,7 +53,7 @@ class Cam:
         self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         Cam.DEBUG = debug
-        time.sleep(0.5)
+        time.sleep(0.1)
         # 녹화 설정
         # fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # self.video = cv2.VideoWriter("./videoLogs/" + str(time.strftime('%Y-%m-%d %H:%M:%S')) + ".avi", fourcc, 20.0, (Cam.W_View_size, Cam.H_View_size))
@@ -59,6 +66,7 @@ class Cam:
         self.thread = threading.Thread(target=self._reader)
         self.thread.daemon = True
         self.thread.start()
+        self.read()
 
         self.logger.info("cam is initialized")    
 
@@ -66,6 +74,7 @@ class Cam:
         while not self.stop_thread:
             ret, frame = self.camera.read()
             if not ret:
+                self.logger.error("no cam alive")
                 break
             
             # 프레임과 시간 정보 업데이트
@@ -83,13 +92,14 @@ class Cam:
         cv2.waitKey(100//Cam.FPS)
         if Cam.DEBUG:
             h,b,f = self.__process()
+            self.draw_infinite_line(self.frame, (515, 381), (430, 214), (0, 255, 0), 2)
             cv2.line(self.frame, (Cam.CENTER,0), (Cam.CENTER,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER+Cam.ERROR,0), (Cam.CENTER+Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (Cam.CENTER-Cam.ERROR,0), (Cam.CENTER-Cam.ERROR,Cam.H_View_size), 5)
             cv2.line(self.frame, (0, Cam.CENTERH - Cam.ERROR * 10), (Cam.W_View_size, Cam.CENTERH - Cam.ERROR * 10), 5)
             ib, bc = self.detect_ball()
             isf, fc = self.detect_flag()
-            cs = self.detect_holcup()
+            cs = self.detect_holcup(True)
             self.logger.debug(f"circles in flag: {cs}")
             if cs :
                 cv2.circle(self.frame, cs, 5, (0,0,0)) # 저장된 데이터를 이용해 원 그리기
@@ -97,8 +107,10 @@ class Cam:
                 cv2.circle(self.frame, bc, 5, (0,0,0))
                 if cs:
                     cv2.line(self.frame, cs,bc, 5)
-                    self.logger.info(f"{calculate.calculateDistance(bc,cs)}")
+
+                    self.logger.info(f"calculated: {calculate.calculateDistance(bc,cs)}")
             if isf:
+                self.logger.debug(f"circles in flag: {self.flag_is_center(fc), self.get_y_flag_line(fc[0])-fc[1]}")
                 cv2.circle(self.frame, fc, 5, (0,0,0))
             
 
@@ -121,6 +133,29 @@ class Cam:
         self.mask_flag = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         return hsv, self.mask_boll, self.mask_flag
     
+    def draw_infinite_line(self, img, point1, point2, color, thickness):
+        height, width = img.shape[:2]
+
+        # 직선의 기울기와 y절편 계산
+        if point2[0] - point1[0] != 0:  # 수직선이 아닌 경우
+            m = (point2[1] - point1[1]) / (point2[0] - point1[0])
+            b = point1[1] - m * point1[0]
+
+            # 화면 왼쪽 끝과 오른쪽 끝의 y 좌표 계산
+            print("m,b:: ", m,b)
+            left_y = int(m * 0 + b)
+            right_y = int(m * width + b)
+
+            # 선 그리기
+            cv2.line(img, (0, left_y), (width, right_y), color, thickness)
+        else:  # 수직선인 경우
+            cv2.line(img, (point1[0], 0), (point1[0], height), color, thickness)
+
+    def get_y_flag_line(self, x):
+        m,b = 1.964705882352941, -630.8235294117646
+        return m * x + b
+
+    
     def detect_ball(self, mask_boll=0):
         if type(mask_boll) == int:
             mask_boll = self.mask_boll
@@ -138,13 +173,13 @@ class Cam:
     
     def ball_is_center(self, bc):
         self.logger.debug(f"{bc[0]}, {Cam.CENTER}")
-        return abs(bc[0]-Cam.CENTER) < Cam.ERROR
+        return abs(bc[0]-Cam.CENTER) < Cam.ERROR * 2
     
     def ball_is_center_far(self, bc):
         return abs(bc[0]-Cam.CENTER) < Cam.ERROR * 2
     
     def ball_is_center_h(self, bc):
-        return bc[1] > Cam.CENTERH - Cam.ERROR * 10
+        return bc[1] >= 75
     
     def ball_left(self, bc):
         return bc[0] < Cam.CENTER
@@ -152,7 +187,7 @@ class Cam:
     def ball_hitable(self, bc):
         dis = [(bc[0] - Cam.HIT_SPOT[0]), (bc[1] - Cam.HIT_SPOT[1])]
         self.logger.debug(dis)
-        z = list(map(lambda x: abs(x) < (Cam.ERROR), dis))
+        z = list(map(lambda x: abs(x) < (Cam.ERROR * 1.5), dis))
         self.logger.debug(z)
         return z[0], z[1], dis[0], dis[1]
         
@@ -162,8 +197,8 @@ class Cam:
         return 11 * (1/tan(angle))
 
 
-    def detect_flag(self):
-        contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    def detect_flag(self, middle=False, left=False):
+        '''contours, _ = cv2.findContours(self.mask_flag, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
         # 가장 큰 컨투어 찾기
         if len(contours) > 0:
@@ -180,39 +215,68 @@ class Cam:
                 self.logger.debug(f"flag center: {flag_center}")
                 cv2.circle(self.frame, flag_center, 5, (255,255,0))
             return True, flag_center
-        return False, None
+        return False, None'''
+        fc = self.detect_holcup(middle, left)
+        self.logger.debug(f"fx: {fc}")
+        if fc:
+            return True, fc
+        else:
+            return False, None
     
-    def detect_holcup(self):
-        # HSV 색공간으로 변환
-        hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
+    def detect_holcup(self, middle=False, left=False):
+        mask = self.mask_flag.copy()
+
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+        if len(contours) == 0:  # 컨투어가 없으면 None 반환
+            return None
+
+        # 가장 높은 컨투어 선택
+        def top_y(contour):
+            return np.min(contour[:, 0, 1])  # 각 컨투어의 최상단 y 좌표 반환
+
+        highest_contour = min(contours, key=top_y)  # 최상단 y 좌표가 가장 작은 컨투어
+
+        # 컨투어에서 x, y 좌표 추출
+        x_coords = highest_contour[:, 0, 0]  # x 좌표
+        y_coords = highest_contour[:, 0, 1]  # y 좌표
+
+        # 중앙값 계산
+        if left:
+            x_center = int(np.max(y_coords))
+        else:
+            x_center = int(np.median(x_coords))
+        if middle:
+            y_center = int(np.median(y_coords))
+        else:
+            y_center = int(np.min(y_coords))
         
-        # 노란색 범위 설정 (HSV)
-        lower_yellow = (30-10, 100, 100)
-        upper_yellow = (30+10, 255, 255)
         
-        # 노란색 마스크 생성
-        mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+        return (x_center, y_center)
+        # # x 좌표의 최소값과 최대값 계산
+        # if coords.size > 0:
+        #     x_center = int(np.median(coords[:, 1]))
+        #     if middle:
+        #         y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
+        #     else:
+        #         y_center = int(np.min(coords[:, 0]))
 
-        coords = np.column_stack(np.where(mask > 0))
-
-        # x 좌표의 최소값과 최대값 계산
-        if coords.size > 0:
-            x_center = int(np.median(coords[:, 1]))
-            y_center = int(np.median(coords[:, 0]))  # y 좌표의 중앙값
-
-            return (x_center, y_center)
-
-        # 가우시안 블러 적용
-        return False
+        #     return (x_center, y_center)
+        # return False    
         
-    def flag_is_center(self, fc):
+    def flag_is_center(self, fc, b=0):
         """
         fc : 깃발의 좌표 (x, y)
         """
-        return abs(fc[0]-Cam.CENTER) < Cam.ERROR
+        # return abs(fc[0]-(Cam.CENTER + b)) < Cam.ERROR
+        return abs(self.get_y_flag_line(fc[0])-fc[1]) < Cam.ERROR*3 + b
+
+    def flag_turnable(self, fc):
+        return 120 < fc[0]
     
     def flag_left(self, fc):
-        return fc[0] < Cam.CENTER
+        # return fc[0] < Cam.CENTER
+        return (self.get_y_flag_line(fc[0])-fc[1]) < 0
     
     def calculate_ball_distance(self):
         """
