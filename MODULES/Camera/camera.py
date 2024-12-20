@@ -9,6 +9,19 @@ else:
     from MODULES.Camera import calculate
 
 class Cam:
+    """
+    카메라 처리를 위한 클래스
+    - OpenCV를 사용한 이미지 처리
+    - 공/깃발/홀컵 감지
+    - 거리 계산
+    """
+    
+    # 주요 기능:
+    # - 실시간 카메라 프레임 처리
+    # - HSV 색상 기반 객체 검출
+    # - 공과 깃발의 위치 계산
+    # - 거리 측정
+
     W_View_size = 640  #320  #640
     H_View_size = int(W_View_size / 1.333)
     CENTER = W_View_size//2

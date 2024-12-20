@@ -24,19 +24,19 @@ file_handler = logging.FileHandler("./logs/my.log")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-# 상태 변수 정의
-head_lefted = False
-is_turning = 0
-searched = False
-walk_count = 3
-head_left = 0
-head_right = 0
-flag_pass = False
-hit = False
-hit_right = True
-checkIn = False
-set90 = 0
-par4 = False
+# 주요 상태 변수들
+head_lefted = False  # 머리가 왼쪽으로 돌아갔는지 여부 (공/깃발 탐색 시 사용)
+is_turning = 0      # 회전 동작 수행 중 여부 (시간 기반 회전 제어)
+searched = False    # 탐색 완료 여부 (탐색-이동 사이클 관리)
+walk_count = 3      # 걸음 수 제어 (연속 동작 관리)
+head_left = 0       # 머리 좌측 회전 각도 (정밀 탐색용)
+head_right = 0      # 머리 우측 회전 각도 (정밀 탐색용)
+flag_pass = False   # 깃발 통과 여부 (코스 진행 상태 체크)
+hit = False         # 타격 수행 여부 (퍼팅 동작 관리)
+hit_right = True    # 타격 방향 설정 (우측 방향 퍼팅 여부)
+checkIn = False     # 홀 인 체크 상태 (완료 상태 확인)
+set90 = 0          # 90도 회전 상태 (정렬 단계 관리)
+par4 = False       # 파4 모드 설정 (코스별 전략 변경)
 
 logger.info("main intializing")
 bot = Bot()
@@ -55,7 +55,10 @@ if __name__ == "__main__":
 
 
 while True:
-    if bot.task == "ball":
+    if bot.task == "ball":  # 공 탐색 상태
+        # 1. 카메라로 공 감지
+        # 2. 공 발견 시 중앙 정렬
+        # 3. 탐색 실패 시 회전하며 재탐색
         time.sleep(.3)
         logger.info("ball is start")
         h, b, f = cam.read()
@@ -115,7 +118,10 @@ while True:
                 is_turning = time.time()
                 searched = True
 
-    elif bot.task == "following":
+    elif bot.task == "following":  # 공 추적 상태
+        # 1. 지속적인 공 위치 추적
+        # 2. 거리 유지하며 접근
+        # 3. 최적 타격 위치 도달 시 다음 상태로
         h, b, f = cam.read()
         is_ball, bc = cam.detect_ball()
 
@@ -125,7 +131,10 @@ while True:
         else:
             bot.head_down_35()
 
-    elif bot.task == "walk":
+    elif bot.task == "walk":  # 이동 상태
+        # 1. 안정적인 보행 동작
+        # 2. 방향 보정하며 전진
+        # 3. 목표 지점 도달 확인
         logger.info("walk is start")
         h, b, f = cam.read()
         for _ in range(6):
@@ -158,7 +167,10 @@ while True:
         if is_ball: continue
         bot.task2ball()
 
-    elif bot.task == "flag":
+    elif bot.task == "flag":  # 깃발 탐색 상태
+        # 1. 깃발 위치 스캔
+        # 2. 방향 정렬
+        # 3. 최적 타격 각도 계산
         logger.info("flag is start")
         time.sleep(0.2)  # 안정화 대기 시간
         h, b, f = cam.read()
@@ -203,7 +215,10 @@ while True:
                 searched = True
                 time.sleep(.5)
 
-    elif bot.task == "ready":
+    elif bot.task == "ready":  # 타격 준비 상태
+        # 1. 정밀 위치 조정
+        # 2. 거리 측정 및 보정
+        # 3. 타격 강도 결정
         logger.info("Putting preparation started")
         if set90 in [1,3]:
             bot.head_down_75()
@@ -293,7 +308,10 @@ while True:
                         bot.ready_x(x)
                         time.sleep(.1)
 
-    elif bot.task == "hit":
+    elif bot.task == "hit":  # 타격 수행 상태
+        # 1. 최종 정렬 확인
+        # 2. 타격 동작 수행
+        # 3. 결과 확인 및 다음 동작 결정
         logger.info("hit is start")
         bot.hit(not checkIn, par4)
         head_lefted = False
@@ -372,7 +390,10 @@ while True:
                     break  # 루프 종료
             bot.body_left_10()  # 공이 검출되지 않으면 왼쪽으로 회전
         continue
-    elif bot.task == "check":
+    elif bot.task == "check":  # 완료 확인 상태
+        # 1. 홀컵 도달 확인
+        # 2. 성공/실패 판정
+        # 3. 다음 동작 결정
         hc = cam.detect_holcup(True)
         is_ball, bc = cam.detect_ball()
         if hc and is_ball:
